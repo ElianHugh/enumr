@@ -1,5 +1,6 @@
-#' Enum
 #' Enum assertion
+#' @description
+#' Assertion for controlling input and return types.
 #' @name Enum
 #' @rdname Enum-Assertion
 #' @param ... the value to check assertions with
@@ -8,6 +9,12 @@
 #' @return any
 #' @export
 #' @importFrom typed process_assertion_factory_dots
+#' @examples
+#' \dontrun{
+#' Enum() ? x <- enum(a, b, c)
+#' my_function <- ? function(x = ? Enum(a)) {}
+#' x <- Enum() ? function() {}
+#' }
 Enum <- typed::as_assertion_factory(function(value, supplied_enum = NULL, null_ok = FALSE) {
     if (null_ok && is.null(value)) {
         return(NULL)

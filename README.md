@@ -135,7 +135,7 @@ a <- enum(
 )
 
 a$b
-# > "Hello" "world"
+#> "Hello" "world"
 
 ```
 

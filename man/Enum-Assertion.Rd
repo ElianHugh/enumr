@@ -2,8 +2,7 @@
 % Please edit documentation in R/enum_types.r
 \name{Enum}
 \alias{Enum}
-\title{Enum
-Enum assertion}
+\title{Enum assertion}
 \usage{
 Enum(supplied_enum = NULL, null_ok = FALSE, ...)
 }
@@ -18,6 +17,12 @@ Enum(supplied_enum = NULL, null_ok = FALSE, ...)
 any
 }
 \description{
-Enum
-Enum assertion
+Assertion for controlling input and return types.
+}
+\examples{
+\dontrun{
+Enum() ? x <- enum(a, b, c)
+my_function <- ? function(x = ? Enum(a)) {}
+x <- Enum() ? function() {}
+}
 }

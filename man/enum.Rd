@@ -10,7 +10,7 @@ enum(...)
 \item{...}{list of enumerator arguments}
 }
 \value{
-enum class environment, can be used as a list
+enum
 }
 \description{
 Define an enumerator to access values from. Values cannot be reassigned.
@@ -33,5 +33,5 @@ mixed_enum <- enum(a = 5, b = mtcars, c = 50, d = "elephant")
 computed_enum <- enum(a = 50, b = .$a * 2)
 }
 \seealso{
-\code{\link[base]{environment}}, \code{\link[base]{list}}
+\code{\link[base]{environment}}, \code{\link[base]{list}},  \code{\link[base]{factor}}
 }

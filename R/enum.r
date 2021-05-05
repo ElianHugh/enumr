@@ -1,5 +1,6 @@
 #' Enumerator
 #'
+#' @description
 #' Define an enumerator to access values from. Values cannot be reassigned.
 #' Values can be anything (within reason).
 #'
@@ -13,7 +14,7 @@
 #' S3 methods are defined for `$`, `[`, and `[[`, which access the enum list directly.
 #' @param ... list of enumerator arguments
 #'
-#' @return enum class environment, can be used as a list
+#' @return enum
 #' @examples
 #' fruits <- enum(apple = "apple", pear = "pear")
 #' errors <- enum(style, warning, error)
@@ -21,7 +22,7 @@
 #' mixed_enum <- enum(a = 5, b = mtcars, c = 50, d = "elephant")
 #' computed_enum <- enum(a = 50, b = .$a * 2)
 #' @export
-#' @seealso \code{\link[base]{environment}}, \code{\link[base]{list}}
+#' @seealso \code{\link[base]{environment}}, \code{\link[base]{list}},  \code{\link[base]{factor}}
 enum <- function(...) {
     capture <- rlang::enexprs(...)
 
