@@ -2,7 +2,7 @@
 #' @description
 #' Assertion for controlling input and return types.
 #' @name Enum
-#' @rdname Enum-Assertion
+#' @rdname Enum_Assertion
 #' @param ... the value to check assertions with
 #' @param supplied_enum the enum to compare values against
 #' @param null_ok whether null values are accepted
@@ -50,6 +50,9 @@ Enum <- typed::as_assertion_factory(function(value, supplied_enum = NULL, null_o
     value
 })
 
+#' is enum
+#' @param x value to check if is enum
+#' @export
 is_enum <- function(x) {
     inherits(x, "enum")
 }

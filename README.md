@@ -24,7 +24,7 @@ pak::pkg_install('ElianHugh/enumr')
 
 ### Basics
 
-At their most basic, enums are lists that have unique key/pair values (called 'members'), and cannot be modified after their definition.
+At their most basic, enums are lists that have unique key/pair values ('members'), and cannot be modified after their definition.
 
 ```r
 # Set up enum
@@ -41,8 +41,8 @@ error_codes$bad_request
 # Cannot change enum members after definition
 error_codes$bad_request <- 101
 
-#> Error in error_codes$bad_request <- 101 :
-#>  cannot add bindings to a locked environment
+#> Error: Enum members cannot be assigned to after their definition.
+#> Run `rlang::last_error()` to see where the error occurred.
 ```
 
 #### Generic Enums
@@ -71,7 +71,7 @@ a <- enum(
 )
 ```
 
-Numeric enums also differ in that their members do *not* need to have values explicitly defined. Instead, each member value is either the index of the member, or the value of the previous member + 1. E.g.
+Numeric enums also differ in that their members do *not* need to have values explicitly defined. Instead, each member value is either the index of the member, or the value of the previous member + 1 (implicit definition). E.g.
 
 ```r
 # An enum without values defined
@@ -109,7 +109,7 @@ print(b)
 
 ### NSE
 
-You can use `.` to refer to the current enum. Specifically, when defining variables, you can use `.$` to refer to other elements in the enum. E.g.,
+You can use `.` to refer to the current enum<sup>1</sup>. Specifically, when defining variables, you can use `.$` to refer to other elements in the enum. E.g.,
 
 ```r
 # Numeric enum
@@ -170,7 +170,7 @@ x <- enum(
     c = .$a + 1
 )
 
-# > Error in .$b + 1 : non-numeric argument to binary operator
+#> Error in .$b + 1 : non-numeric argument to binary operator
 
 # Valid
 x <- enum(
@@ -184,6 +184,8 @@ x <- enum(
 #>  dbl b : 7
 #>  dbl c : 5
 ```
+
+<sup>1</sup> Technically, `.` (dot) refers to the arguments supplied in the enum constructor. The arguments are converted to a list, and the dot operator acts as a reference to said list.
 
 ### Typed Integration
 
@@ -229,6 +231,50 @@ x()
 #> `class(value)`: "numeric"
 #> `expected`:     "enum"
 ```
+
+## Performance and Overhead
+
+Enum definition is reasonably fast, so will likely not be a bottleneck for the large majority of users. However, if speed is of concern, there are some things to keep in mind:
+
+- Symbols and calls require evaluation, which generally slow enum creation
+- Inferred numerics are slower than explicit numerics
+- Generic enums are *typically* faster than numeric enums
+
+```r
+create_symbols <- function() { mapply(function(x, y) assign(x, as.character(y), .GlobalEnv), c('a','b','c','d','e'), seq(5)) }
+
+microbenchmark::microbenchmark(
+    inferred <- enum(a, b, c, d, e),
+    explicit_num_symbols <- enum(
+        a = 1,
+        b = .$a + 1,
+        c = .$b + 1,
+        d = .$c + 1,
+        e = .$d + 1
+        ),
+    explicit_numeric <- enum(a = 1, b = 2, c = 3, d = 4, e = 5),
+    {
+        create_symbols()
+        generic_symbols <- enum(a = a, b = b, c = c, d = d, e = e)
+    },
+    generic <- enum(a = "1", b = "2", c = "3", d = "4", e = "5")
+)
+```
+<center>
+
+| Rank | Enum Type | Mean Speed<sup>*</sup>|
+|------|-----------|-----------------------|
+|1|Generic|1019.611|
+|2|Generic w/ Symbols|1027.226|
+|3|Explicit Numeric|1508.888|
+|4|Explicit w/ Symbols|1593.736 |
+|5|Implicit Numeric|2289.961|
+
+<sup>*</sup> *Speed measured in microseconds*, will vary depending on computer specs
+</center>
+
+To speed up performance further, you can also access the enum constructor methods directly: `new_generic_enum()` and `new_numeric_enum()`. However, this forgoes some of the
+niceties of the `enum()` helper function, such as NSE or implicit definition.
 
 ## Inspiration
 

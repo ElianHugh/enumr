@@ -2,18 +2,18 @@
 % Please edit documentation in R/enum.r
 \name{enum}
 \alias{enum}
-\title{Enumerator}
+\title{Enumeration}
 \usage{
 enum(...)
 }
 \arguments{
-\item{...}{list of enumerator arguments}
+\item{...}{list of enumeration arguments}
 }
 \value{
 enum
 }
 \description{
-Define an enumerator to access values from. Values cannot be reassigned.
+Define an enumeration to access values from. Values cannot be reassigned.
 Values can be anything (within reason).
 }
 \details{
