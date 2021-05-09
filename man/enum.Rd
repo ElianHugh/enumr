@@ -21,9 +21,10 @@ Enums defined without initialisers are considered numeric enums, and have
 their values set to incrementing numbers. Numeric enums can also be a mix of
 defined numeric values and undefined members.
 
-Under the surface, enums are actually lists contained within locked environments.
-This is so that the enum bindings cannot be modified, and the enum order is maintained.
-S3 methods are defined for \code{$}, \code{[}, and \code{[[}, which access the enum list directly.
+Under the surface, enums are actually lists contained within
+locked environments.This is so that the enum bindings cannot be modified,
+and the enum order is maintained. S3 methods are defined for
+\code{$}, \code{[}, and \code{[[}, which access the enum list directly.
 }
 \examples{
 fruits <- enum(apple = "apple", pear = "pear")
@@ -33,5 +34,5 @@ mixed_enum <- enum(a = 5, b = mtcars, c = 50, d = "elephant")
 computed_enum <- enum(a = 50, b = .$a * 2)
 }
 \seealso{
-\code{\link[base]{environment}}, \code{\link[base]{list}},  \code{\link[base]{factor}}
+\code{\link[base]{list}}, \code{\link[base]{factor}}
 }

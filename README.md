@@ -10,7 +10,7 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 Why use enums? Some examples:
 
 - Improve code self-documentation by explicitly defining key:value pairs
-- Reduce the occurence of code-breaking typos
+- Reduce the occurrence of code-breaking typos
 - Prevent accidental overwriting of variables
 
 ## Usage
@@ -281,3 +281,8 @@ niceties of the `enum()` helper function, such as NSE or implicit definition.
 - [This stack overflow post](https://stackoverflow.com/questions/33838392/enum-like-arguments-in-r/44152358)
 - [aryoda/R_enumerations](https://github.com/aryoda/R_enumerations)
 - [Typescript enums](https://www.typescriptlang.org/docs/handbook/enums.html)
+
+
+## Code of Conduct
+
+Please note that the enumr project is released with a [Contributor Code of Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.

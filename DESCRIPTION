@@ -8,6 +8,8 @@ Authors@R:
            email = "first.last@example.com",
            comment = c(ORCID = "YOUR-ORCID-ID"))
 Description: What the package does (one paragraph).
+URL: https://github.com/ElianHugh/enumr
+BugReports: https://github.com/ElianHugh/enumr/issues
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
