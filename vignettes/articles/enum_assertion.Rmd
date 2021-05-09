@@ -18,7 +18,7 @@ If you are using typed, you can make use of the `Enum` assertion for return and 
 
 # Constrain x to Enum
 
-```{r}
+```{r, error = TRUE}
 Enum() ? x <- 5 # invalid
 
 Enum() ? x  <- enum(a, b, c)
@@ -26,7 +26,7 @@ Enum() ? x  <- enum(a, b, c)
 
 # Constrain input to an input in enum 'a'
 
-```{r}
+```{r, error = TRUE}
 a <- enum(
   a = "string",
   b = 2,
@@ -43,7 +43,7 @@ my_function("a string")
 
 # Constrain function return to enum type
 
-```{r}
+```{r, error = TRUE}
 x <- Enum() ? function() {
   5 # return invalid type
 }
@@ -56,7 +56,7 @@ c <- Enum() ? function() {
 
 # Constrain function return to member in enum
 
-```{r}
+```{r, error = TRUE}
 a <- enum(
   a = "string",
   b = 2,

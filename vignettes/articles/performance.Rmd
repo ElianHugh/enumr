@@ -19,7 +19,7 @@ Enum definition is reasonably fast, so will likely not be a bottleneck for the l
 - Inferred numerics are slower than explicit numerics
 - Generic enums are *typically* faster than numeric enums
 
-```{r}
+```{r, error = TRUE}
 # Create some symbols in the environment
 # for benchmarking
 create_symbols <- function() {
