@@ -1,0 +1,52 @@
+---
+title: "Overhead & Performance Optimisation"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(enumr)
+```
+
+Enum definition is reasonably fast, so will likely not be a bottleneck for the large majority of users. However, if speed is of concern, there are some things to keep in mind:
+
+- Symbols and calls require evaluation, which generally slow enum creation
+- Inferred numerics are slower than explicit numerics
+- Generic enums are *typically* faster than numeric enums
+
+```{r}
+# Create some symbols in the environment
+# for benchmarking
+create_symbols <- function() {
+  mapply(
+    function(x, y) assign(x, as.character(y), .GlobalEnv),
+    c("a", "b", "c", "d", "e"),
+    seq(5)
+  )
+}
+
+microbenchmark::microbenchmark(
+    inferred <- enum(a, b, c, d, e),
+    explicit_num_symbols <- enum(
+        a = 1,
+        b = .$a + 1,
+        c = .$b + 1,
+        d = .$c + 1,
+        e = .$d + 1
+        ),
+    explicit_numeric <- enum(a = 1, b = 2, c = 3, d = 4, e = 5),
+    {
+        create_symbols()
+        generic_symbols <- enum(a = a, b = b, c = c, d = d, e = e)
+    },
+    generic <- enum(a = "1", b = "2", c = "3", d = "4", e = "5")
+)
+```
+
+To speed up performance further, you can also access the enum constructor methods directly: `new_generic_enum()` and `new_numeric_enum()`. However, this forgoes some of the
+niceties of the `enum()` helper function, such as NSE or implicit definition.

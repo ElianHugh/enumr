@@ -7,11 +7,11 @@
 Enum(supplied_enum = NULL, null_ok = FALSE, ...)
 }
 \arguments{
-\item{supplied_enum}{the enum to compare values against}
+\item{supplied_enum}{an enum to compare values against}
 
 \item{null_ok}{whether null values are accepted}
 
-\item{...}{the value to check assertions with}
+\item{...}{a value to check type assertions with}
 }
 \value{
 any
@@ -20,9 +20,27 @@ any
 Assertion for controlling input and return types.
 }
 \examples{
-\dontrun{
-Enum() ? x <- enum(a, b, c)
-my_function <- ? function(x = ? Enum(a)) {}
-x <- Enum() ? function() {}
+# If you leverage the {typed} package, you can make use
+# of the `Enum()` assertion for type checking:
+
+library(typed)
+my_enum <- enum(a, b, c)
+
+# Variable 'x' must correspond to an enum
+Enum() ? x <- my_enum
+
+# Variable 'x' must correspond to a variable in an enum
+Enum(my_enum) ? x <- 2
+
+# Argument 'x' must correspond to a variable in an enum
+my_function <- ? function(x = ? Enum(my_enum)) {
+    print("success!")
+}
+
+# Function must return an enum
+func_return <- Enum() ? function() {
+    return(
+        enum(a, b, c)
+    )
 }
 }

@@ -17,11 +17,13 @@
 #'
 #' @return enum
 #' @examples
-#' fruits <- enum(apple = "apple", pear = "pear")
-#' errors <- enum(style, warning, error)
-#' data <- enum(dat1 = mtcars, dat2 = iris, dat3 = PlantGrowth)
-#' mixed_enum <- enum(a = 5, b = mtcars, c = 50, d = "elephant")
-#' computed_enum <- enum(a = 50, b = .$a * 2)
+#' # Generic Enum
+#' enum(apple = "apple", pear = "pear")
+#' enum(dat1 = mtcars, dat2 = iris, dat3 = PlantGrowth)
+#'
+#' # Numeric Enum
+#' enum(style, warning, error)
+#' enum(a = 50, b = .$a * 2)
 #' @export
 #' @seealso
 #' \code{\link[base]{list}}, \code{\link[base]{factor}}

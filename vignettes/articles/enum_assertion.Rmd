@@ -1,0 +1,74 @@
+---
+title: "Typed Integration"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(enumr)
+library(typed)
+```
+
+If you are using typed, you can make use of the `Enum` assertion for return and input assertion. Note that 'enum' is the class definition and 'Enum' is the assertion - this matches the {typed} paradigm of assertions.
+
+# Constrain x to Enum
+
+```{r}
+Enum() ? x <- 5 # invalid
+
+Enum() ? x  <- enum(a, b, c)
+```
+
+# Constrain input to an input in enum 'a'
+
+```{r}
+a <- enum(
+  a = "string",
+  b = 2,
+  c = 5 + 5
+)
+
+my_function <- ? function(x = ? Enum(a)) {
+  print("hello!")
+}
+
+
+my_function("a string")
+```
+
+# Constrain function return to enum type
+
+```{r}
+x <- Enum() ? function() {
+  5 # return invalid type
+}
+
+x()
+c <- Enum() ? function() {
+  5
+}
+```
+
+# Constrain function return to member in enum
+
+```{r}
+a <- enum(
+  a = "string",
+  b = 2,
+  c = 5 + 5
+)
+
+x <- Enum(a) ? function() {
+  5 # return invalid type
+}
+
+x()
+c <- Enum() ? function() {
+  5
+}
+```

@@ -6,14 +6,14 @@
 \alias{validate_generic_enum}
 \title{Enum Validator}
 \usage{
-validate_enum_definition(.data)
+validate_enum_definition(.enum_data)
 
-validate_numeric_enum(.data)
+validate_numeric_enum(.enum_data)
 
-validate_generic_enum(.data)
+validate_generic_enum(.enum_data)
 }
 \arguments{
-\item{.data}{named list of arguments}
+\item{.enum_data}{named list of arguments}
 }
 \description{
 \code{validate_enum_definition()} checks the enum arguments

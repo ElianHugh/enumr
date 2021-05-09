@@ -1,0 +1,75 @@
+---
+title: "Non-Standard Evaluation"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(enumr)
+```
+
+
+You can use `.` to refer to the current enum<sup>1</sup>. Specifically, when defining variables, you can use `.$` to refer to other elements in the enum. E.g.,
+
+```{r}
+# Numeric enum
+a <- enum(
+    a,
+    b,
+    c = .$a + 10,
+    d = .$c * .$b
+)
+
+print(a)
+
+
+enum(
+    a = "Hello",
+    b = c(.$a, "world")
+)
+
+a$b
+```
+
+It should be noted, however, there are limitations to defining members with `.$`. Firstly, enum member validation is performed *sequentially*. That is, each non-explicit member is initialised in order of their definition. As a result, computed members cannot refer to later non-explicit members. For instance:
+
+```{r}
+# Invalid definition!
+enum(
+    a,
+    b = .$c + 1,
+    c
+)
+
+# Valid due to explicit initialisation
+enum(
+    a,
+    b = .$c + 1,
+    c = 50
+)
+```
+
+Moreover, due to sequential initialisation, enum members do not support cyclical evaluation. In essence, the chain of computed members *must* end with a computable value:
+
+```{r}
+# Invalid
+enum(
+    a = .$b + 1,
+    b = .$c + 1,
+    c = .$a + 1
+)
+
+# Valid
+enum(
+    a = .$c + 1,
+    b = .$a + 1,
+    c = 5
+)
+```
+
+<sup>1</sup> Technically, `.` (dot) refers to the arguments supplied in the enum constructor. The arguments are converted to a list, and the dot operator acts as a reference to said list.

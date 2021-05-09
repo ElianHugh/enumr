@@ -5,12 +5,12 @@
 \alias{new_generic_enum}
 \title{Enum Constructors}
 \usage{
-new_numeric_enum(.data)
+new_numeric_enum(.enum_data)
 
-new_generic_enum(.data)
+new_generic_enum(.enum_data)
 }
 \arguments{
-\item{.data}{named list of arguments}
+\item{.enum_data}{named list of arguments}
 }
 \description{
 \code{new_numeric_enum()} creates and validates a
@@ -21,7 +21,7 @@ generic enum from a named list of arguments
 }
 \examples{
 new_numeric_enum(list(x = 5))
-new_generic_enum(list(x = "str"))
+new_generic_enum(list(x = "str", y = mtcars))
 }
 \seealso{
 \code{\link[=enum]{enum()}}
