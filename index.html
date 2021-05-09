@@ -53,6 +53,24 @@
 <li>
   <a href="reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li>
+      <a href="articles/articles/NSE.html">Non-Standard Evaluation</a>
+    </li>
+    <li>
+      <a href="articles/articles/enum_assertion.html">Typed Integration</a>
+    </li>
+    <li>
+      <a href="articles/articles/performance.html">Overhead &amp; Performance Optimisation</a>
+    </li>
+  </ul>
+</li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
@@ -79,9 +97,10 @@
 </h1></div>
 <!-- badges: start -->
 
-<div id="rationale" class="section level2">
+<div id="overview" class="section level2">
 <h2 class="hasAnchor">
-<a href="#rationale" class="anchor"></a>Rationale</h2>
+<a href="#overview" class="anchor"></a>Overview</h2>
+<p>{enumr} implements static enumerations in R. At their most basic, enums are lists that have unique name/value pairs (called ‘members’), and cannot be modified after their definition.</p>
 <p>Why use enums? Some examples:</p>
 <ul>
 <li>Improve code self-documentation by explicitly defining key:value pairs</li>
@@ -89,275 +108,44 @@
 <li>Prevent accidental overwriting of variables</li>
 </ul>
 </div>
-<div id="usage" class="section level2">
+<div id="installation" class="section level2">
 <h2 class="hasAnchor">
-<a href="#usage" class="anchor"></a>Usage</h2>
+<a href="#installation" class="anchor"></a>Installation</h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html">requireNamespace</a></span><span class="op">(</span><span class="st">'pak'</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
     <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">'pak'</span>, repos <span class="op">=</span> <span class="st">'https://r-lib.github.io/p/pak/dev/'</span><span class="op">)</span>
 <span class="op">}</span>
 <span class="fu">pak</span><span class="fu">::</span><span class="fu">pkg_install</span><span class="op">(</span><span class="st">'ElianHugh/enumr'</span><span class="op">)</span></code></pre></div>
-<div id="basics" class="section level3">
-<h3 class="hasAnchor">
-<a href="#basics" class="anchor"></a>Basics</h3>
-<p>At their most basic, enums are lists that have unique key/pair values (‘members’), and cannot be modified after their definition.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Set up enum</span>
-<span class="va">error_codes</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/enum.html">enum</a></span><span class="op">(</span>
-    bad_request <span class="op">=</span> <span class="fl">400</span>,
-    forbidden <span class="op">=</span> <span class="fl">403</span>,
-    not_found <span class="op">=</span> <span class="fl">404</span>
-<span class="op">)</span>
-
-<span class="co"># Access values</span>
-<span class="va">error_codes</span><span class="op">$</span><span class="va">bad_request</span>
-<span class="co">#&gt; [1] 400</span>
-
-<span class="co"># Cannot change enum members after definition</span>
-<span class="va">error_codes</span><span class="op">$</span><span class="va">bad_request</span> <span class="op">&lt;-</span> <span class="fl">101</span>
-
-<span class="co">#&gt; Error: Enum members cannot be assigned to after their definition.</span>
-<span class="co">#&gt; Run `rlang::last_error()` to see where the error occurred.</span></code></pre></div>
-<div id="generic-enums" class="section level4">
-<h4 class="hasAnchor">
-<a href="#generic-enums" class="anchor"></a>Generic Enums</h4>
-<p>There are two types of enums: generic enums, and numeric enums. Generic enum members (the variables inside the enum) can be of any type, even including enums themselves. Each key/value pair must be explicitly defined, or the enum will result in an error.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/enum.html">enum</a></span><span class="op">(</span>
-    a <span class="op">=</span> <span class="st">"hello"</span>,
-    <span class="va">b</span>
-<span class="op">)</span>
-
-<span class="co">#&gt; Error in enum(a = "hello", b) :</span>
-<span class="co">#&gt;  Incorrect arguments supplied. All generic enum members must be initialised.</span></code></pre></div>
 </div>
-<div id="numeric-enums" class="section level4">
-<h4 class="hasAnchor">
-<a href="#numeric-enums" class="anchor"></a>Numeric Enums</h4>
-<p>Numeric enums, in contrast, only allow numeric values in their key/value pairs. Numeric values include formulas/equations that evaluate to a numeric value. For instance:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/enum.html">enum</a></span><span class="op">(</span>
-    a <span class="op">=</span> <span class="fl">5</span>,
-    b <span class="op">=</span> <span class="fl">2</span> <span class="op">*</span> <span class="fl">2</span>,
-    c <span class="op">=</span> <span class="fl">500</span> <span class="op">/</span> <span class="fl">3</span>
-<span class="op">)</span></code></pre></div>
-<p>Numeric enums also differ in that their members do <em>not</em> need to have values explicitly defined. Instead, each member value is either the index of the member, or the value of the previous member + 1 (implicit definition). E.g.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># An enum without values defined</span>
-
-<span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/enum.html">enum</a></span><span class="op">(</span>
-    <span class="va">a</span>,
-    <span class="va">b</span>,
-    <span class="va">c</span>
-<span class="op">)</span>
-
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span>
-
-<span class="co">#&gt; # A numeric enum: 3 members</span>
-<span class="co">#&gt;   int a : 1</span>
-<span class="co">#&gt;   dbl b : 2</span>
-<span class="co">#&gt;   dbl c : 3</span>
-
-<span class="co"># This incrementation also works with calls</span>
-
-<span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/enum.html">enum</a></span><span class="op">(</span>
-    <span class="va">a</span>,
-    b <span class="op">=</span> <span class="fl">50</span> <span class="op">/</span> <span class="fl">2</span>,
-    <span class="va">c</span>
-<span class="op">)</span>
-
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">b</span><span class="op">)</span>
-
-
-<span class="co">#&gt; # A numeric enum: 4 members</span>
-<span class="co">#&gt;   int a : 1</span>
-<span class="co">#&gt;   dbl b : 25</span>
-<span class="co">#&gt;   dbl c : 26</span></code></pre></div>
-</div>
-</div>
-<div id="nse" class="section level3">
-<h3 class="hasAnchor">
-<a href="#nse" class="anchor"></a>NSE</h3>
-<p>You can use <code>.</code> to refer to the current enum<sup>1</sup>. Specifically, when defining variables, you can use <code>.$</code> to refer to other elements in the enum. E.g.,</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Numeric enum</span>
-<span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/enum.html">enum</a></span><span class="op">(</span>
-    <span class="va">a</span>,
-    <span class="va">b</span>,
-    c <span class="op">=</span> <span class="va">.</span><span class="op">$</span><span class="va">a</span> <span class="op">+</span> <span class="fl">10</span>,
-    d <span class="op">=</span> <span class="va">.</span><span class="op">$</span><span class="va">c</span> <span class="op">*</span> <span class="va">.</span><span class="op">$</span><span class="va">b</span>
-<span class="op">)</span>
-
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span>
-
-<span class="co">#&gt; # A numeric enum: 4 members</span>
-<span class="co">#&gt;  int a : 1</span>
-<span class="co">#&gt;  int b : 2</span>
-<span class="co">#&gt;  dbl c : 11</span>
-<span class="co">#&gt;  dbl d : 22</span>
-
-<span class="co"># Generic enum</span>
-<span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/enum.html">enum</a></span><span class="op">(</span>
-    a <span class="op">=</span> <span class="st">"Hello"</span>,
-    b <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">.</span><span class="op">$</span><span class="va">a</span>, <span class="st">"world"</span><span class="op">)</span>
-<span class="op">)</span>
-
-<span class="va">a</span><span class="op">$</span><span class="va">b</span>
-<span class="co">#&gt; "Hello" "world"</span></code></pre></div>
-<p>It should be noted, however, there are limitations to defining members with <code>.$</code>. Firstly, enum member validation is performed <em>sequentially</em>. That is, each non-explicit member is initialised in order of their definition. As a result, computed members cannot refer to later non-explicit members. For instance:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Invalid definition!</span>
-<span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/enum.html">enum</a></span><span class="op">(</span>
-    <span class="va">a</span>,
-    b <span class="op">=</span> <span class="va">.</span><span class="op">$</span><span class="va">c</span> <span class="op">+</span> <span class="fl">1</span>,
-    <span class="va">c</span>
-<span class="op">)</span>
-
-<span class="co">#&gt; Error: Incorrect arguments supplied to enum. Each argument value must be unique.</span>
-<span class="co">#&gt; Run `rlang::last_error()` to see where the error occurred.</span>
-
-<span class="co"># Valid due to explicit initialisation</span>
-<span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/enum.html">enum</a></span><span class="op">(</span>
-    <span class="va">a</span>,
-    b <span class="op">=</span> <span class="va">.</span><span class="op">$</span><span class="va">c</span> <span class="op">+</span> <span class="fl">1</span>,
-    c <span class="op">=</span> <span class="fl">50</span>
-<span class="op">)</span></code></pre></div>
-<p>Moreover, due to sequential initialisation, enum members do not support cyclical evaluation. In essence, the chain of computed members <em>must</em> end with a computable value:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Invalid</span>
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/enum.html">enum</a></span><span class="op">(</span>
-    a <span class="op">=</span> <span class="va">.</span><span class="op">$</span><span class="va">b</span> <span class="op">+</span> <span class="fl">1</span>,
-    b <span class="op">=</span> <span class="va">.</span><span class="op">$</span><span class="va">c</span> <span class="op">+</span> <span class="fl">1</span>,
-    c <span class="op">=</span> <span class="va">.</span><span class="op">$</span><span class="va">a</span> <span class="op">+</span> <span class="fl">1</span>
-<span class="op">)</span>
-
-<span class="co">#&gt; Error in .$b + 1 : non-numeric argument to binary operator</span>
-
-<span class="co"># Valid</span>
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/enum.html">enum</a></span><span class="op">(</span>
-    a <span class="op">=</span> <span class="va">.</span><span class="op">$</span><span class="va">c</span> <span class="op">+</span> <span class="fl">1</span>,
-    b <span class="op">=</span> <span class="va">.</span><span class="op">$</span><span class="va">a</span> <span class="op">+</span> <span class="fl">1</span>,
-    c <span class="op">=</span> <span class="fl">5</span>
-<span class="op">)</span>
-
-<span class="co">#&gt; # A numeric enum: 3 members</span>
-<span class="co">#&gt;  dbl a : 6</span>
-<span class="co">#&gt;  dbl b : 7</span>
-<span class="co">#&gt;  dbl c : 5</span></code></pre></div>
-<p><sup>1</sup> Technically, <code>.</code> (dot) refers to the arguments supplied in the enum constructor. The arguments are converted to a list, and the dot operator acts as a reference to said list.</p>
-</div>
-<div id="typed-integration" class="section level3">
-<h3 class="hasAnchor">
-<a href="#typed-integration" class="anchor"></a>Typed Integration</h3>
-<p>If you are using typed, you can make use of the <code>Enum</code> assertion for return and input assertion. Note that ‘enum’ is the definition and ‘Enum’ is the assertion.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Constrain x to Enum</span>
-
-<span class="fu"><a href="reference/Enum.html">Enum</a></span><span class="op">(</span><span class="op">)</span> <span class="op">?</span> <span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">5</span> <span class="co"># invalid</span>
-<span class="co">#&gt; Error: class mismatch</span>
-<span class="co">#&gt; `class(value)`: "numeric"</span>
-<span class="co">#&gt; `expected`:     "enum"</span>
-
-<span class="co"># Constrain input to an input in enum 'a'</span>
-
-<span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/enum.html">enum</a></span><span class="op">(</span>
-    a <span class="op">=</span> <span class="st">"string"</span>,
-    b <span class="op">=</span> <span class="fl">2</span>,
-    c <span class="op">=</span> <span class="fl">5</span> <span class="op">+</span> <span class="fl">5</span>
-<span class="op">)</span>
-
-<span class="va">my_function</span> <span class="op">&lt;-</span> <span class="op">?</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span> <span class="op">=</span> <span class="op">?</span> <span class="fu"><a href="reference/Enum.html">Enum</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-    <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="st">'hello!'</span><span class="op">)</span>
-<span class="op">}</span>
-
-<span class="fu">my_function</span><span class="op">(</span><span class="st">'a string'</span><span class="op">)</span> <span class="co"># invalid</span>
-
-<span class="co">#&gt; Error: In `my_function("a string")` at `check_arg(x, Enum(a))`:</span>
-<span class="co">#&gt; wrong argument to function, value does not match enum</span>
-<span class="co">#&gt; `value` is a character vector ('a string')</span>
-<span class="co">#&gt; `required values:` is a list</span>
-
-<span class="co"># Constrain function return to Enum class</span>
-
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/Enum.html">Enum</a></span><span class="op">(</span><span class="op">)</span> <span class="op">?</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span>
-    <span class="fl">5</span>
-<span class="op">}</span>
-
-<span class="fu">x</span><span class="op">(</span><span class="op">)</span>
-
-<span class="co">#&gt; Error: In `x()` at `check_output(5, Enum())`:</span>
-<span class="co">#&gt; wrong return value, class mismatch</span>
-<span class="co">#&gt; `class(value)`: "numeric"</span>
-<span class="co">#&gt; `expected`:     "enum"</span></code></pre></div>
-</div>
-</div>
-<div id="performance-and-overhead" class="section level2">
+<div id="usage" class="section level2">
 <h2 class="hasAnchor">
-<a href="#performance-and-overhead" class="anchor"></a>Performance and Overhead</h2>
-<p>Enum definition is reasonably fast, so will likely not be a bottleneck for the large majority of users. However, if speed is of concern, there are some things to keep in mind:</p>
-<ul>
-<li>Symbols and calls require evaluation, which generally slow enum creation</li>
-<li>Inferred numerics are slower than explicit numerics</li>
-<li>Generic enums are <em>typically</em> faster than numeric enums</li>
-</ul>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">create_symbols</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span> <span class="fu"><a href="https://rdrr.io/r/base/mapply.html">mapply</a></span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/assign.html">assign</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>, <span class="va">.GlobalEnv</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'a'</span>,<span class="st">'b'</span>,<span class="st">'c'</span>,<span class="st">'d'</span>,<span class="st">'e'</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span> <span class="op">}</span>
+<a href="#usage" class="anchor"></a>Usage</h2>
+<p>Enumr implements two classes of enum: numeric and generic. Both are created with the <code><a href="reference/enum.html">enum()</a></code> function, and are defined by the arguments supplied to <code><a href="reference/enum.html">enum()</a></code>; if all arguments evaluate as numeric, the enum is numeric, otherwise it is generic.</p>
+<p>Numeric enums only permit numeric values in their name/value pairs. Numeric values include formulas/equations that evaluate to a numeric value. Numeric enum members do <em>not</em> need to have values explicitly defined. Instead, each member’s value is either the index of the member, or the value of the previous member plus 1 - this is called ‘implicit definition’.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="reference/enum.html">enum</a></span><span class="op">(</span>
+    <span class="va">cat</span>,
+    <span class="va">dog</span>,
+    <span class="va">bird</span>
+<span class="op">)</span>
 
-<span class="fu">microbenchmark</span><span class="fu">::</span><span class="fu">microbenchmark</span><span class="op">(</span>
-    <span class="va">inferred</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/enum.html">enum</a></span><span class="op">(</span><span class="va">a</span>, <span class="va">b</span>, <span class="va">c</span>, <span class="va">d</span>, <span class="va">e</span><span class="op">)</span>,
-    <span class="va">explicit_num_symbols</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/enum.html">enum</a></span><span class="op">(</span>
-        a <span class="op">=</span> <span class="fl">1</span>,
-        b <span class="op">=</span> <span class="va">.</span><span class="op">$</span><span class="va">a</span> <span class="op">+</span> <span class="fl">1</span>,
-        c <span class="op">=</span> <span class="va">.</span><span class="op">$</span><span class="va">b</span> <span class="op">+</span> <span class="fl">1</span>,
-        d <span class="op">=</span> <span class="va">.</span><span class="op">$</span><span class="va">c</span> <span class="op">+</span> <span class="fl">1</span>,
-        e <span class="op">=</span> <span class="va">.</span><span class="op">$</span><span class="va">d</span> <span class="op">+</span> <span class="fl">1</span>
-        <span class="op">)</span>,
-    <span class="va">explicit_numeric</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/enum.html">enum</a></span><span class="op">(</span>a <span class="op">=</span> <span class="fl">1</span>, b <span class="op">=</span> <span class="fl">2</span>, c <span class="op">=</span> <span class="fl">3</span>, d <span class="op">=</span> <span class="fl">4</span>, e <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>,
-    <span class="op">{</span>
-        <span class="fu">create_symbols</span><span class="op">(</span><span class="op">)</span>
-        <span class="va">generic_symbols</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/enum.html">enum</a></span><span class="op">(</span>a <span class="op">=</span> <span class="va">a</span>, b <span class="op">=</span> <span class="va">b</span>, c <span class="op">=</span> <span class="va">c</span>, d <span class="op">=</span> <span class="va">d</span>, e <span class="op">=</span> <span class="va">e</span><span class="op">)</span>
-    <span class="op">}</span>,
-    <span class="va">generic</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/enum.html">enum</a></span><span class="op">(</span>a <span class="op">=</span> <span class="st">"1"</span>, b <span class="op">=</span> <span class="st">"2"</span>, c <span class="op">=</span> <span class="st">"3"</span>, d <span class="op">=</span> <span class="st">"4"</span>, e <span class="op">=</span> <span class="st">"5"</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
-<center>
-<table class="table">
-<thead><tr class="header">
-<th>Rank</th>
-<th>Enum Type</th>
-<th>Mean Speed<sup>*</sup>
-</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td>1</td>
-<td>Generic</td>
-<td>1019.611</td>
-</tr>
-<tr class="even">
-<td>2</td>
-<td>Generic w/ Symbols</td>
-<td>1027.226</td>
-</tr>
-<tr class="odd">
-<td>3</td>
-<td>Explicit Numeric</td>
-<td>1508.888</td>
-</tr>
-<tr class="even">
-<td>4</td>
-<td>Explicit w/ Symbols</td>
-<td>1593.736</td>
-</tr>
-<tr class="odd">
-<td>5</td>
-<td>Implicit Numeric</td>
-<td>2289.961</td>
-</tr>
-</tbody>
-</table>
-<sup><em></em></sup>Speed measured in microseconds*, will vary depending on computer specs
-</center>
-<p>To speed up performance further, you can also access the enum constructor methods directly: <code><a href="reference/new_numeric_enum.html">new_generic_enum()</a></code> and <code><a href="reference/new_numeric_enum.html">new_numeric_enum()</a></code>. However, this forgoes some of the niceties of the <code><a href="reference/enum.html">enum()</a></code> helper function, such as NSE or implicit definition.</p>
+<span class="co">#&gt; # A numeric enum: 3 members</span>
+<span class="co">#&gt;  int cat : 1</span>
+<span class="co">#&gt;  int dog : 2</span>
+<span class="co">#&gt;  int bird : 3</span></code></pre></div>
+<p>Generic enum members can be of any type, even including enums themselves. Each name/value pair must be explicitly defined, and each value must <em>evaluate</em> to a value.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="reference/enum.html">enum</a></span><span class="op">(</span>
+    a <span class="op">=</span> <span class="va">mtcars</span>,
+    b <span class="op">=</span> <span class="va">PlantGrowth</span>,
+    c <span class="op">=</span> <span class="va">airquality</span>
+<span class="op">)</span>
+
+<span class="co">#&gt; # A generic enum: 3 members</span>
+<span class="co">#&gt;   tibble a : &lt;32 × 11&gt;</span>
+<span class="co">#&gt;   tibble b : &lt;30 × 2&gt;</span>
+<span class="co">#&gt;   tibble c : &lt;153 × 6&gt;</span></code></pre></div>
+<p>See the <a href="https://elianhugh.github.io/enumr/">pkgdown site</a> for more information on enums, and other features of the {enumr} package, such as NSE or typed integration.</p>
 </div>
 <div id="inspiration" class="section level2">
 <h2 class="hasAnchor">
