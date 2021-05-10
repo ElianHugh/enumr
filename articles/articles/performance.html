@@ -110,6 +110,7 @@
 <li>Inferred numerics are slower than explicit numerics</li>
 <li>Generic enums are <em>typically</em> faster than numeric enums</li>
 </ul>
+<p>Here is a microbenchmark, comparing the various forms of enum. Note that a <code>create_symbols</code> function is defined for the generic_symbols parse. Realistically, generic and generic_symbols have comparable speeds.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Create some symbols in the environment</span>
 <span class="co"># for benchmarking</span>
@@ -135,7 +136,8 @@
         <span class="fu">create_symbols</span><span class="op">(</span><span class="op">)</span>
         <span class="va">generic_symbols</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/enum.html">enum</a></span><span class="op">(</span>a <span class="op">=</span> <span class="va">a</span>, b <span class="op">=</span> <span class="va">b</span>, c <span class="op">=</span> <span class="va">c</span>, d <span class="op">=</span> <span class="va">d</span>, e <span class="op">=</span> <span class="va">e</span><span class="op">)</span>
     <span class="op">}</span>,
-    <span class="va">generic</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/enum.html">enum</a></span><span class="op">(</span>a <span class="op">=</span> <span class="st">"1"</span>, b <span class="op">=</span> <span class="st">"2"</span>, c <span class="op">=</span> <span class="st">"3"</span>, d <span class="op">=</span> <span class="st">"4"</span>, e <span class="op">=</span> <span class="st">"5"</span><span class="op">)</span>
+    <span class="va">generic</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/enum.html">enum</a></span><span class="op">(</span>a <span class="op">=</span> <span class="st">"1"</span>, b <span class="op">=</span> <span class="st">"2"</span>, c <span class="op">=</span> <span class="st">"3"</span>, d <span class="op">=</span> <span class="st">"4"</span>, e <span class="op">=</span> <span class="st">"5"</span><span class="op">)</span>,
+    times <span class="op">=</span> <span class="fl">500</span>
 <span class="op">)</span>
 <span class="co">#&gt; Unit: microseconds</span>
 <span class="co">#&gt;                                                                                          expr</span>
@@ -144,32 +146,33 @@
 <span class="co">#&gt;                                   explicit_numeric &lt;- enum(a = 1, b = 2, c = 3, d = 4, e = 5)</span>
 <span class="co">#&gt;       {     create_symbols()     generic_symbols &lt;- enum(a = a, b = b, c = c, d = d, e = e) }</span>
 <span class="co">#&gt;                                  generic &lt;- enum(a = "1", b = "2", c = "3", d = "4", e = "5")</span>
-<span class="co">#&gt;       min        lq     mean    median        uq       max neval</span>
-<span class="co">#&gt;  1522.925 1595.0600 1705.240 1633.4265 1687.7505  4060.257   100</span>
-<span class="co">#&gt;  1068.714 1131.5050 1162.749 1148.5100 1177.1055  1466.174   100</span>
-<span class="co">#&gt;  1081.912 1155.8185 1264.245 1178.1260 1217.8525  3660.537   100</span>
-<span class="co">#&gt;   743.819  783.3670 1102.841  797.2590  830.8195 21499.115   100</span>
-<span class="co">#&gt;   649.340  691.3285  789.320  707.9595  719.5590  5083.965   100</span></code></pre></div>
+<span class="co">#&gt;       min       lq     mean    median       uq       max neval</span>
+<span class="co">#&gt;  1714.232 1826.842 2309.284 2003.2160 2396.674 17280.148   500</span>
+<span class="co">#&gt;  1218.136 1290.832 1636.984 1372.9340 1692.371 20592.690   500</span>
+<span class="co">#&gt;  1244.691 1321.564 1665.620 1407.1305 1789.449  6114.821   500</span>
+<span class="co">#&gt;   826.235  887.282 1151.625  938.8170 1198.862 27244.498   500</span>
+<span class="co">#&gt;   714.758  770.683 1028.160  832.8075 1049.653  7526.884   500</span></code></pre></div>
 <p>To speed up performance further, you can also access the enum constructor methods directly: <code><a href="../../reference/new_numeric_enum.html">new_generic_enum()</a></code> and <code><a href="../../reference/new_numeric_enum.html">new_numeric_enum()</a></code>. You’ll see these are reasonably faster than the <code><a href="../../reference/enum.html">enum()</a></code> function. This is because <code><a href="../../reference/enum.html">enum()</a></code> has to check whether the enum is numeric or generic by evaluating each argument supplied to it.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">microbenchmark</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span>
   <span class="va">num</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/enum.html">enum</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">z</span><span class="op">)</span>,
   <span class="va">gen</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/enum.html">enum</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"1"</span>, y <span class="op">=</span> <span class="st">"2"</span>, z <span class="op">=</span> <span class="st">"3"</span><span class="op">)</span>,
   <span class="va">num</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/new_numeric_enum.html">new_numeric_enum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span>, y <span class="op">=</span> <span class="fl">2</span>, z <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span>,
-  <span class="va">gen</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/new_numeric_enum.html">new_generic_enum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"1"</span>, y <span class="op">=</span> <span class="st">"2"</span>, z <span class="op">=</span> <span class="st">"3"</span><span class="op">)</span><span class="op">)</span>
+  <span class="va">gen</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/new_numeric_enum.html">new_generic_enum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"1"</span>, y <span class="op">=</span> <span class="st">"2"</span>, z <span class="op">=</span> <span class="st">"3"</span><span class="op">)</span><span class="op">)</span>,
+  times <span class="op">=</span> <span class="fl">500</span>
 <span class="op">)</span>
 <span class="co">#&gt; Unit: microseconds</span>
-<span class="co">#&gt;                                                      expr     min       lq</span>
-<span class="co">#&gt;                                      num &lt;- enum(x, y, z) 881.385 928.6730</span>
-<span class="co">#&gt;                    gen &lt;- enum(x = "1", y = "2", z = "3") 438.254 460.0715</span>
-<span class="co">#&gt;        num &lt;- new_numeric_enum(list(x = 1, y = 2, z = 3)) 369.893 392.2505</span>
-<span class="co">#&gt;  gen &lt;- new_generic_enum(list(x = "1", y = "2", z = "3")) 108.268 116.7540</span>
-<span class="co">#&gt;      mean   median       uq      max neval</span>
-<span class="co">#&gt;  986.0209 943.5535 963.8195 3037.629   100</span>
-<span class="co">#&gt;  508.9768 475.8685 500.0425 2622.751   100</span>
-<span class="co">#&gt;  436.2315 403.8075 420.7460 2540.910   100</span>
-<span class="co">#&gt;  126.7173 122.7605 132.8810  176.724   100</span></code></pre></div>
-<p>However, this forgoes some of the niceties of the <code><a href="../../reference/enum.html">enum()</a></code> helper function, such as NSE or implicit definition.</p>
+<span class="co">#&gt;                                                      expr     min        lq</span>
+<span class="co">#&gt;                                      num &lt;- enum(x, y, z) 965.151 1006.7850</span>
+<span class="co">#&gt;                    gen &lt;- enum(x = "1", y = "2", z = "3") 478.726  497.6690</span>
+<span class="co">#&gt;        num &lt;- new_numeric_enum(list(x = 1, y = 2, z = 3)) 424.451  442.1575</span>
+<span class="co">#&gt;  gen &lt;- new_generic_enum(list(x = "1", y = "2", z = "3")) 119.924  128.3020</span>
+<span class="co">#&gt;       mean    median        uq      max neval</span>
+<span class="co">#&gt;  1182.4731 1037.6145 1149.4180 5382.509   500</span>
+<span class="co">#&gt;   585.0053  511.0355  562.7275 3063.382   500</span>
+<span class="co">#&gt;   500.0377  453.2110  491.8510 2764.194   500</span>
+<span class="co">#&gt;   143.3184  131.8165  138.2725  410.077   500</span></code></pre></div>
+<p>However, this forgoes some of the niceties of the <code><a href="../../reference/enum.html">enum()</a></code> helper function, such as NSE or implicit definition. The speed increase will likely be in the microsecond range.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Can only use explicit definitions</span>
 <span class="fu"><a href="../../reference/new_numeric_enum.html">new_numeric_enum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">a</span>, <span class="va">b</span>, <span class="va">c</span><span class="op">)</span><span class="op">)</span>
