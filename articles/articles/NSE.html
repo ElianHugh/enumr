@@ -103,24 +103,21 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ElianHugh/enumr">enumr</a></span><span class="op">)</span></code></pre></div>
-<p>You can use <code>.</code> to refer to the current enum<sup>1</sup>. Specifically, when defining variables, you can use <code>.$</code> to refer to other elements in the enum. E.g.,</p>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ElianHugh/enumr">enumr</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<p>You can use <code>.</code> to refer to the current enum<sup>1</sup>. Specifically, when defining variables, you can use <code>.$</code> to refer to other elements in the enum. E.g.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Numeric enum</span>
-<span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/enum.html">enum</a></span><span class="op">(</span>
+<span class="fu"><a href="../../reference/enum.html">enum</a></span><span class="op">(</span>
     <span class="va">a</span>,
     <span class="va">b</span>,
     c <span class="op">=</span> <span class="va">.</span><span class="op">$</span><span class="va">a</span> <span class="op">+</span> <span class="fl">10</span>,
     d <span class="op">=</span> <span class="va">.</span><span class="op">$</span><span class="va">c</span> <span class="op">*</span> <span class="va">.</span><span class="op">$</span><span class="va">b</span>
 <span class="op">)</span>
-
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span>
 <span class="co">#&gt; # A numeric enum: 4 members</span>
 <span class="co">#&gt;   int a : 1</span>
 <span class="co">#&gt;   int b : 2</span>
 <span class="co">#&gt;   dbl c : 11</span>
 <span class="co">#&gt;   dbl d : 22</span>
-
 
 <span class="fu"><a href="../../reference/enum.html">enum</a></span><span class="op">(</span>
     a <span class="op">=</span> <span class="st">"Hello"</span>,
@@ -128,10 +125,7 @@
 <span class="op">)</span>
 <span class="co">#&gt; # A generic enum: 2 members</span>
 <span class="co">#&gt;   chr a : Hello</span>
-<span class="co">#&gt;   chr b : c("Hello", "world")</span>
-
-<span class="va">a</span><span class="op">$</span><span class="va">b</span>
-<span class="co">#&gt; [1] 2</span></code></pre></div>
+<span class="co">#&gt;   chr b : c("Hello", "world")</span></code></pre></div>
 <p>It should be noted, however, there are limitations to defining members with <code>.$</code>. Firstly, enum member validation is performed <em>sequentially</em>. That is, each non-explicit member is initialised in order of their definition. As a result, computed members cannot refer to later non-explicit members. For instance:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Invalid definition!</span>

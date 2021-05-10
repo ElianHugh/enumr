@@ -103,7 +103,7 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ElianHugh/enumr">enumr</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ElianHugh/enumr">enumr</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p>Enum definition is reasonably fast, so will likely not be a bottleneck for the large majority of users. However, if speed is of concern, there are some things to keep in mind:</p>
 <ul>
 <li>Symbols and calls require evaluation, which generally slow enum creation</li>
@@ -121,7 +121,7 @@
   <span class="op">)</span>
 <span class="op">}</span>
 
-<span class="fu">microbenchmark</span><span class="fu">::</span><span class="fu">microbenchmark</span><span class="op">(</span>
+<span class="fu">microbenchmark</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span>
     <span class="va">inferred</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/enum.html">enum</a></span><span class="op">(</span><span class="va">a</span>, <span class="va">b</span>, <span class="va">c</span>, <span class="va">d</span>, <span class="va">e</span><span class="op">)</span>,
     <span class="va">explicit_num_symbols</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/enum.html">enum</a></span><span class="op">(</span>
         a <span class="op">=</span> <span class="fl">1</span>,
@@ -137,8 +137,48 @@
     <span class="op">}</span>,
     <span class="va">generic</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/enum.html">enum</a></span><span class="op">(</span>a <span class="op">=</span> <span class="st">"1"</span>, b <span class="op">=</span> <span class="st">"2"</span>, c <span class="op">=</span> <span class="st">"3"</span>, d <span class="op">=</span> <span class="st">"4"</span>, e <span class="op">=</span> <span class="st">"5"</span><span class="op">)</span>
 <span class="op">)</span>
-<span class="co">#&gt; Error in loadNamespace(name): there is no package called 'microbenchmark'</span></code></pre></div>
-<p>To speed up performance further, you can also access the enum constructor methods directly: <code><a href="../../reference/new_numeric_enum.html">new_generic_enum()</a></code> and <code><a href="../../reference/new_numeric_enum.html">new_numeric_enum()</a></code>. However, this forgoes some of the niceties of the <code><a href="../../reference/enum.html">enum()</a></code> helper function, such as NSE or implicit definition.</p>
+<span class="co">#&gt; Unit: microseconds</span>
+<span class="co">#&gt;                                                                                          expr</span>
+<span class="co">#&gt;                                                               inferred &lt;- enum(a, b, c, d, e)</span>
+<span class="co">#&gt;  explicit_num_symbols &lt;- enum(a = 1, b = .$a + 1, c = .$b + 1,      d = .$c + 1, e = .$d + 1)</span>
+<span class="co">#&gt;                                   explicit_numeric &lt;- enum(a = 1, b = 2, c = 3, d = 4, e = 5)</span>
+<span class="co">#&gt;       {     create_symbols()     generic_symbols &lt;- enum(a = a, b = b, c = c, d = d, e = e) }</span>
+<span class="co">#&gt;                                  generic &lt;- enum(a = "1", b = "2", c = "3", d = "4", e = "5")</span>
+<span class="co">#&gt;       min        lq     mean    median        uq       max neval</span>
+<span class="co">#&gt;  1522.925 1595.0600 1705.240 1633.4265 1687.7505  4060.257   100</span>
+<span class="co">#&gt;  1068.714 1131.5050 1162.749 1148.5100 1177.1055  1466.174   100</span>
+<span class="co">#&gt;  1081.912 1155.8185 1264.245 1178.1260 1217.8525  3660.537   100</span>
+<span class="co">#&gt;   743.819  783.3670 1102.841  797.2590  830.8195 21499.115   100</span>
+<span class="co">#&gt;   649.340  691.3285  789.320  707.9595  719.5590  5083.965   100</span></code></pre></div>
+<p>To speed up performance further, you can also access the enum constructor methods directly: <code><a href="../../reference/new_numeric_enum.html">new_generic_enum()</a></code> and <code><a href="../../reference/new_numeric_enum.html">new_numeric_enum()</a></code>. You’ll see these are reasonably faster than the <code><a href="../../reference/enum.html">enum()</a></code> function. This is because <code><a href="../../reference/enum.html">enum()</a></code> has to check whether the enum is numeric or generic by evaluating each argument supplied to it.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">microbenchmark</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span>
+  <span class="va">num</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/enum.html">enum</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">z</span><span class="op">)</span>,
+  <span class="va">gen</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/enum.html">enum</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"1"</span>, y <span class="op">=</span> <span class="st">"2"</span>, z <span class="op">=</span> <span class="st">"3"</span><span class="op">)</span>,
+  <span class="va">num</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/new_numeric_enum.html">new_numeric_enum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span>, y <span class="op">=</span> <span class="fl">2</span>, z <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span>,
+  <span class="va">gen</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/new_numeric_enum.html">new_generic_enum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"1"</span>, y <span class="op">=</span> <span class="st">"2"</span>, z <span class="op">=</span> <span class="st">"3"</span><span class="op">)</span><span class="op">)</span>
+<span class="op">)</span>
+<span class="co">#&gt; Unit: microseconds</span>
+<span class="co">#&gt;                                                      expr     min       lq</span>
+<span class="co">#&gt;                                      num &lt;- enum(x, y, z) 881.385 928.6730</span>
+<span class="co">#&gt;                    gen &lt;- enum(x = "1", y = "2", z = "3") 438.254 460.0715</span>
+<span class="co">#&gt;        num &lt;- new_numeric_enum(list(x = 1, y = 2, z = 3)) 369.893 392.2505</span>
+<span class="co">#&gt;  gen &lt;- new_generic_enum(list(x = "1", y = "2", z = "3")) 108.268 116.7540</span>
+<span class="co">#&gt;      mean   median       uq      max neval</span>
+<span class="co">#&gt;  986.0209 943.5535 963.8195 3037.629   100</span>
+<span class="co">#&gt;  508.9768 475.8685 500.0425 2622.751   100</span>
+<span class="co">#&gt;  436.2315 403.8075 420.7460 2540.910   100</span>
+<span class="co">#&gt;  126.7173 122.7605 132.8810  176.724   100</span></code></pre></div>
+<p>However, this forgoes some of the niceties of the <code><a href="../../reference/enum.html">enum()</a></code> helper function, such as NSE or implicit definition.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Can only use explicit definitions</span>
+<span class="fu"><a href="../../reference/new_numeric_enum.html">new_numeric_enum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">a</span>, <span class="va">b</span>, <span class="va">c</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; Error: Incorrect arguments supplied to enum.</span>
+<span class="co">#&gt; * Each member must be named.</span>
+
+<span class="co"># Can't use NSE</span>
+<span class="fu"><a href="../../reference/new_numeric_enum.html">new_numeric_enum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>a <span class="op">=</span> <span class="fl">1</span>, b <span class="op">=</span> <span class="va">.</span><span class="op">$</span><span class="va">a</span> <span class="op">+</span> <span class="fl">1</span>, c <span class="op">=</span> <span class="fl">4</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; Error in validate_enum_definition(.enum_data): object '.' not found</span></code></pre></div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
