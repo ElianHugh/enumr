@@ -10,7 +10,8 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-library(c(typed, enummr), quietly = TRUE)
+library(typed, quietly = TRUE)
+library(enumr, quietly = TRUE)
 ```
 
 
