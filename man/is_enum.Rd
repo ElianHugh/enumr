@@ -2,7 +2,8 @@
 % Please edit documentation in R/enum_types.r
 \name{is_enum}
 \alias{is_enum}
-\title{is enum}
+\title{Is Enum
+Test for objects of class 'enum'}
 \usage{
 is_enum(x)
 }
@@ -10,5 +11,6 @@ is_enum(x)
 \item{x}{value to check if is enum}
 }
 \description{
-is enum
+Is Enum
+Test for objects of class 'enum'
 }

@@ -10,30 +10,26 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-library(enumr)
+library(enumr, quietly = TRUE)
 ```
 
 
-You can use `.` to refer to the current enum<sup>1</sup>. Specifically, when defining variables, you can use `.$` to refer to other elements in the enum. E.g.,
+You can use `.` to refer to the current enum<sup>1</sup>. Specifically, when defining variables, you can use `.$` to refer to other elements in the enum. E.g.
 
 ```{r, error = TRUE}
 # Numeric enum
-a <- enum(
+enum(
     a,
     b,
     c = .$a + 10,
     d = .$c * .$b
 )
 
-print(a)
-
-
 enum(
     a = "Hello",
     b = c(.$a, "world")
 )
 
-a$b
 ```
 
 It should be noted, however, there are limitations to defining members with `.$`. Firstly, enum member validation is performed *sequentially*. That is, each non-explicit member is initialised in order of their definition. As a result, computed members cannot refer to later non-explicit members. For instance:

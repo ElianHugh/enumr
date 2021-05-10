@@ -10,65 +10,34 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-library(enumr)
-library(typed)
+library(c(typed, enummr), quietly = TRUE)
 ```
+
 
 If you are using typed, you can make use of the `Enum` assertion for return and input assertion. Note that 'enum' is the class definition and 'Enum' is the assertion - this matches the {typed} paradigm of assertions.
 
-# Constrain x to Enum
+Depending on how you define a variable, you can constrain a variable to either an enum class or enum member. To constrain to an enum class, simply use `Enum()`. To constrain to an enum member, use `Enum(x)`, with x being an enum.
+
+For instance, let's say we want to ensure that the arguments supplied to a function correspond to an enum member value. Let's create an enum with a list of animals:
 
 ```{r, error = TRUE}
-Enum() ? x <- 5 # invalid
-
-Enum() ? x  <- enum(a, b, c)
-```
-
-# Constrain input to an input in enum 'a'
-
-```{r, error = TRUE}
-a <- enum(
-  a = "string",
-  b = 2,
-  c = 5 + 5
+my_pets <- enum(
+  pet1 = "dog",
+  pet2 = "cat",
+  pet3 = "goldfish"
 )
-
-my_function <- ? function(x = ? Enum(a)) {
-  print("hello!")
-}
-
-
-my_function("a string")
 ```
 
-# Constrain function return to enum type
+Now, I want to make a function that only allows the my_pets enum as an argument:
 
 ```{r, error = TRUE}
-x <- Enum() ? function() {
-  5 # return invalid type
+# supply my_pets in the Enum assertion
+is_this_my_pet <- ? function(arg = ? Enum(my_pets)) {
+    print(arg)
 }
 
-x()
-c <- Enum() ? function() {
-  5
-}
+# supply an incorrect argument
+is_this_my_pet('snake')
 ```
 
-# Constrain function return to member in enum
-
-```{r, error = TRUE}
-a <- enum(
-  a = "string",
-  b = 2,
-  c = 5 + 5
-)
-
-x <- Enum(a) ? function() {
-  5 # return invalid type
-}
-
-x()
-c <- Enum() ? function() {
-  5
-}
-```
+See [{typed}](https://moodymudskipper.github.io/typed/) for more information on how to use these assertions.

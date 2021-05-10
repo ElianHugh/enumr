@@ -5,9 +5,9 @@ Authors@R:
     person(given = "Elian",
            family = "Thiele-Evans",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+           email = "elianhte@gmail.com",
+           comment = c(ORCID = "0000-0001-8008-3165"))
+Description: Implement static enumerations for R.
 URL: https://github.com/ElianHugh/enumr
 BugReports: https://github.com/ElianHugh/enumr/issues
 License: GPL (>= 3)

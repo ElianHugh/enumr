@@ -10,7 +10,7 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-library(enumr)
+library(enumr, quietly = TRUE)
 ```
 
 Enum definition is reasonably fast, so will likely not be a bottleneck for the large majority of users. However, if speed is of concern, there are some things to keep in mind:
@@ -48,5 +48,23 @@ microbenchmark::microbenchmark(
 )
 ```
 
-To speed up performance further, you can also access the enum constructor methods directly: `new_generic_enum()` and `new_numeric_enum()`. However, this forgoes some of the
-niceties of the `enum()` helper function, such as NSE or implicit definition.
+To speed up performance further, you can also access the enum constructor methods directly: `new_generic_enum()` and `new_numeric_enum()`. You'll see these are reasonably faster than the `enum()` function. This is because `enum()` has to check whether the enum is numeric or generic by evaluating each argument supplied to it.
+
+```{r, error = TRUE}
+microbenchmark::microbenchmark(
+  num <- enum(x, y, z),
+  gen <- enum(x = "1", y = "2", z = "3"),
+  num <- new_numeric_enum(list(x = 1, y = 2, z = 3)),
+  gen <- new_generic_enum(list(x = "1", y = "2", z = "3"))
+)
+```
+
+However, this forgoes some of the niceties of the `enum()` helper function, such as NSE or implicit definition.
+
+```{r, error = TRUE}
+# Can only use explicit definitions
+new_numeric_enum(list(a, b, c))
+
+# Can't use NSE
+new_numeric_enum(list(a = 1, b = .$a + 1, c = 4))
+```

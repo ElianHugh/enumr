@@ -19,7 +19,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Elian Thiele-Evans \email{first.last@example.com} (\href{https://orcid.org/YOUR-ORCID-ID}{ORCID})
+\strong{Maintainer}: Elian Thiele-Evans \email{elianhte@gmail.com} (\href{https://orcid.org/0000-0001-8008-3165}{ORCID})
 
 }
 \keyword{internal}

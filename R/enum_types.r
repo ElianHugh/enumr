@@ -75,7 +75,8 @@ Enum <- typed::as_assertion_factory(
     }
 )
 
-#' is enum
+#' Is Enum
+#' Test for objects of class 'enum'
 #' @param x value to check if is enum
 #' @export
 is_enum <- function(x) {
