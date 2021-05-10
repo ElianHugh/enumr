@@ -19,6 +19,8 @@ Enum definition is reasonably fast, so will likely not be a bottleneck for the l
 - Inferred numerics are slower than explicit numerics
 - Generic enums are *typically* faster than numeric enums
 
+Here is a microbenchmark, comparing the various forms of enum. Note that a `create_symbols` function is defined for the generic_symbols parse. Realistically, generic and generic_symbols have comparable speeds.
+
 ```{r, error = TRUE}
 # Create some symbols in the environment
 # for benchmarking
@@ -44,7 +46,8 @@ microbenchmark::microbenchmark(
         create_symbols()
         generic_symbols <- enum(a = a, b = b, c = c, d = d, e = e)
     },
-    generic <- enum(a = "1", b = "2", c = "3", d = "4", e = "5")
+    generic <- enum(a = "1", b = "2", c = "3", d = "4", e = "5"),
+    times = 500
 )
 ```
 
@@ -55,11 +58,12 @@ microbenchmark::microbenchmark(
   num <- enum(x, y, z),
   gen <- enum(x = "1", y = "2", z = "3"),
   num <- new_numeric_enum(list(x = 1, y = 2, z = 3)),
-  gen <- new_generic_enum(list(x = "1", y = "2", z = "3"))
+  gen <- new_generic_enum(list(x = "1", y = "2", z = "3")),
+  times = 500
 )
 ```
 
-However, this forgoes some of the niceties of the `enum()` helper function, such as NSE or implicit definition.
+However, this forgoes some of the niceties of the `enum()` helper function, such as NSE or implicit definition. The speed increase will likely be in the microsecond range.
 
 ```{r, error = TRUE}
 # Can only use explicit definitions

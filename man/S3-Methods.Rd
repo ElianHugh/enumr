@@ -2,6 +2,7 @@
 % Please edit documentation in R/s3.r
 \name{S3-Methods}
 \alias{S3-Methods}
+\alias{str.enum}
 \alias{length.enum}
 \alias{names.enum}
 \alias{as.list.enum}
@@ -9,6 +10,8 @@
 \alias{as.complex.enum}
 \title{General S3 Methods for Enums}
 \usage{
+\method{str}{enum}(object, ...)
+
 \method{length}{enum}(x)
 
 \method{names}{enum}(x)
@@ -20,9 +23,11 @@
 \method{as.complex}{enum}(x, ...)
 }
 \arguments{
-\item{x}{enum}
+\item{object}{enum}
 
 \item{...}{arguments to pass to as.list}
+
+\item{x}{enum}
 }
 \description{
 Various S3 methods that improve interacting with

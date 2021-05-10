@@ -16,13 +16,14 @@ format.enum <- function(x, ...) {
     vals <- lapply(enum_list, condense_object)
     enum_names <- names(vals)
     types <- lapply(enum_list, pillar::type_sum)
-    enum_type <- ifelse(any(class(x) == "numeric_enum"), "numeric", "generic")
+    enum_type <- if (any(class(x) == "numeric_enum")) "numeric" else "generic"
+
     toReturn <- c(
         pillar::style_subtle(
             glue::glue("# A {enum_type} enum: {length(x)} members")
         ),
         glue::glue(
-            "  {pillar::style_subtle(types)} {enum_names} : {vals[enum_names]}"
+            " {pillar::style_subtle(types)} {enum_names} : {vals[enum_names]}"
         )
     )
 }

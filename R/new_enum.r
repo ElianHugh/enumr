@@ -38,7 +38,7 @@ new_numeric_enum <- function(.enum_data) {
     validate_numeric_enum(.enum_data)
 
     enum_env <- rlang::new_environment(data = list(enum = .enum_data))
-    class(enum_env) <- c("numeric_enum", "enum", "environment")
+    class(enum_env) <- c("numeric_enum", "enum")
     lockEnvironment(enum_env, bindings = TRUE)
     enum_env
 }
@@ -72,7 +72,7 @@ new_generic_enum <- function(.enum_data) {
     )
 
     enum_env <- rlang::new_environment(data = list(enum = .enum_data))
-    class(enum_env) <- c("generic_enum", "enum", "environment")
+    class(enum_env) <- c("generic_enum", "enum")
     lockEnvironment(enum_env, bindings = TRUE)
     enum_env
 }
@@ -133,8 +133,10 @@ validate_numeric_enum <- function(.enum_data) {
     coerced_vals <- lapply(
         seq_along(.enum_data),
         function(x) {
-            x <- as.numeric(
-                masked_eval(.enum_data[[x]], .enum_data)
+            suppressWarnings(
+                x <- as.numeric(
+                    masked_eval(.enum_data[[x]], .enum_data)
+                )
             )
             return(x)
         }
@@ -142,7 +144,7 @@ validate_numeric_enum <- function(.enum_data) {
 
     #' @section Validation:
     #' `validate_numeric_enum()` checks that, when evaluated,
-    #' all the enum values are unique.
+    #' all the enum values are unique
     if ((length(coerced_vals) != length(unique.default(coerced_vals)))) {
         rlang::abort(
             c(
@@ -152,6 +154,18 @@ validate_numeric_enum <- function(.enum_data) {
             class = "enumr_numeric_definition_error"
         )
     }
+
+    #' and can be interpreted as numeric
+    if (anyNA(coerced_vals)) {
+        rlang::abort(
+            c(
+                "Incorrect arguments supplied to enum.",
+                "Each argument value must be interpretable as numeric."
+            ),
+            class = "enumr_numeric_definition_error"
+        )
+    }
+
     invisible(.enum_data)
 }
 

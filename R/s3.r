@@ -6,9 +6,37 @@
 #' @details
 #' These are some details
 #' @param x enum
+#' @param object enum
 #' @param ... arguments to pass to as.list
 #' @name S3-Methods
 NULL
+
+#' @export
+#' @rdname S3-Methods
+str.enum <- function(object, ...) {
+    if (!is_enum(object)) {
+        warning("str.enum() called with non-enum.")
+    }
+
+
+    obj_len <- length(as.list.enum(object))
+    cl <- data.class(object)
+    pl <- if (obj_len > 1) "members\n" else "member\n"
+    cat(
+        cl, ":", obj_len, pl
+    )
+
+    object <- as.list.enum(object)
+
+    invisible(
+        NextMethod(
+            "str", ...,
+            no.list = TRUE,
+            nest.lev = 0
+        )
+    )
+}
+
 
 #' @export
 #' @rdname S3-Methods
