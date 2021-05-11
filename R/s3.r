@@ -18,14 +18,12 @@ str.enum <- function(object, ...) {
         warning("str.enum() called with non-enum.")
     }
 
-
     obj_len <- length(as.list.enum(object))
     cl <- data.class(object)
     pl <- if (obj_len > 1) "members\n" else "member\n"
     cat(
         cl, ":", obj_len, pl
     )
-
     object <- as.list.enum(object)
 
     invisible(

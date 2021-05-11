@@ -47,7 +47,7 @@ microbenchmark::microbenchmark(
         generic_symbols <- enum(a = a, b = b, c = c, d = d, e = e)
     },
     generic <- enum(a = "1", b = "2", c = "3", d = "4", e = "5"),
-    times = 500
+    times = 5000
 )
 ```
 
@@ -59,7 +59,7 @@ microbenchmark::microbenchmark(
   gen <- enum(x = "1", y = "2", z = "3"),
   num <- new_numeric_enum(list(x = 1, y = 2, z = 3)),
   gen <- new_generic_enum(list(x = "1", y = "2", z = "3")),
-  times = 500
+  times = 5000
 )
 ```
 
