@@ -3,8 +3,7 @@ reference:
       desc: Functions that create enums
       contents:
         - enum
-        - create_generic_enum
-        - create_numeric_enum
+        - new_numeric_enum
     - title: Validating enums
       desc: Functions that validate the structure of enums
       contents:
@@ -15,12 +14,12 @@ reference:
       desc: Functions that assist in type checking enums
       contents:
         - is_enum
-        - Enum_Assertion
+        - enum_assertion
     - title: S3 methods
       desc: Functions defined for S3 dispatch
       contents:
         - subsetting
-        - Print
+        - print
         - S3-Methods
 
 navbar:
@@ -38,7 +37,7 @@ navbar:
                 - text: Overhead and performance
                   href: articles/articles/performance.html
                 - text: Typed integration
-                - href: articles/articles/enum_assertion.html
+                  href: articles/articles/enum_assertion.html
 
 template:
     params:
