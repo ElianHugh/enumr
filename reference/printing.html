@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • enumr</title>
+<title>Printing enums — printing • enumr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,7 +46,8 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Printing enums — printing" />
+<meta property="og:description" content="Pretty print enums with the print.enum method" />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -66,7 +67,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -140,124 +141,35 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Printing enums</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ElianHugh/enumr/blob/master/R/print.r'><code>R/print.r</code></a></small>
+    <div class="hidden name"><code>printing.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>Pretty print enums with the print.enum method</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='co'># S3 method for enum</span>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-making-enums" class="hasAnchor"><a href="#section-making-enums" class="anchor"></a>Making enums</h2>
-          <p class="section-desc"><p>Functions that create enums</p></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="enum.html">enum()</a></code> </p>
-        </td>
-        <td><p>Enumeration</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="new_enum.html">new_numeric_enum()</a></code> <code><a href="new_enum.html">new_generic_enum()</a></code> </p>
-        </td>
-        <td><p>Enum Constructors</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-validating-enums" class="hasAnchor"><a href="#section-validating-enums" class="anchor"></a>Validating enums</h2>
-          <p class="section-desc"><p>Functions that validate the structure of enums</p></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="validate_enum.html">validate_enum_definition()</a></code> <code><a href="validate_enum.html">validate_numeric_enum()</a></code> <code><a href="validate_enum.html">validate_generic_enum()</a></code> </p>
-        </td>
-        <td><p>Enum Validator</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-type-checking" class="hasAnchor"><a href="#section-type-checking" class="anchor"></a>Type checking</h2>
-          <p class="section-desc"><p>Functions that assist in type checking enums</p></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="is_enum.html">is_enum()</a></code> </p>
-        </td>
-        <td><p>Is Enum
-Test for objects of class 'enum'</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="Enum_Assertion.html">Enum()</a></code> </p>
-        </td>
-        <td><p>Enum assertion</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-s-methods" class="hasAnchor"><a href="#section-s-methods" class="anchor"></a>S3 methods</h2>
-          <p class="section-desc"><p>Functions defined for S3 dispatch</p></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="subsetting.html">`[`(<i>&lt;enum&gt;</i>)</a></code> <code><a href="subsetting.html">`[[`(<i>&lt;enum&gt;</i>)</a></code> <code><a href="subsetting.html">`$`(<i>&lt;enum&gt;</i>)</a></code> <code><a href="subsetting.html">`$&lt;-`(<i>&lt;enum&gt;</i>)</a></code> <code><a href="subsetting.html">`[&lt;-`(<i>&lt;enum&gt;</i>)</a></code> <code><a href="subsetting.html">`[[&lt;-`(<i>&lt;enum&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Subsetting enums</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="printing.html">print(<i>&lt;enum&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Printing enums</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="S3-Methods.html">str(<i>&lt;enum&gt;</i>)</a></code> <code><a href="S3-Methods.html">length(<i>&lt;enum&gt;</i>)</a></code> <code><a href="S3-Methods.html">names(<i>&lt;enum&gt;</i>)</a></code> <code><a href="S3-Methods.html">as.list(<i>&lt;enum&gt;</i>)</a></code> <code><a href="S3-Methods.html">as.character(<i>&lt;enum&gt;</i>)</a></code> <code><a href="S3-Methods.html">as.complex(<i>&lt;enum&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>General S3 Methods for Enums</p></td>
-      </tr>
-    </tbody>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p>enum to print</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>values passed to further methods</p></td>
+    </tr>
     </table>
-  </div>
 
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
