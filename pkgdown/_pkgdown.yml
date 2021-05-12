@@ -1,0 +1,45 @@
+reference:
+    - title: Making enums
+      desc: Functions that create enums
+      contents:
+        - enum
+        - create_generic_enum
+        - create_numeric_enum
+    - title: Validating enums
+      desc: Functions that validate the structure of enums
+      contents:
+        - validate_enum_definition
+        - validate_generic_enum
+        - validate_numeric_enum
+    - title: Type checking
+      desc: Functions that assist in type checking enums
+      contents:
+        - is_enum
+        - Enum_Assertion
+    - title: S3 methods
+      desc: Functions defined for S3 dispatch
+      contents:
+        - subsetting
+        - Print
+        - S3-Methods
+
+navbar:
+    components:
+        articles:
+            text: Articles
+            menu:
+                - text: General topics
+                - text: Defining enums
+                  href: articles/articles/define-enum.html
+                - text: Non-standard evaluation
+                  href: articles/articles/NSE.html
+                - text: ---
+                - text: Advanced topics
+                - text: Overhead and performance
+                  href: articles/articles/performance.html
+                - text: Typed integration
+                - href: articles/articles/enum_assertion.html
+
+template:
+    params:
+        bootswatch: cosmo
