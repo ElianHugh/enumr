@@ -36,5 +36,5 @@ enum(style, warning, error)
 enum(a = 50, b = .$a * 2)
 }
 \seealso{
-\code{\link[base]{list}}, \code{\link[base]{factor}}
+\code{\link[=new_numeric_enum]{new_numeric_enum()}}, \code{\link[=new_generic_enum]{new_generic_enum()}}
 }

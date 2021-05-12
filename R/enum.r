@@ -26,7 +26,7 @@
 #' enum(a = 50, b = .$a * 2)
 #' @export
 #' @seealso
-#' \code{\link[base]{list}}, \code{\link[base]{factor}}
+#' [new_numeric_enum()], [new_generic_enum()]
 enum <- function(...) {
     dots <- rlang::enexprs(...)
     if (is_numeric_enum(dots)) {

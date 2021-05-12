@@ -1,0 +1,76 @@
+---
+title: "Defining an Enumeration"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(enumr, quietly = TRUE)
+```
+
+Enumerations come in two forms: generic and numeric. As you will learn, these enum forms have different rules for validation. Let's start with the simpler of the two - generic enums.
+
+## Generic Enumerations
+
+Generic enums allow *any* value to be defined in them, even including another enum.
+
+```{r generics, error = TRUE}
+enum(
+  a = "string",
+  b = 5
+)
+```
+
+In this way, generic enums are similar to named lists, and hold many of the same properties as lists.
+
+```{r listExample, error = TRUE}
+my_list <- list(a = "string", b = 5)
+my_enum <- enum(a = "string", b = 5)
+
+length(my_list) == length(my_enum)
+names(my_list) == names(my_enum)
+my_list$a == my_enum$a
+```
+
+Where generic enums and named lists differ is in their validation. Unlike named lists, each value and name in a generic enum must be unique.
+
+```{r, error = TRUE}
+enum(a = "str", b = "str")
+
+enum(a = "str", a = "ing")
+```
+
+Moreover, generic enums *must* be defined with name/value pairs. An unpaired name or value will result in an error.
+
+```{r, error = TRUE}
+enum(a, b = "str")
+
+enum("str")
+```
+
+## Numeric Enumerations
+
+In contrast to generic enums, numeric enums allow for unpaired names to be supplied in the constructor. Names without values are supplied values by the constructor. These values are either the index of the name, or the value of the last name minus one. This is known as 'implicit definition'.
+
+```{r, error = TRUE}
+enum(a, b, c)
+```
+
+However, numeric enums require that all values supplied be numeric. If a value is supplied that is not numeric, then the enum is considered generic and must abide by generic enum rules.
+
+```{r, error = TRUE}
+enum(a, b, c = "str")
+```
+
+Numeric enums are 'smart' in that they understand how calculations work. If a calculation is supplied to a numeric enum, it will evaluate it to ensure that the result is numeric.
+
+```{r, error = TRUE}
+enum(a, b = 10 * 2, c)
+```
+
+See the Non-Standard Evaluation article for a deeper look into what you can do with numeric enums.

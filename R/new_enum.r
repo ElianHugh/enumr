@@ -99,20 +99,7 @@ validate_enum_definition <- function(.enum_data) {
     }
 
     #' and ensures that all values supplied have names.
-    if (any(
-        mapply(
-            function(x, y) {
-                only_values_supplied(
-                    dat = x,
-                    index = y,
-                    obj = .enum_data
-                )
-            },
-            x = .enum_data,
-            y = seq_along(.enum_data),
-            USE.NAMES = FALSE
-        )
-    )) {
+    if (any(only_values_supplied(.enum_data))) {
         rlang::abort(
             c(
                 "Incorrect arguments supplied to enum.",
@@ -144,7 +131,7 @@ validate_numeric_enum <- function(.enum_data) {
 
     #' @section Validation:
     #' `validate_numeric_enum()` checks that, when evaluated,
-    #' all the enum values are unique
+    #' all the enum values are unique,
     if ((length(coerced_vals) != length(unique.default(coerced_vals)))) {
         rlang::abort(
             c(
@@ -155,12 +142,23 @@ validate_numeric_enum <- function(.enum_data) {
         )
     }
 
-    #' and can be interpreted as numeric
+    #' can be interpreted as numeric,
     if (anyNA(coerced_vals)) {
         rlang::abort(
             c(
                 "Incorrect arguments supplied to enum.",
                 "Each argument value must be interpretable as numeric."
+            ),
+            class = "enumr_numeric_definition_error"
+        )
+    }
+
+    #' and there are no duplicate names
+    if (length(.enum_data) != length(unique.default(names(.enum_data)))) {
+        rlang::abort(
+            c(
+                "Incorrect arguments supplied to enum.",
+                "Each argument name must be unique."
             ),
             class = "enumr_numeric_definition_error"
         )
@@ -188,6 +186,17 @@ validate_generic_enum <- function(.enum_data) {
             class = "enumr_generic_definition_error"
         )
     }
+
+    if (length(unique.default(names(.enum_data))) != length(.enum_data)) {
+        rlang::abort(
+            c(
+                "Incorrect arguments supplied.",
+                "Each argument name must be unique."
+            ),
+            class = "enumr_generic_definition_error"
+        )
+    }
+
     invisible(.enum_data)
 }
 
@@ -206,8 +215,16 @@ is_numeric_enum <- function(.enum_data) {
     return(is.null(supplied_names) || checked_vals)
 }
 
-# ensures that enums cannot be constructed
-# without names
-only_values_supplied <- function(dat, index, obj) {
-    return(is.atomic(dat) && any(rlang::names2(obj[index]) == ""))
+#' Check that the enum has atomic members without names
+#' Returns TRUE if this is the case, which will cause
+#' enumr to shoot an error
+#' @param obj an enum to check
+only_values_supplied <- function(obj) {
+    for (i in seq_along(obj)) {
+        if (is.atomic(obj[[i]]) && any(rlang::names2(obj[i]) == "")) {
+            return(TRUE)
+        } else {
+            next
+        }
+    }
 }

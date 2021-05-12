@@ -3,7 +3,7 @@
 <!-- badges: start -->
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental) [![R-CMD-check](https://github.com/ElianHugh/enumr/workflows/R-CMD-check/badge.svg)](https://github.com/ElianHugh/enumr/actions)
-[![Codecov test coverage](https://codecov.io/gh/ElianHugh/enumr/branch/main/graph/badge.svg)](https://codecov.io/gh/ElianHugh/enumr?branch=main)
+[![codecov](https://codecov.io/gh/ElianHugh/enumr/branch/main/graph/badge.svg?token=FWRJW5SV3X)](https://codecov.io/gh/ElianHugh/enumr)
 <!-- badges: end -->
 
 ## Overview

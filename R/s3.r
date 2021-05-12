@@ -57,7 +57,7 @@ as.list.enum <- function(x, ...) {
 #' @export
 #' @rdname S3-Methods
 as.character.enum <- function(x, ...) {
-    as.character(as.list.enum(x, ...))
+    as.character.default(as.list.enum(x, ...))
 }
 
 #' @export

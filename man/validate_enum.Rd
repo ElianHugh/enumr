@@ -33,8 +33,9 @@ and ensures that all values supplied have names.
 
 
 \code{validate_numeric_enum()} checks that, when evaluated,
-all the enum values are unique
-and can be interpreted as numeric
+all the enum values are unique,
+can be interpreted as numeric,
+and there are no duplicate names
 
 
 \code{validate_generic_enum()} check that all
