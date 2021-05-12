@@ -72,9 +72,8 @@
     <li>
       <a href="../../articles/articles/performance.html">Overhead and performance</a>
     </li>
-    <li class="dropdown-header">Typed integration</li>
     <li>
-      <a href="../../articles/articles/enum_assertion.html"></a>
+      <a href="../../articles/articles/enum_assertion.html">Typed integration</a>
     </li>
   </ul>
 </li>
@@ -156,12 +155,12 @@
 <span class="co">#&gt;                                   explicit_numeric &lt;- enum(a = 1, b = 2, c = 3, d = 4, e = 5)</span>
 <span class="co">#&gt;       {     create_symbols()     generic_symbols &lt;- enum(a = a, b = b, c = c, d = d, e = e) }</span>
 <span class="co">#&gt;                                  generic &lt;- enum(a = "1", b = "2", c = "3", d = "4", e = "5")</span>
-<span class="co">#&gt;       min        lq      mean   median        uq       max neval</span>
-<span class="co">#&gt;  1509.728 1580.8395 1691.0286 1604.306 1631.9830 42918.314  5000</span>
-<span class="co">#&gt;  1067.778 1117.4515 1211.4817 1135.076 1155.9685 46194.744  5000</span>
-<span class="co">#&gt;  1080.102 1135.7285 1211.4881 1153.345 1173.5115 11849.389  5000</span>
-<span class="co">#&gt;   709.685  745.3150  797.0247  758.757  777.7925 23346.277  5000</span>
-<span class="co">#&gt;   617.383  649.7335  693.1563  659.658  671.7240  5968.386  5000</span></code></pre></div>
+<span class="co">#&gt;       min        lq      mean   median        uq      max neval</span>
+<span class="co">#&gt;  1514.917 1610.0945 1756.3225 1639.425 1701.1285 49037.62  5000</span>
+<span class="co">#&gt;  1064.557 1135.8350 1239.8681 1157.200 1200.2935 18905.91  5000</span>
+<span class="co">#&gt;  1085.250 1153.2870 1281.8248 1175.356 1217.2405 41648.05  5000</span>
+<span class="co">#&gt;   710.467  762.5740  845.5583  781.053  809.7255 41340.07  5000</span>
+<span class="co">#&gt;   623.109  660.9255  739.9344  675.245  698.7630 40656.30  5000</span></code></pre></div>
 <p>To speed up performance further, you can also access the enum constructor methods directly: <code><a href="../../reference/new_numeric_enum.html">new_generic_enum()</a></code> and <code><a href="../../reference/new_numeric_enum.html">new_numeric_enum()</a></code>. You’ll see these are reasonably faster than the <code><a href="../../reference/enum.html">enum()</a></code> function. This is because <code><a href="../../reference/enum.html">enum()</a></code> has to check whether the enum is numeric or generic by evaluating each argument supplied to it.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">microbenchmark</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span>
@@ -173,15 +172,15 @@
 <span class="op">)</span>
 <span class="co">#&gt; Unit: microseconds</span>
 <span class="co">#&gt;                                                      expr     min       lq</span>
-<span class="co">#&gt;                                      num &lt;- enum(x, y, z) 887.538 936.0330</span>
-<span class="co">#&gt;                    gen &lt;- enum(x = "1", y = "2", z = "3") 418.746 444.0930</span>
-<span class="co">#&gt;        num &lt;- new_numeric_enum(list(x = 1, y = 2, z = 3)) 371.834 391.4135</span>
-<span class="co">#&gt;  gen &lt;- new_generic_enum(list(x = "1", y = "2", z = "3"))  86.936  93.4195</span>
-<span class="co">#&gt;       mean   median        uq       max neval</span>
-<span class="co">#&gt;  1062.1780 962.3960 1054.4780  7051.601  5000</span>
-<span class="co">#&gt;   524.5544 456.2775  496.4500 45345.172  5000</span>
-<span class="co">#&gt;   443.3827 400.4030  430.4975  3163.637  5000</span>
-<span class="co">#&gt;   109.0584  95.8435  100.7745  2374.892  5000</span></code></pre></div>
+<span class="co">#&gt;                                      num &lt;- enum(x, y, z) 887.557 944.8310</span>
+<span class="co">#&gt;                    gen &lt;- enum(x = "1", y = "2", z = "3") 424.908 448.9530</span>
+<span class="co">#&gt;        num &lt;- new_numeric_enum(list(x = 1, y = 2, z = 3)) 369.634 394.6535</span>
+<span class="co">#&gt;  gen &lt;- new_generic_enum(list(x = "1", y = "2", z = "3"))  88.645  94.8605</span>
+<span class="co">#&gt;       mean   median       uq       max neval</span>
+<span class="co">#&gt;  1011.9127 962.5145 993.4415  8094.386  5000</span>
+<span class="co">#&gt;   491.9374 457.4530 475.1095 44168.043  5000</span>
+<span class="co">#&gt;   424.8796 401.5540 416.2300  6681.650  5000</span>
+<span class="co">#&gt;   104.3847  97.1120 100.2530  2257.043  5000</span></code></pre></div>
 <p>However, this forgoes some of the niceties of the <code><a href="../../reference/enum.html">enum()</a></code> helper function, such as NSE or implicit definition. The speed increase will likely be in the microsecond range.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Can only use explicit definitions</span>
