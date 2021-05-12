@@ -1,16 +1,20 @@
-#' Print object
-#' @param x an object to print
-#' @param ... further arguments passed to as.list
+#' Printing enums
+#' @description
+#' Pretty print enums with the print.enum method
+#' @param x enum to print
+#' @param ... values passed to further methods
+#' @name printing
+NULL
+
 #' @export
-#' @describeIn Print Object
+#' @rdname printing
 print.enum <- function(x, ...) {
     cat(format.enum(x, ...), sep = "\n")
     invisible(x)
 }
 
-#' Format string
 #' @export
-#' @describeIn Print Object
+#' @describeIn printing
 format.enum <- function(x, ...) {
     enum_list <- as.list.enum(x, ...)
     vals <- lapply(enum_list, condense_object)
