@@ -3,9 +3,12 @@
 \name{printing}
 \alias{printing}
 \alias{print.enum}
+\alias{format.enum}
 \title{Printing enums}
 \usage{
 \method{print}{enum}(x, ...)
+
+\method{format}{enum}(x, ...)
 }
 \arguments{
 \item{x}{enum to print}

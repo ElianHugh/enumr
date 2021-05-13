@@ -4,13 +4,9 @@
 \alias{Enum}
 \title{Enum assertion}
 \usage{
-Enum(supplied_enum = NULL, null_ok = FALSE, ...)
+Enum(...)
 }
 \arguments{
-\item{supplied_enum}{an enum to compare values against}
-
-\item{null_ok}{whether null values are accepted}
-
 \item{...}{a value to check type assertions with}
 }
 \value{

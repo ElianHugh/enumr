@@ -9,6 +9,7 @@ test_that('enum construction functions properly', {
     expect_error((enum(a = 5, b = mtcars, c = 3)), NA)
     expect_error((enum(a = "a", b = "b", c = "c")), NA)
     expect_error((enum(a = mtcars, b = airquality, c = PlantGrowth)), NA)
+    expect_error((enum(a = environment())), NA)
 })
 
 test_that('invalid enums are disposed of', {

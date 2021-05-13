@@ -29,7 +29,7 @@
 #' [new_numeric_enum()], [new_generic_enum()]
 enum <- function(...) {
     dots <- rlang::enexprs(...)
-    if (is_numeric_enum(dots)) {
+    if (.is_numeric_enum(dots)) {
         new_numeric_enum(dots)
     } else {
         new_generic_enum(dots)

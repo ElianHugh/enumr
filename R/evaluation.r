@@ -1,4 +1,4 @@
-check_eval <- function(index, obj) {
+.check_eval <- function(index, obj) {
     # if the obj is a symbol,
     # we have to *indirectly* check if
     # it has an accessible value.
@@ -10,13 +10,18 @@ check_eval <- function(index, obj) {
     # Ideally, we only want to allow
     # symbols that result in a number value
     obj_val <- obj[[index]]
+
     if (is.symbol(obj_val)) {
         sym_name <- rlang::names2(obj[index])
         return(any(sym_name == ""))
     }
 
     if (is.language(obj_val)) {
-        return(TRUE)
+        if (is.environment(masked_eval(obj_val, obj_val))) {
+            return(FALSE)
+        } else {
+            return(TRUE)
+        }
     }
 
     # at this point, the object

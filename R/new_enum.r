@@ -12,7 +12,7 @@ new_numeric_enum <- function(.enum_data) {
     supply_names_and_values <- function(dat, index, obj) {
         if (is.symbol(dat) && rlang::names2(obj[index]) == "") {
             dat_name <- rlang::as_name(dat)
-            if (index > 1L && check_eval(index - 1L, .enum_data) == TRUE) {
+            if (index > 1L && .check_eval(index - 1L, .enum_data) == TRUE) {
                 value <- masked_eval(.enum_data[[index - 1L]], .enum_data) + 1L
             } else {
                 value <- index
@@ -99,7 +99,7 @@ validate_enum_definition <- function(.enum_data) {
     }
 
     #' and ensures that all values supplied have names.
-    if (any(only_values_supplied(.enum_data))) {
+    if (any(.only_values_supplied(.enum_data))) {
         rlang::abort(
             c(
                 "Incorrect arguments supplied to enum.",
@@ -200,11 +200,11 @@ validate_generic_enum <- function(.enum_data) {
     invisible(.enum_data)
 }
 
-is_numeric_enum <- function(.enum_data) {
+.is_numeric_enum <- function(.enum_data) {
     supplied_names <- names(.enum_data)
     checked_vals <- all(
         unlist(
-            lapply(seq_along(.enum_data), check_eval, .enum_data),
+            lapply(seq_along(.enum_data), .check_eval, .enum_data),
             use.names = FALSE
         )
     )
@@ -219,7 +219,8 @@ is_numeric_enum <- function(.enum_data) {
 #' Returns TRUE if this is the case, which will cause
 #' enumr to shoot an error
 #' @param obj an enum to check
-only_values_supplied <- function(obj) {
+#' @keywords internal
+.only_values_supplied <- function(obj) {
     for (i in seq_along(obj)) {
         if (is.atomic(obj[[i]]) && any(rlang::names2(obj[i]) == "")) {
             return(TRUE)

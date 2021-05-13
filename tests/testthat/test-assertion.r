@@ -1,14 +1,12 @@
 library(typed, warn.conflicts = FALSE)
 test_that("Enum(x) assertion as function arg", {
-    a <- enum(a = "str", b = 2)
-    test_assertion <- ? function(x = ? Enum(a)) {}
+    test_assertion <- ? function(x = ? Enum(enum(a = "str", b = 2))) {}
     expect_error(test_assertion(5))
     expect_error(test_assertion("st"))
     expect_error(test_assertion(mtcars))
 
     # Allow!
     expect_error(test_assertion(2), NA)
-    expect_error(test_assertion(a$a), NA)
     expect_error(test_assertion("str"), NA)
 })
 
