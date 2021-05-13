@@ -60,8 +60,3 @@ as.character.enum <- function(x, ...) {
     as.character.default(as.list.enum(x, ...))
 }
 
-#' @export
-#' @rdname S3-Methods
-as.complex.enum <- function(x, ...) {
-    as.complex(as.list.enum(x, ...))
-}

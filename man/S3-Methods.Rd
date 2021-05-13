@@ -7,7 +7,6 @@
 \alias{names.enum}
 \alias{as.list.enum}
 \alias{as.character.enum}
-\alias{as.complex.enum}
 \title{General S3 Methods for Enums}
 \usage{
 \method{str}{enum}(object, ...)
@@ -19,8 +18,6 @@
 \method{as.list}{enum}(x, ...)
 
 \method{as.character}{enum}(x, ...)
-
-\method{as.complex}{enum}(x, ...)
 }
 \arguments{
 \item{object}{enum}

@@ -81,6 +81,7 @@ class_abbr <- function(x) {
             "array" = "arr",
             "formula" = "form",
             "factor" = "fct",
+            "function" = "fn",
             # Common pkg types
             "tbl_df" = "tibble",
             "data.table" = "dt",

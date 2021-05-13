@@ -3,6 +3,7 @@ reference:
       desc: Functions that create enums
       contents:
         - enum
+        - as_enum
         - new_numeric_enum
     - title: Validating enums
       desc: Functions that validate the structure of enums

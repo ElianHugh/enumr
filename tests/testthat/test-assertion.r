@@ -1,4 +1,10 @@
 library(typed, warn.conflicts = FALSE)
+
+test_that("class check is functional", {
+    expect_true(is_enum(new_numeric_enum(list(a = 1, b = 2, c = 3))))
+    expect_true(is_enum(new_generic_enum(list(a = 1, b = 2, c = 3))))
+})
+
 test_that("Enum(x) assertion as function arg", {
     test_assertion <- ? function(x = ? Enum(enum(a = "str", b = 2))) {}
     expect_error(test_assertion(5))
