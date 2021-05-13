@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>General S3 Methods for Enums — S3-Methods • enumr</title>
+<title>Coerce lists, environments, and factors to enumerations — as_enum • enumr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,18 @@
 
 
 
-<meta property="og:title" content="General S3 Methods for Enums — S3-Methods" />
-<meta property="og:description" content="Various S3 methods that improve interacting with
-enum data types" />
+<meta property="og:title" content="Coerce lists, environments, and factors to enumerations — as_enum" />
+<meta property="og:description" content="as_enum() turns an existing object into an enumeration.
+An enumeration holds unique key/value pairs that cannot be re-defined.
+As an S3 generic, as_enum() holds methods for:
+list: wrapper function that passes the list to
+new_generic_enum()
+'environment': coerces an environment to a list,
+and supplies the list of objects to new_generic_enum()
+'factor': constructs a list of name/value pairs
+from a factor, supplies the list to new_numeric_enum()
+
+" />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -144,52 +153,73 @@ enum data types" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>General S3 Methods for Enums</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ElianHugh/enumr/blob/master/R/s3.r'><code>R/s3.r</code></a></small>
-    <div class="hidden name"><code>S3-Methods.Rd</code></div>
+    <h1>Coerce lists, environments, and factors to enumerations</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ElianHugh/enumr/blob/master/R/as_enum.r'><code>R/as_enum.r</code></a></small>
+    <div class="hidden name"><code>as_enum.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Various S3 methods that improve interacting with
-enum data types</p>
+    <p><code>as_enum()</code> turns an existing object into an enumeration.
+An enumeration holds unique key/value pairs that cannot be re-defined.</p>
+<p>As an S3 generic, <code>as_enum()</code> holds methods for:</p><ul>
+<li><p><code><a href='https://rdrr.io/r/base/list.html'>list</a></code>: wrapper function that passes the list to
+<code><a href='new_numeric_enum.html'>new_generic_enum()</a></code></p></li>
+<li><p><a href='https://rdrr.io/r/base/environment.html'>'environment'</a>: coerces an environment to a list,
+and supplies the list of objects to <code><a href='new_numeric_enum.html'>new_generic_enum()</a></code></p></li>
+<li><p><a href='https://rdrr.io/r/base/factor.html'>'factor'</a>: constructs a list of name/value pairs
+from a factor, supplies the list to <code><a href='new_numeric_enum.html'>new_numeric_enum()</a></code></p></li>
+</ul>
+
     </div>
 
-    <pre class="usage"><span class='co'># S3 method for enum</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>as_enum</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='co'># S3 method for enum</span>
-<span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+<span class='co'># S3 method for list</span>
+<span class='fu'>as_enum</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='co'># S3 method for enum</span>
-<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+<span class='co'># S3 method for environment</span>
+<span class='fu'>as_enum</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span>, .all_names <span class='op'>=</span> <span class='cn'>FALSE</span>, .sorted <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
-<span class='co'># S3 method for enum</span>
-<span class='fu'><a href='https://rdrr.io/r/base/list.html'>as.list</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='co'># S3 method for factor</span>
+<span class='fu'>as_enum</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span>, .sorted <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
-<span class='co'># S3 method for enum</span>
-<span class='fu'><a href='https://rdrr.io/r/base/character.html'>as.character</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+<span class='co'># S3 method for `NULL`</span>
+<span class='fu'>as_enum</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>object</th>
-      <td><p>enum</p></td>
+      <th>x</th>
+      <td><p>the object to coerce to enum</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>arguments to pass to as.list</p></td>
+      <td><p>parameters to pass to further methods</p></td>
     </tr>
     <tr>
-      <th>x</th>
-      <td><p>enum</p></td>
+      <th>.all_names</th>
+      <td><p>whether to include variables with a dot <code>.</code></p></td>
+    </tr>
+    <tr>
+      <th>.sorted</th>
+      <td><p>whether the object elements should be sorted</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>These are some details</p>
+    <div class='dont-index'><p><code><a href='enum.html'>enum()</a></code> create an enum from supplied arguments.
+<code><a href='new_numeric_enum.html'>new_generic_enum()</a></code> and <code><a href='new_numeric_enum.html'>new_numeric_enum()</a></code> create enums from
+a list of arguments.</p></div>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'>as_enum</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fl'>5</span>, y <span class='op'>=</span> <span class='st'>"str"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A generic enum: 2 members</span><span>
+#&gt;  </span><span style='color: #949494;'>num</span><span> x : 5
+#&gt;  </span><span style='color: #949494;'>chr</span><span> y : str</div><div class='input'><span class='fu'>as_enum</span><span class='op'>(</span><span class='va'>.GlobalEnv</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A generic enum: 0 members</span><span></div><div class='input'><span class='fu'>as_enum</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A numeric enum: 0 members</span><span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
