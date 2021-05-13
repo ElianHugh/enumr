@@ -125,7 +125,7 @@
 <span class="op">)</span>
 <span class="co">#&gt; # A generic enum: 2 members</span>
 <span class="co">#&gt;  chr a : string</span>
-<span class="co">#&gt;  dbl b : 5</span></code></pre></div>
+<span class="co">#&gt;  num b : 5</span></code></pre></div>
 <p>In this way, generic enums are similar to named lists, and hold many of the same properties as lists.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">my_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>a <span class="op">=</span> <span class="st">"string"</span>, b <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>
@@ -163,9 +163,9 @@
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/enum.html">enum</a></span><span class="op">(</span><span class="va">a</span>, <span class="va">b</span>, <span class="va">c</span><span class="op">)</span>
 <span class="co">#&gt; # A numeric enum: 3 members</span>
-<span class="co">#&gt;  int a : 1</span>
-<span class="co">#&gt;  int b : 2</span>
-<span class="co">#&gt;  int c : 3</span></code></pre></div>
+<span class="co">#&gt;  num a : 1</span>
+<span class="co">#&gt;  num b : 2</span>
+<span class="co">#&gt;  num c : 3</span></code></pre></div>
 <p>However, numeric enums require that all values supplied be numeric. If a value is supplied that is not numeric, then the enum is considered generic and must abide by generic enum rules.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/enum.html">enum</a></span><span class="op">(</span><span class="va">a</span>, <span class="va">b</span>, c <span class="op">=</span> <span class="st">"str"</span><span class="op">)</span>
@@ -175,9 +175,9 @@
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/enum.html">enum</a></span><span class="op">(</span><span class="va">a</span>, b <span class="op">=</span> <span class="fl">10</span> <span class="op">*</span> <span class="fl">2</span>, <span class="va">c</span><span class="op">)</span>
 <span class="co">#&gt; # A numeric enum: 3 members</span>
-<span class="co">#&gt;  int a : 1</span>
-<span class="co">#&gt;  dbl b : 20</span>
-<span class="co">#&gt;  dbl c : 21</span></code></pre></div>
+<span class="co">#&gt;  num a : 1</span>
+<span class="co">#&gt;  num b : 20</span>
+<span class="co">#&gt;  num c : 21</span></code></pre></div>
 <p>See the Non-Standard Evaluation article for a deeper look into what you can do with numeric enums.</p>
 </div>
   </div>
