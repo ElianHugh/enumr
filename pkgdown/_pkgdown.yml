@@ -1,10 +1,13 @@
+home:
+  title: Enumerations for R
+
 reference:
     - title: Making enums
       desc: Functions that create enums
       contents:
         - enum
         - as_enum
-        - new_numeric_enum
+        - new_enum
     - title: Validating enums
       desc: Functions that validate the structure of enums
       contents:

@@ -35,6 +35,7 @@ str.enum <- function(object, ...) {
     )
 }
 
+# Standard list() methods ---------------------------------------
 
 #' @export
 #' @rdname S3-Methods

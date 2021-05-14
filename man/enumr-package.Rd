@@ -7,8 +7,17 @@
 \title{enumr: Enumerations for R}
 \description{
 Enums are lists that have unique key/pair values (called 'members'),
-and cannot be modified after their definition. \code{\link[=enum]{enum()}} (object definition)
-and \link[=enum]{Enum()} (type assertion) are the main methods contributed by enumr.
+and cannot be modified after their definition. The main methods exported
+are:
+}
+\details{
+\itemize{
+\item \code{\link[=enum]{enum()}} (object definition)
+\item \code{\link[=as_enum]{as_enum()}} (object coercion)
+\item \code{\link[=new_generic_enum]{new_generic_enum()}} (constructor)
+\item \code{\link[=new_numeric_enum]{new_numeric_enum()}} (constructor)
+\item \link[=enum]{Enum()} (type assertion)
+}
 }
 \seealso{
 Useful links:

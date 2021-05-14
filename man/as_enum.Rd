@@ -5,7 +5,9 @@
 \alias{as_enum.list}
 \alias{as_enum.environment}
 \alias{as_enum.factor}
+\alias{as_enum.data.frame}
 \alias{as_enum.NULL}
+\alias{as_enum.default}
 \title{Coerce lists, environments, and factors to enumerations}
 \usage{
 as_enum(x, ...)
@@ -16,7 +18,11 @@ as_enum(x, ...)
 
 \method{as_enum}{factor}(x, ..., .sorted = TRUE)
 
+\method{as_enum}{data.frame}(x, ...)
+
 \method{as_enum}{`NULL`}(x, ...)
+
+\method{as_enum}{default}(x, ...)
 }
 \arguments{
 \item{x}{the object to coerce to enum}
@@ -35,16 +41,21 @@ As an S3 generic, \code{as_enum()} holds methods for:
 \itemize{
 \item \code{\link[base:list]{list}}: wrapper function that passes the list to
 \code{\link[=new_generic_enum]{new_generic_enum()}}
-\item \link[base:environment]{'environment'}: coerces an environment to a list,
+\item \code{\link[base:data.frame]{data.frame}}: coerces a data.frame to a list (
+dropping row names in the process), and supplies the list of objects
+to \code{\link[=new_generic_enum]{new_generic_enum()}}
+\item \code{\link[base:environment]{environment}}: coerces an environment to a list,
 and supplies the list of objects to \code{\link[=new_generic_enum]{new_generic_enum()}}
-\item \link[base:factor]{'factor'}: constructs a list of name/value pairs
-from a factor, supplies the list to \code{\link[=new_numeric_enum]{new_numeric_enum()}}
+\item \code{\link[base:factor]{factor}}: constructs a list of name/value pairs
+from a factor, supplies the list to \code{\link[=new_numeric_enum]{new_numeric_enum()}}.
 }
 }
 \examples{
 as_enum(list(x = 5, y = "str"))
-as_enum(.GlobalEnv)
-as_enum()
+
+as_enum(rlang::env(a = 1, b = "str"))
+
+as_enum(factor(c("January", "February", "December"), levels = month.name))
 }
 \seealso{
 \code{\link[=enum]{enum()}} create an enum from supplied arguments.

@@ -2,7 +2,7 @@
 % Please edit documentation in R/enum_types.r
 \name{Enum}
 \alias{Enum}
-\title{Enum assertion}
+\title{Enum assertion type checking}
 \usage{
 Enum(...)
 }
@@ -19,17 +19,16 @@ Assertion for controlling input and return types.
 # If you leverage the {typed} package, you can make use
 # of the `Enum()` assertion for type checking:
 
-library(typed)
-my_enum <- enum(a, b, c)
+library(typed, quietly = TRUE, warn.conflicts = FALSE)
 
 # Variable 'x' must correspond to an enum
-Enum() ? x <- my_enum
+Enum() ? x <- enum(a, b, c)
 
 # Variable 'x' must correspond to a variable in an enum
-Enum(my_enum) ? x <- 2
+Enum(enum(a, b, c)) ? x <- 2
 
 # Argument 'x' must correspond to a variable in an enum
-my_function <- ? function(x = ? Enum(my_enum)) {
+my_function <- ? function(x = ? Enum(enum(a, b, c))) {
     print("success!")
 }
 

@@ -1,13 +1,21 @@
-#' Enum Constructors
+#' Enum constructors
+#'
 #' @description
-#' `new_numeric_enum()` creates and validates a
+#' * `new_numeric_enum()` creates and validates a
 #' numeric enum from a named list of arguments
+#' * `new_generic_enum()` creates and validates a
+#' generic enum from a named list of arguments
 #' @param .enum_data named list of arguments
-#' @rdname new_enum
-#' @seealso [enum()]
-#' @export
+#' @seealso [enum()], [as_enum()]
 #' @examples
-#' new_numeric_enum(list(x = 5))
+#' new_numeric_enum(list(x = 5, y = 2))
+#'
+#' new_generic_enum(list(x = mtcars, y = "string"))
+#' @name new_enum
+NULL
+
+#' @export
+#' @rdname new_enum
 new_numeric_enum <- function(.enum_data) {
     supply_names_and_values <- function(dat, index, obj) {
         if (is.symbol(dat) && rlang::names2(obj[index]) == "") {
@@ -43,15 +51,8 @@ new_numeric_enum <- function(.enum_data) {
     enum_env
 }
 
-#' Enum Constructors
-#' @description
-#' `new_generic_enum()` creates and validates a
-#' generic enum from a named list of arguments
-#' @param .enum_data named list of arguments
-#' @rdname new_enum
 #' @export
-#' @examples
-#' new_generic_enum(list(x = "str", y = mtcars))
+#' @rdname new_enum
 new_generic_enum <- function(.enum_data) {
     validate_enum_definition(.enum_data)
     validate_generic_enum(.enum_data)

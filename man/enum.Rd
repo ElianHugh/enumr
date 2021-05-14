@@ -2,7 +2,7 @@
 % Please edit documentation in R/enum.r
 \name{enum}
 \alias{enum}
-\title{Enumeration}
+\title{Create a new enumeration}
 \usage{
 enum(...)
 }
@@ -10,17 +10,21 @@ enum(...)
 \item{...}{list of enumeration arguments}
 }
 \value{
-enum
+An enumeration (enum), a list of unique name/value pairs.
 }
 \description{
-Define an enumeration to access values from. Values cannot be reassigned.
-Values can be anything (within reason).
+\code{enum()} creates a new enumeration, and infers the the enumeration type
+based on the arguments supplied to it. Enumerations are similar to lists,
+but:
+* cannot be assigned to after definition
+* all values and names must be unique
+
+There are two types of enumeration: generic and numeric. The main difference
+between the two is that generic enumerations must have all their values
+explicitly defined. Numeric enums, by contrast, infer the values of
+their members.
 }
 \details{
-Enums defined without initialisers are considered numeric enums, and have
-their values set to incrementing numbers. Numeric enums can also be a mix of
-defined numeric values and undefined members.
-
 Under the surface, enums are actually lists contained within
 locked environments.This is so that the enum bindings cannot be modified,
 and the enum order is maintained. S3 methods are defined for
@@ -36,5 +40,5 @@ enum(style, warning, error)
 enum(a = 50, b = .$a * 2)
 }
 \seealso{
-\code{\link[=new_numeric_enum]{new_numeric_enum()}}, \code{\link[=new_generic_enum]{new_generic_enum()}}
+\code{\link[=new_numeric_enum]{new_numeric_enum()}}, \code{\link[=new_generic_enum]{new_generic_enum()}}, \code{\link[=as_enum]{as_enum()}}
 }

@@ -1,4 +1,4 @@
-# (WIP) Enumr <img src='man/figures/logo.png' align="right" height="120" />
+# Enumr (WIP) <img src='man/figures/logo.png' align="right" height="120" />
 
 <!-- badges: start -->
 [![Lifecycle:
@@ -18,6 +18,7 @@ Why use enums? Some examples:
 
 ## Installation
 
+
 ```r
 if (!requireNamespace('pak')) {
     install.packages('pak', repos = 'https://r-lib.github.io/p/pak/dev/')
@@ -25,9 +26,18 @@ if (!requireNamespace('pak')) {
 pak::pkg_install('ElianHugh/enumr')
 ```
 
+Or:
+
+```r
+if (!requireNamespace('devtools')) {
+    install.packages('devtools')
+}
+devtools::install_github('ElianHugh/enumr)
+```
+
 ## Usage
 
-Enumr implements two classes of enum: numeric and generic. Both are created with the `enum()` function, and are defined by the arguments supplied to `enum()`; if all arguments evaluate as numeric, the enum is numeric, otherwise it is generic.
+Enumr implements two classes of enum: numeric and generic. Both are created with the `enum()` function, {enumr} handles the identification. You don't need to worry about how they work in implementation, just know that there are rules for what constitutes a numeric vs. generic enum.
 
 Numeric enums only permit numeric values in their name/value pairs. Numeric values include formulas/equations that evaluate to a numeric value. Numeric enum members do *not* need to have values explicitly defined. Instead, each member's value is either the index of the member, or the value of the previous member plus 1 - this is called 'implicit definition'.
 

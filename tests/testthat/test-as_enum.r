@@ -24,4 +24,10 @@ test_that("coercion to enums is functional", {
         as.list(enum(blue = 1, green = 2, red = 3))
     )
 
+    # Data.frame coercion
+    expect_identical(
+        as_enum(mtcars)$cyl,
+        mtcars$cyl
+    )
+
 })

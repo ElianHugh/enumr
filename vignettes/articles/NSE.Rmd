@@ -32,7 +32,7 @@ enum(
 
 ```
 
-It should be noted, however, there are limitations to defining members with `.$`. Firstly, enum member validation is performed *sequentially*. That is, each non-explicit member is initialised in order of their definition. As a result, computed members cannot refer to later non-explicit members. For instance:
+It should be noted, however, there are limitations to defining members with `.$`. Firstly, enum member validation is performed *sequentially*. That is, each non-explicit member is initialised in order of their definition. As a result, computed members cannot refer to later *non-explicit* members. For instance:
 
 ```{r, error = TRUE}
 # Invalid definition!
@@ -48,9 +48,15 @@ enum(
     b = .$c + 1,
     c = 50
 )
+
+enum(
+    a = .$c + 1,
+    b = .$a + 1,
+    c = 5
+)
 ```
 
-Moreover, due to sequential initialisation, enum members do not support cyclical evaluation. In essence, the chain of computed members *must* end with a computable value:
+Moreover, due to sequential initialisation, enum members do not support cyclical evaluation.
 
 ```{r, error = TRUE}
 # Invalid
@@ -58,13 +64,6 @@ enum(
     a = .$b + 1,
     b = .$c + 1,
     c = .$a + 1
-)
-
-# Valid
-enum(
-    a = .$c + 1,
-    b = .$a + 1,
-    c = 5
 )
 ```
 

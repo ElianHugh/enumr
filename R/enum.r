@@ -1,21 +1,25 @@
-#' Enumeration
+#' Create a new enumeration
 #'
 #' @description
-#' Define an enumeration to access values from. Values cannot be reassigned.
-#' Values can be anything (within reason).
+#'
+#' `enum()` creates a new enumeration, and infers the the enumeration type
+#' based on the arguments supplied to it. Enumerations are similar to lists,
+#' but:
+#'      * cannot be assigned to after definition
+#'      * all values and names must be unique
+#'
+#' There are two types of enumeration: generic and numeric. The main difference
+#' between the two is that generic enumerations must have all their values
+#' explicitly defined. Numeric enums, by contrast, infer the values of
+#' their members.
 #'
 #' @details
-#' Enums defined without initialisers are considered numeric enums, and have
-#' their values set to incrementing numbers. Numeric enums can also be a mix of
-#' defined numeric values and undefined members.
-#'
 #' Under the surface, enums are actually lists contained within
 #' locked environments.This is so that the enum bindings cannot be modified,
 #' and the enum order is maintained. S3 methods are defined for
 #' `$`, `[`, and `[[`, which access the enum list directly.
 #' @param ... list of enumeration arguments
-#'
-#' @return enum
+#' @return An enumeration (enum), a list of unique name/value pairs.
 #' @examples
 #' # Generic Enum
 #' enum(apple = "apple", pear = "pear")
@@ -26,7 +30,7 @@
 #' enum(a = 50, b = .$a * 2)
 #' @export
 #' @seealso
-#' [new_numeric_enum()], [new_generic_enum()]
+#' [new_numeric_enum()], [new_generic_enum()], [as_enum()]
 enum <- function(...) {
     dots <- rlang::enexprs(...)
     if (.is_numeric_enum(dots)) {

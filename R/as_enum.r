@@ -7,10 +7,13 @@
 #' As an S3 generic, `as_enum()` holds methods for:
 #' * [`list`][base::list()]: wrapper function that passes the list to
 #'   [new_generic_enum()]
-#' * ['environment'][base::environment()]: coerces an environment to a list,
+#' * [`data.frame`][base::data.frame()]: coerces a data.frame to a list (
+#'   dropping row names in the process), and supplies the list of objects
+#'   to [new_generic_enum()]
+#' * [`environment`][base::environment()]: coerces an environment to a list,
 #'   and supplies the list of objects to [new_generic_enum()]
-#' * ['factor'][base::factor()]: constructs a list of name/value pairs
-#'   from a factor, supplies the list to [new_numeric_enum()]
+#' * [`factor`][base::factor()]: constructs a list of name/value pairs
+#'   from a factor, supplies the list to [new_numeric_enum()].
 #'
 #' @param x the object to coerce to enum
 #' @param .sorted whether the object elements should be sorted
@@ -21,8 +24,10 @@
 #' @export
 #' @examples
 #' as_enum(list(x = 5, y = "str"))
-#' as_enum(.GlobalEnv)
-#' as_enum()
+#'
+#' as_enum(rlang::env(a = 1, b = "str"))
+#'
+#' as_enum(factor(c("January", "February", "December"), levels = month.name))
 as_enum <- function(x, ...) {
     UseMethod("as_enum")
 }
@@ -60,6 +65,25 @@ as_enum.factor <- function(x, ..., .sorted = TRUE) {
 
 #' @export
 #' @rdname as_enum
+as_enum.data.frame <- function(x, ...) {
+    x <- unclass(x)
+    attr(x, "row.names") <- NULL
+    as_enum.list(x)
+}
+
+#' @export
+#' @rdname as_enum
 as_enum.NULL <- function(x, ...) {
     new_numeric_enum(list())
+}
+
+#' @export
+#' @rdname as_enum
+as_enum.default <- function(x, ...) {
+    rlang::abort(
+        sprintf(
+            "Cannot coerce class `%s` to an enum",
+            class(x)
+        )
+    )
 }

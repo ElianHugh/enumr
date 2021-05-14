@@ -40,15 +40,22 @@ condense_object <- function(x) {
             glue::glue("<{x_dim[1]} \u00d7 {x_dim[2]}>"),
             "grey60"
         )
-    } else if (inherits(x, "list")) {
-         crayon::style(
-             glue::glue("{length(x)} obs"),
-             "grey60"
-         )
+    } else if (is.vector(x) && length(x) > 3) {
+        crayon::style(
+            glue::glue("{length(x)} obs"),
+            "grey60"
+        )
     } else if (inherits(x, "enum")) {
         crayon::style(
             glue::glue("{length.enum(x)} members"),
             "grey60"
+        )
+    } else if (inherits(x, "function")) {
+        args <- paste(names(formals(x)), collapse = ", ")
+        paste0(
+            "function(",
+            args,
+            ")"
         )
     } else {
         x
@@ -71,7 +78,7 @@ class_abbr <- function(x) {
             "special" = "spcl",
             "environment" = "env",
             "S4" = "S4",
-            "symbol" = "symbol",
+            "symbol" = "sym",
             "pairlist" = "plist",
             "promise" = "prom",
             "language" = "lang",
