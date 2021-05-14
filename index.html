@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Enumr • enumr</title>
+<title>Enumerations for R • enumr</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
@@ -17,7 +17,7 @@
 <script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script><meta property="og:title" content="Enumr">
+<script src="pkgdown.js"></script><meta property="og:title" content="Enumerations for R">
 <meta property="og:description" content="Implement static enumerations for R.">
 <meta property="og:image" content="/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -100,9 +100,9 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="wip-enumr-" class="section level1">
+<div id="enumr-wip-" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#wip-enumr-" class="anchor"></a>(WIP) Enumr <img src="reference/figures/logo.png" align="right" height="120">
+<a href="#enumr-wip-" class="anchor"></a>Enumr (WIP) <img src="reference/figures/logo.png" align="right" height="120">
 </h1></div>
 <!-- badges: start -->
 
@@ -125,13 +125,18 @@
     <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">'pak'</span>, repos <span class="op">=</span> <span class="st">'https://r-lib.github.io/p/pak/dev/'</span><span class="op">)</span>
 <span class="op">}</span>
 <span class="fu">pak</span><span class="fu">::</span><span class="fu">pkg_install</span><span class="op">(</span><span class="st">'ElianHugh/enumr'</span><span class="op">)</span></code></pre></div>
+<p>Or:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="cf">if</span> (<span class="op">!</span><span class="kw">requireNamespace</span>(<span class="st">'devtools'</span>)) {</span>
+<span id="cb2-2"><a href="#cb2-2"></a>    <span class="kw">install.packages</span>(<span class="st">'devtools'</span>)</span>
+<span id="cb2-3"><a href="#cb2-3"></a>}</span>
+<span id="cb2-4"><a href="#cb2-4"></a>devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">'ElianHugh/enumr)</span></span></code></pre></div>
 </div>
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
-<p>Enumr implements two classes of enum: numeric and generic. Both are created with the <code><a href="reference/enum.html">enum()</a></code> function, and are defined by the arguments supplied to <code><a href="reference/enum.html">enum()</a></code>; if all arguments evaluate as numeric, the enum is numeric, otherwise it is generic.</p>
+<p>Enumr implements two classes of enum: numeric and generic. Both are created with the <code><a href="reference/enum.html">enum()</a></code> function, {enumr} handles the identification. You don’t need to worry about how they work in implementation, just know that there are rules for what constitutes a numeric vs. generic enum.</p>
 <p>Numeric enums only permit numeric values in their name/value pairs. Numeric values include formulas/equations that evaluate to a numeric value. Numeric enum members do <em>not</em> need to have values explicitly defined. Instead, each member’s value is either the index of the member, or the value of the previous member plus 1 - this is called ‘implicit definition’.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/enum.html">enum</a></span><span class="op">(</span>
     <span class="va">cat</span>,
     <span class="va">dog</span>,
@@ -143,7 +148,7 @@
 <span class="co">#&gt;  int dog : 2</span>
 <span class="co">#&gt;  int bird : 3</span></code></pre></div>
 <p>Generic enum members can be of any type, even including enums themselves. Each name/value pair must be explicitly defined, and each value must <em>evaluate</em> to a value.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/enum.html">enum</a></span><span class="op">(</span>
     a <span class="op">=</span> <span class="va">mtcars</span>,
     b <span class="op">=</span> <span class="va">PlantGrowth</span>,

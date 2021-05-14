@@ -52,10 +52,13 @@ An enumeration holds unique key/value pairs that cannot be re-defined.
 As an S3 generic, as_enum() holds methods for:
 list: wrapper function that passes the list to
 new_generic_enum()
-'environment': coerces an environment to a list,
+data.frame: coerces a data.frame to a list (
+dropping row names in the process), and supplies the list of objects
+to new_generic_enum()
+environment: coerces an environment to a list,
 and supplies the list of objects to new_generic_enum()
-'factor': constructs a list of name/value pairs
-from a factor, supplies the list to new_numeric_enum()
+factor: constructs a list of name/value pairs
+from a factor, supplies the list to new_numeric_enum().
 
 " />
 <meta property="og:image" content="/logo.png" />
@@ -163,11 +166,14 @@ from a factor, supplies the list to new_numeric_enum()
 An enumeration holds unique key/value pairs that cannot be re-defined.</p>
 <p>As an S3 generic, <code>as_enum()</code> holds methods for:</p><ul>
 <li><p><code><a href='https://rdrr.io/r/base/list.html'>list</a></code>: wrapper function that passes the list to
-<code><a href='new_numeric_enum.html'>new_generic_enum()</a></code></p></li>
-<li><p><a href='https://rdrr.io/r/base/environment.html'>'environment'</a>: coerces an environment to a list,
-and supplies the list of objects to <code><a href='new_numeric_enum.html'>new_generic_enum()</a></code></p></li>
-<li><p><a href='https://rdrr.io/r/base/factor.html'>'factor'</a>: constructs a list of name/value pairs
-from a factor, supplies the list to <code><a href='new_numeric_enum.html'>new_numeric_enum()</a></code></p></li>
+<code><a href='new_enum.html'>new_generic_enum()</a></code></p></li>
+<li><p><code><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></code>: coerces a data.frame to a list (
+dropping row names in the process), and supplies the list of objects
+to <code><a href='new_enum.html'>new_generic_enum()</a></code></p></li>
+<li><p><code><a href='https://rdrr.io/r/base/environment.html'>environment</a></code>: coerces an environment to a list,
+and supplies the list of objects to <code><a href='new_enum.html'>new_generic_enum()</a></code></p></li>
+<li><p><code><a href='https://rdrr.io/r/base/factor.html'>factor</a></code>: constructs a list of name/value pairs
+from a factor, supplies the list to <code><a href='new_enum.html'>new_numeric_enum()</a></code>.</p></li>
 </ul>
 
     </div>
@@ -183,7 +189,13 @@ from a factor, supplies the list to <code><a href='new_numeric_enum.html'>new_nu
 <span class='co'># S3 method for factor</span>
 <span class='fu'>as_enum</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span>, .sorted <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
+<span class='co'># S3 method for data.frame</span>
+<span class='fu'>as_enum</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+
 <span class='co'># S3 method for `NULL`</span>
+<span class='fu'>as_enum</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for default</span>
 <span class='fu'>as_enum</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -210,16 +222,23 @@ from a factor, supplies the list to <code><a href='new_numeric_enum.html'>new_nu
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='enum.html'>enum()</a></code> create an enum from supplied arguments.
-<code><a href='new_numeric_enum.html'>new_generic_enum()</a></code> and <code><a href='new_numeric_enum.html'>new_numeric_enum()</a></code> create enums from
+<code><a href='new_enum.html'>new_generic_enum()</a></code> and <code><a href='new_enum.html'>new_numeric_enum()</a></code> create enums from
 a list of arguments.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>as_enum</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fl'>5</span>, y <span class='op'>=</span> <span class='st'>"str"</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span style='color: #949494;'># A generic enum: 2 members</span><span>
 #&gt;  </span><span style='color: #949494;'>num</span><span> x : 5
-#&gt;  </span><span style='color: #949494;'>chr</span><span> y : str</div><div class='input'><span class='fu'>as_enum</span><span class='op'>(</span><span class='va'>.GlobalEnv</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A generic enum: 0 members</span><span></div><div class='input'><span class='fu'>as_enum</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A numeric enum: 0 members</span><span></div></span></pre>
+#&gt;  </span><span style='color: #949494;'>chr</span><span> y : str</div><div class='input'>
+<span class='fu'>as_enum</span><span class='op'>(</span><span class='fu'>rlang</span><span class='fu'>::</span><span class='fu'><a href='https://rlang.r-lib.org/reference/env.html'>env</a></span><span class='op'>(</span>a <span class='op'>=</span> <span class='fl'>1</span>, b <span class='op'>=</span> <span class='st'>"str"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A generic enum: 2 members</span><span>
+#&gt;  </span><span style='color: #949494;'>num</span><span> a : 1
+#&gt;  </span><span style='color: #949494;'>chr</span><span> b : str</div><div class='input'>
+<span class='fu'>as_enum</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"January"</span>, <span class='st'>"February"</span>, <span class='st'>"December"</span><span class='op'>)</span>, levels <span class='op'>=</span> <span class='va'>month.name</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A numeric enum: 3 members</span><span>
+#&gt;  </span><span style='color: #949494;'>num</span><span> January : 1
+#&gt;  </span><span style='color: #949494;'>num</span><span> February : 2
+#&gt;  </span><span style='color: #949494;'>num</span><span> December : 12</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

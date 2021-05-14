@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Enumeration — enum • enumr</title>
+<title>Create a new enumeration — enum • enumr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,16 @@
 
 
 
-<meta property="og:title" content="Enumeration — enum" />
-<meta property="og:description" content="Define an enumeration to access values from. Values cannot be reassigned.
-Values can be anything (within reason)." />
+<meta property="og:title" content="Create a new enumeration — enum" />
+<meta property="og:description" content="enum() creates a new enumeration, and infers the the enumeration type
+based on the arguments supplied to it. Enumerations are similar to lists,
+but:
+* cannot be assigned to after definition
+* all values and names must be unique
+There are two types of enumeration: generic and numeric. The main difference
+between the two is that generic enumerations must have all their values
+explicitly defined. Numeric enums, by contrast, infer the values of
+their members." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -144,14 +151,21 @@ Values can be anything (within reason)." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Enumeration</h1>
+    <h1>Create a new enumeration</h1>
     <small class="dont-index">Source: <a href='https://github.com/ElianHugh/enumr/blob/master/R/enum.r'><code>R/enum.r</code></a></small>
     <div class="hidden name"><code>enum.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Define an enumeration to access values from. Values cannot be reassigned.
-Values can be anything (within reason).</p>
+    <p><code>enum()</code> creates a new enumeration, and infers the the enumeration type
+based on the arguments supplied to it. Enumerations are similar to lists,
+but:
+* cannot be assigned to after definition
+* all values and names must be unique</p>
+<p>There are two types of enumeration: generic and numeric. The main difference
+between the two is that generic enumerations must have all their values
+explicitly defined. Numeric enums, by contrast, infer the values of
+their members.</p>
     </div>
 
     <pre class="usage"><span class='fu'>enum</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span></pre>
@@ -167,19 +181,16 @@ Values can be anything (within reason).</p>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>enum</p>
+    <p>An enumeration (enum), a list of unique name/value pairs.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Enums defined without initialisers are considered numeric enums, and have
-their values set to incrementing numbers. Numeric enums can also be a mix of
-defined numeric values and undefined members.</p>
-<p>Under the surface, enums are actually lists contained within
+    <p>Under the surface, enums are actually lists contained within
 locked environments.This is so that the enum bindings cannot be modified,
 and the enum order is maintained. S3 methods are defined for
 <code><a href='https://rdrr.io/r/base/Extract.html'>$</a></code>, <code><a href='https://rdrr.io/r/base/Extract.html'>[</a></code>, and <code><a href='https://rdrr.io/r/base/Extract.html'>[[</a></code>, which access the enum list directly.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='new_numeric_enum.html'>new_numeric_enum()</a></code>, <code><a href='new_numeric_enum.html'>new_generic_enum()</a></code></p></div>
+    <div class='dont-index'><p><code><a href='new_enum.html'>new_numeric_enum()</a></code>, <code><a href='new_enum.html'>new_generic_enum()</a></code>, <code><a href='as_enum.html'>as_enum()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Generic Enum</span>
