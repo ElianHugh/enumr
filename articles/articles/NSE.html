@@ -111,10 +111,8 @@
 
     
     
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ElianHugh/enumr">enumr</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p>You can use <code>.</code> to refer to the current enum<sup>1</sup>. Specifically, when defining variables, you can use <code>.$</code> to refer to other elements in the enum. E.g.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Numeric enum</span>
 <span class="fu"><a href="../../reference/enum.html">enum</a></span><span class="op">(</span>
     <span class="va">a</span>,
@@ -136,7 +134,7 @@
 <span class="co">#&gt;  chr a : Hello</span>
 <span class="co">#&gt;  chr b : c("Hello", "world")</span></code></pre></div>
 <p>It should be noted, however, there are limitations to defining members with <code>.$</code>. Firstly, enum member validation is performed <em>sequentially</em>. That is, each non-explicit member is initialised in order of their definition. As a result, computed members cannot refer to later <em>non-explicit</em> members. For instance:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Invalid definition!</span>
 <span class="fu"><a href="../../reference/enum.html">enum</a></span><span class="op">(</span>
     <span class="va">a</span>,
@@ -144,7 +142,7 @@
     <span class="va">c</span>
 <span class="op">)</span>
 <span class="co">#&gt; Error: Incorrect arguments supplied to enum.</span>
-<span class="co">#&gt; * Each argument value must be unique.</span>
+<span class="co">#&gt; * Each argument name and value must be unique.</span>
 
 <span class="co"># Valid due to explicit initialisation</span>
 <span class="fu"><a href="../../reference/enum.html">enum</a></span><span class="op">(</span>
@@ -167,15 +165,14 @@
 <span class="co">#&gt;  num b : 7</span>
 <span class="co">#&gt;  num c : 5</span></code></pre></div>
 <p>Moreover, due to sequential initialisation, enum members do not support cyclical evaluation.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Invalid</span>
 <span class="fu"><a href="../../reference/enum.html">enum</a></span><span class="op">(</span>
     a <span class="op">=</span> <span class="va">.</span><span class="op">$</span><span class="va">b</span> <span class="op">+</span> <span class="fl">1</span>,
     b <span class="op">=</span> <span class="va">.</span><span class="op">$</span><span class="va">c</span> <span class="op">+</span> <span class="fl">1</span>,
     c <span class="op">=</span> <span class="va">.</span><span class="op">$</span><span class="va">a</span> <span class="op">+</span> <span class="fl">1</span>
 <span class="op">)</span>
-<span class="co">#&gt; Error: Argument does not evaluate to a value</span>
-<span class="co">#&gt; * .$b + 1</span></code></pre></div>
+<span class="co">#&gt; Error: Argument cannot be evaluated</span></code></pre></div>
 <p><sup>1</sup> Technically, <code>.</code> (dot) refers to the arguments supplied in the enum constructor. The arguments are converted to a list, and the dot operator acts as a reference to said list.</p>
   </div>
 

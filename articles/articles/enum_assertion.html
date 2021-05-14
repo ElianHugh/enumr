@@ -111,25 +111,17 @@
 
     
     
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/moodymudskipper/typed">typed</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Attaching package: 'typed'</span>
-<span class="co">#&gt; The following object is masked from 'package:utils':</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     ?</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ElianHugh/enumr">enumr</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-<p>If you are using typed, you can make use of the <code>Enum</code> assertion for return and input assertion. Note that ‘enum’ is the class definition and ‘Enum’ is the assertion - this matches the {typed} paradigm of assertions.</p>
+<p>If you are using <a href="https://moodymudskipper.github.io/typed/">{typed}</a>, you can make use of the <code>Enum</code> assertion for return and input assertion. Note that ‘enum’ is the class definition and ‘Enum’ is the assertion - this matches the {typed} paradigm of assertions.</p>
 <p>Depending on how you define a variable, you can constrain a variable to either an enum class or enum member. To constrain to an enum class, simply use <code><a href="../../reference/Enum.html">Enum()</a></code>. To constrain to an enum member, use <code><a href="../../reference/Enum.html">Enum(x)</a></code>, with x being an enum.</p>
 <p>For instance, let’s say we want to ensure that the arguments supplied to a function correspond to an enum member value. Let’s create an enum with a list of animals:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">my_pets</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/enum.html">enum</a></span><span class="op">(</span>
   pet1 <span class="op">=</span> <span class="st">"dog"</span>,
   pet2 <span class="op">=</span> <span class="st">"cat"</span>,
   pet3 <span class="op">=</span> <span class="st">"goldfish"</span>
 <span class="op">)</span></code></pre></div>
 <p>Now, I want to make a function that only allows the my_pets enum as an argument:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># supply my_pets in the Enum assertion</span>
 <span class="va">is_this_my_pet</span> <span class="op">&lt;-</span> <span class="op">?</span> <span class="kw">function</span><span class="op">(</span><span class="va">arg</span> <span class="op">=</span> <span class="op">?</span> <span class="fu"><a href="../../reference/Enum.html">Enum</a></span><span class="op">(</span><span class="va">my_pets</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
     <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">arg</span><span class="op">)</span>

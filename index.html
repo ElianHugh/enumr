@@ -109,10 +109,10 @@
 <div id="overview" class="section level2">
 <h2 class="hasAnchor">
 <a href="#overview" class="anchor"></a>Overview</h2>
-<p>{enumr} implements static enumerations in R. At their most basic, enums are lists that have unique name/value pairs (called ‘members’), and cannot be modified after their definition.</p>
+<p>{enumr} implements static enumerations in R. At their most basic, enums are lists that have unique name/value pairs (called ‘members’), and are ‘static’ in that they cannot be modified after their definition.</p>
 <p>Why use enums? Some examples:</p>
 <ul>
-<li>Improve code self-documentation by explicitly defining key:value pairs</li>
+<li>Improve code self-documentation by explicitly defining name/value pairs</li>
 <li>Reduce the occurrence of code-breaking typos</li>
 <li>Prevent accidental overwriting of variables</li>
 </ul>
@@ -156,10 +156,10 @@
 <span class="op">)</span>
 
 <span class="co">#&gt; # A generic enum: 3 members</span>
-<span class="co">#&gt;   tibble a : &lt;32 × 11&gt;</span>
-<span class="co">#&gt;   tibble b : &lt;30 × 2&gt;</span>
-<span class="co">#&gt;   tibble c : &lt;153 × 6&gt;</span></code></pre></div>
-<p>See the <a href="https://elianhugh.github.io/enumr/">pkgdown site</a> for more information on enums, and other features of the {enumr} package, such as NSE or typed integration.</p>
+<span class="co">#&gt;  df a : &lt;32 × 11&gt;</span>
+<span class="co">#&gt;  df b : &lt;30 × 2&gt;</span>
+<span class="co">#&gt;  df c : &lt;153 × 6&gt;</span></code></pre></div>
+<p>See the <a href="https://elianhugh.github.io/enumr/">pkgdown site</a> for more information on enums, and other features of the {enumr} package, such as coercion, NSE, and typed integration.</p>
 </div>
 <div id="inspiration" class="section level2">
 <h2 class="hasAnchor">

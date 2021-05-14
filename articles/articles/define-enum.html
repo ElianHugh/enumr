@@ -111,14 +111,12 @@
 
     
     
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ElianHugh/enumr">enumr</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p>Enumerations come in two forms: generic and numeric. As you will learn, these enum forms have different rules for validation. Let’s start with the simpler of the two - generic enums.</p>
 <div id="generic-enumerations" class="section level2">
 <h2 class="hasAnchor">
 <a href="#generic-enumerations" class="anchor"></a>Generic Enumerations</h2>
 <p>Generic enums allow <em>any</em> value to be defined in them, even including another enum.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/enum.html">enum</a></span><span class="op">(</span>
   a <span class="op">=</span> <span class="st">"string"</span>,
   b <span class="op">=</span> <span class="fl">5</span>
@@ -127,7 +125,7 @@
 <span class="co">#&gt;  chr a : string</span>
 <span class="co">#&gt;  num b : 5</span></code></pre></div>
 <p>In this way, generic enums are similar to named lists, and hold many of the same properties as lists.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">my_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>a <span class="op">=</span> <span class="st">"string"</span>, b <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>
 <span class="va">my_enum</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/enum.html">enum</a></span><span class="op">(</span>a <span class="op">=</span> <span class="st">"string"</span>, b <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>
 
@@ -138,16 +136,16 @@
 <span class="va">my_list</span><span class="op">$</span><span class="va">a</span> <span class="op">==</span> <span class="va">my_enum</span><span class="op">$</span><span class="va">a</span>
 <span class="co">#&gt; [1] TRUE</span></code></pre></div>
 <p>Where generic enums and named lists differ is in their validation. Unlike named lists, each value and name in a generic enum must be unique.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/enum.html">enum</a></span><span class="op">(</span>a <span class="op">=</span> <span class="st">"str"</span>, b <span class="op">=</span> <span class="st">"str"</span><span class="op">)</span>
-<span class="co">#&gt; Error: Incorrect arguments supplied to enum</span>
-<span class="co">#&gt; * Each enum member must be unique.</span>
+<span class="co">#&gt; Error: Incorrect arguments supplied to enum.</span>
+<span class="co">#&gt; * Each argument name and value must be unique.</span>
 
 <span class="fu"><a href="../../reference/enum.html">enum</a></span><span class="op">(</span>a <span class="op">=</span> <span class="st">"str"</span>, a <span class="op">=</span> <span class="st">"ing"</span><span class="op">)</span>
-<span class="co">#&gt; Error: Incorrect arguments supplied.</span>
-<span class="co">#&gt; * Each argument name must be unique.</span></code></pre></div>
+<span class="co">#&gt; Error: Incorrect arguments supplied to enum.</span>
+<span class="co">#&gt; * Each argument name and value must be unique.</span></code></pre></div>
 <p>Moreover, generic enums <em>must</em> be defined with name/value pairs. An unpaired name or value will result in an error.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/enum.html">enum</a></span><span class="op">(</span><span class="va">a</span>, b <span class="op">=</span> <span class="st">"str"</span><span class="op">)</span>
 <span class="co">#&gt; Error: Incorrect arguments supplied.</span>
 <span class="co">#&gt; * All generic enum members must be initialised.</span>
@@ -160,25 +158,25 @@
 <h2 class="hasAnchor">
 <a href="#numeric-enumerations" class="anchor"></a>Numeric Enumerations</h2>
 <p>In contrast to generic enums, numeric enums allow for unpaired names to be supplied in the constructor. Names without values are supplied values by the constructor. These values are either the index of the name, or the value of the last name minus one. This is known as ‘implicit definition’.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/enum.html">enum</a></span><span class="op">(</span><span class="va">a</span>, <span class="va">b</span>, <span class="va">c</span><span class="op">)</span>
 <span class="co">#&gt; # A numeric enum: 3 members</span>
 <span class="co">#&gt;  num a : 1</span>
 <span class="co">#&gt;  num b : 2</span>
 <span class="co">#&gt;  num c : 3</span></code></pre></div>
 <p>However, numeric enums require that all values supplied be numeric. If a value is supplied that is not numeric, then the enum is considered generic and must abide by generic enum rules.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/enum.html">enum</a></span><span class="op">(</span><span class="va">a</span>, <span class="va">b</span>, c <span class="op">=</span> <span class="st">"str"</span><span class="op">)</span>
 <span class="co">#&gt; Error: Incorrect arguments supplied.</span>
 <span class="co">#&gt; * All generic enum members must be initialised.</span></code></pre></div>
 <p>Numeric enums are ‘smart’ in that they understand how calculations work. If a calculation is supplied to a numeric enum, it will evaluate it to ensure that the result is numeric.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/enum.html">enum</a></span><span class="op">(</span><span class="va">a</span>, b <span class="op">=</span> <span class="fl">10</span> <span class="op">*</span> <span class="fl">2</span>, <span class="va">c</span><span class="op">)</span>
 <span class="co">#&gt; # A numeric enum: 3 members</span>
 <span class="co">#&gt;  num a : 1</span>
 <span class="co">#&gt;  num b : 20</span>
 <span class="co">#&gt;  num c : 21</span></code></pre></div>
-<p>See the Non-Standard Evaluation article for a deeper look into what you can do with numeric enums.</p>
+<p>See the Non-Standard Evaluation article for a deeper look into what you can do with enums (particularly numeric enums).</p>
 </div>
   </div>
 
