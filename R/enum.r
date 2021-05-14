@@ -5,6 +5,7 @@
 #' `enum()` creates a new enumeration, and infers the the enumeration type
 #' based on the arguments supplied to it. Enumerations are similar to lists,
 #' but:
+#'
 #'      * cannot be assigned to after definition
 #'      * all values and names must be unique
 #'

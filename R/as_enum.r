@@ -28,6 +28,8 @@
 #' as_enum(rlang::env(a = 1, b = "str"))
 #'
 #' as_enum(factor(c("January", "February", "December"), levels = month.name))
+#'
+#' as_enum(mtcars)
 as_enum <- function(x, ...) {
     UseMethod("as_enum")
 }
@@ -80,10 +82,5 @@ as_enum.NULL <- function(x, ...) {
 #' @export
 #' @rdname as_enum
 as_enum.default <- function(x, ...) {
-    rlang::abort(
-        sprintf(
-            "Cannot coerce class `%s` to an enum",
-            class(x)
-        )
-    )
+    error_impossible_coercion(x)
 }

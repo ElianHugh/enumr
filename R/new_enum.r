@@ -90,24 +90,12 @@ validate_enum_definition <- function(.enum_data) {
     #' `validate_enum_definition()` checks that the names
     #' and values supplied to the constructor are unique,
     if (length(.enum_data) != length(unique.default(.enum_data))) {
-        rlang::abort(
-            c(
-                "Incorrect arguments supplied to enum",
-                "Each enum member must be unique."
-            ),
-            class = "enumr_definition_error"
-        )
+        error_unique()
     }
 
     #' and ensures that all values supplied have names.
     if (any(.only_values_supplied(.enum_data))) {
-        rlang::abort(
-            c(
-                "Incorrect arguments supplied to enum.",
-                "Each member must be named."
-            ),
-            class = "enumr_definition_error"
-        )
+        error_need_named_args()
     }
     invisible(.enum_data)
 }
@@ -134,35 +122,17 @@ validate_numeric_enum <- function(.enum_data) {
     #' `validate_numeric_enum()` checks that, when evaluated,
     #' all the enum values are unique,
     if ((length(coerced_vals) != length(unique.default(coerced_vals)))) {
-        rlang::abort(
-            c(
-                "Incorrect arguments supplied to enum.",
-                "Each argument value must be unique."
-            ),
-            class = "enumr_numeric_definition_error"
-        )
+        error_unique()
     }
 
     #' can be interpreted as numeric,
     if (anyNA(coerced_vals)) {
-        rlang::abort(
-            c(
-                "Incorrect arguments supplied to enum.",
-                "Each argument value must be interpretable as numeric."
-            ),
-            class = "enumr_numeric_definition_error"
-        )
+        error_interpret_as_numeric()
     }
 
     #' and there are no duplicate names
     if (length(.enum_data) != length(unique.default(names(.enum_data)))) {
-        rlang::abort(
-            c(
-                "Incorrect arguments supplied to enum.",
-                "Each argument name must be unique."
-            ),
-            class = "enumr_numeric_definition_error"
-        )
+        error_unique()
     }
 
     invisible(.enum_data)
@@ -179,23 +149,11 @@ validate_generic_enum <- function(.enum_data) {
     #' arguments supplied to the constructor
     #' have a name and value.
     if (any(rlang::names2(.enum_data) == "")) {
-        rlang::abort(
-            c(
-                "Incorrect arguments supplied.",
-                "All generic enum members must be initialised."
-            ),
-            class = "enumr_generic_definition_error"
-        )
+        error_explicit_definition()
     }
 
     if (length(unique.default(names(.enum_data))) != length(.enum_data)) {
-        rlang::abort(
-            c(
-                "Incorrect arguments supplied.",
-                "Each argument name must be unique."
-            ),
-            class = "enumr_generic_definition_error"
-        )
+        error_unique()
     }
 
     invisible(.enum_data)

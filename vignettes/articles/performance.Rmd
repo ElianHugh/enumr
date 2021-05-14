@@ -9,7 +9,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
+```{r setup, include = FALSE}
 library(enumr, quietly = TRUE)
 ```
 
@@ -51,7 +51,7 @@ microbenchmark::microbenchmark(
 )
 ```
 
-To speed up performance further, you can also access the enum constructor methods directly: `new_generic_enum()` and `new_numeric_enum()`. You'll see these are reasonably faster than the `enum()` function. This is because `enum()` has to check whether the enum is numeric or generic by evaluating each argument supplied to it.
+To speed up performance further, you can also access the enum constructor methods directly: `new_generic_enum()` and `new_numeric_enum()`. You'll see these are reasonably faster than the `enum()` function (the speed increase will likely be in the microsecond range). This is because `enum()` has to check whether the enum is numeric or generic by evaluating each argument supplied to it.
 
 ```{r, error = TRUE}
 microbenchmark::microbenchmark(
@@ -63,7 +63,7 @@ microbenchmark::microbenchmark(
 )
 ```
 
-However, this forgoes some of the niceties of the `enum()` helper function, such as NSE or implicit definition. The speed increase will likely be in the microsecond range.
+However, this forgoes some of the niceties of the `enum()` helper function, such as NSE or implicit definition.
 
 ```{r, error = TRUE}
 # Can only use explicit definitions

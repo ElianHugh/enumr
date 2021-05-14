@@ -12,16 +12,13 @@ test_that("general S3 methods are functioning", {
 test_that("enum members cannot be assigned to with subsetting", {
     a <- enum(a = 1, b = 2, c = 3)
     expect_error(
-        a[1] <- 5,
-        class = "enumr_deny_assign"
+        a[1] <- 5
     )
     expect_error(
-        a[[1]] <- 5,
-        class = "enumr_deny_assign"
+        a[[1]] <- 5
     )
     expect_error(
-        a$a <- 5,
-        class = "enumr_deny_assign"
+        a$a <- 5
     )
 })
 
@@ -32,6 +29,13 @@ test_that("enums can be subset", {
 })
 
 test_that("str functions correctly", {
-    a <- enum(a, b, c)
-    expect_snapshot(a)
+    expect_error(str.enum(5))
+    expect_snapshot({
+        # Many members
+        str(as_enum(mtcars))
+        # One member
+        str(as_enum(list(x = 5)))
+        # No members
+        str(as_enum())
+    })
 })

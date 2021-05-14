@@ -56,6 +56,8 @@ as_enum(list(x = 5, y = "str"))
 as_enum(rlang::env(a = 1, b = "str"))
 
 as_enum(factor(c("January", "February", "December"), levels = month.name))
+
+as_enum(mtcars)
 }
 \seealso{
 \code{\link[=enum]{enum()}} create an enum from supplied arguments.

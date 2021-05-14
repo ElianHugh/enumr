@@ -8,11 +8,11 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 
 ## Overview
 
-{enumr} implements static enumerations in R. At their most basic, enums are lists that have unique name/value pairs (called 'members'), and cannot be modified after their definition.
+{enumr} implements static enumerations in R. At their most basic, enums are lists that have unique name/value pairs (called 'members'), and are 'static' in that they cannot be modified after their definition.
 
 Why use enums? Some examples:
 
-- Improve code self-documentation by explicitly defining key:value pairs
+- Improve code self-documentation by explicitly defining name/value pairs
 - Reduce the occurrence of code-breaking typos
 - Prevent accidental overwriting of variables
 
@@ -65,12 +65,12 @@ enum(
 )
 
 #> # A generic enum: 3 members
-#>   tibble a : <32 × 11>
-#>   tibble b : <30 × 2>
-#>   tibble c : <153 × 6>
+#>  df a : <32 × 11>
+#>  df b : <30 × 2>
+#>  df c : <153 × 6>
 ```
 
-See the [pkgdown site](https://elianhugh.github.io/enumr/) for more information on enums, and other features of the {enumr} package, such as NSE or typed integration.
+See the [pkgdown site](https://elianhugh.github.io/enumr/) for more information on enums, and other features of the {enumr} package, such as coercion, NSE, and typed integration.
 
 ## Inspiration
 

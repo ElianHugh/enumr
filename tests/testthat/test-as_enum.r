@@ -30,4 +30,15 @@ test_that("coercion to enums is functional", {
         mtcars$cyl
     )
 
+    # NULL coercion
+    expect_identical(
+        as.list(as_enum()),
+        list()
+    )
+
+    # Abort on others
+    expect_error(
+        as_enum(5)
+    )
+
 })

@@ -40,9 +40,7 @@ masked_eval <- function(.x, .enum_data, env = rlang::caller_env()) {
             rlang::eval_tidy(enum_call, enum_data_mask, .GlobalEnv)
         },
         error = function(e) {
-            rlang::abort(
-                c("Argument does not evaluate to a value", e[["call"]])
-            )
+            error_cannot_evaluate()
         }
     )
 }

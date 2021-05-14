@@ -9,14 +9,14 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
+```{r setup, include = FALSE}
 library(enumr, quietly = TRUE)
 ```
 
 
 You can use `.` to refer to the current enum<sup>1</sup>. Specifically, when defining variables, you can use `.$` to refer to other elements in the enum. E.g.
 
-```{r, error = TRUE}
+```{r}
 # Numeric enum
 enum(
     a,

@@ -9,19 +9,19 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
+```{r setup, include = FALSE}
 library(typed, quietly = TRUE)
 library(enumr, quietly = TRUE)
 ```
 
 
-If you are using typed, you can make use of the `Enum` assertion for return and input assertion. Note that 'enum' is the class definition and 'Enum' is the assertion - this matches the {typed} paradigm of assertions.
+If you are using [{typed}](https://moodymudskipper.github.io/typed/), you can make use of the `Enum` assertion for return and input assertion. Note that 'enum' is the class definition and 'Enum' is the assertion - this matches the {typed} paradigm of assertions.
 
 Depending on how you define a variable, you can constrain a variable to either an enum class or enum member. To constrain to an enum class, simply use `Enum()`. To constrain to an enum member, use `Enum(x)`, with x being an enum.
 
 For instance, let's say we want to ensure that the arguments supplied to a function correspond to an enum member value. Let's create an enum with a list of animals:
 
-```{r, error = TRUE}
+```{r}
 my_pets <- enum(
   pet1 = "dog",
   pet2 = "cat",

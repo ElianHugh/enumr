@@ -31,10 +31,7 @@ NULL
 #' @export
 #' @rdname subsetting
 `$<-.enum` <- function(x, arg, value) {
-    rlang::abort(
-        "Enum members cannot be assigned to after their definition",
-        class = "enumr_deny_assign"
-    )
+    error_illegal_assignment()
 }
 
 #' @export

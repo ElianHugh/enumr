@@ -15,12 +15,12 @@ NULL
 #' @rdname S3-Methods
 str.enum <- function(object, ...) {
     if (!is_enum(object)) {
-        warning("str.enum() called with non-enum.")
+        rlang::abort("str.enum() called with non-enum.")
     }
 
     obj_len <- length(as.list.enum(object))
     cl <- data.class(object)
-    pl <- if (obj_len > 1) "members\n" else "member\n"
+    pl <- if (obj_len > 1 || obj_len < 1) "members\n" else "member\n"
     cat(
         cl, ":", obj_len, pl
     )
@@ -35,7 +35,7 @@ str.enum <- function(object, ...) {
     )
 }
 
-# Standard list() methods ---------------------------------------
+# Standard list() methods --------------------------------------------
 
 #' @export
 #' @rdname S3-Methods
@@ -60,4 +60,3 @@ as.list.enum <- function(x, ...) {
 as.character.enum <- function(x, ...) {
     as.character.default(as.list.enum(x, ...))
 }
-

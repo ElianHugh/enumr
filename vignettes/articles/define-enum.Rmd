@@ -9,7 +9,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
+```{r setup, include = FALSE}
 library(enumr, quietly = TRUE)
 ```
 
@@ -19,7 +19,7 @@ Enumerations come in two forms: generic and numeric. As you will learn, these en
 
 Generic enums allow *any* value to be defined in them, even including another enum.
 
-```{r generics, error = TRUE}
+```{r generics}
 enum(
   a = "string",
   b = 5
@@ -28,7 +28,7 @@ enum(
 
 In this way, generic enums are similar to named lists, and hold many of the same properties as lists.
 
-```{r listExample, error = TRUE}
+```{r listExample}
 my_list <- list(a = "string", b = 5)
 my_enum <- enum(a = "string", b = 5)
 
@@ -57,7 +57,7 @@ enum("str")
 
 In contrast to generic enums, numeric enums allow for unpaired names to be supplied in the constructor. Names without values are supplied values by the constructor. These values are either the index of the name, or the value of the last name minus one. This is known as 'implicit definition'.
 
-```{r, error = TRUE}
+```{r}
 enum(a, b, c)
 ```
 
@@ -69,8 +69,8 @@ enum(a, b, c = "str")
 
 Numeric enums are 'smart' in that they understand how calculations work. If a calculation is supplied to a numeric enum, it will evaluate it to ensure that the result is numeric.
 
-```{r, error = TRUE}
+```{r}
 enum(a, b = 10 * 2, c)
 ```
 
-See the Non-Standard Evaluation article for a deeper look into what you can do with numeric enums.
+See the Non-Standard Evaluation article for a deeper look into what you can do with enums (particularly numeric enums).
