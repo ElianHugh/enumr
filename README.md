@@ -2,8 +2,9 @@
 
 <!-- badges: start -->
 [![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental) [![R-CMD-check](https://github.com/ElianHugh/enumr/workflows/R-CMD-check/badge.svg)](https://github.com/ElianHugh/enumr/actions)
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![codecov](https://codecov.io/gh/ElianHugh/enumr/branch/main/graph/badge.svg?token=FWRJW5SV3X)](https://codecov.io/gh/ElianHugh/enumr)
+[![R-CMD-check](https://github.com/ElianHugh/enumr/workflows/R-CMD-check/badge.svg)](https://github.com/ElianHugh/enumr/actions)
 <!-- badges: end -->
 
 ## Overview
@@ -81,4 +82,4 @@ See the [pkgdown site](https://elianhugh.github.io/enumr/) for more information 
 
 ## Code of Conduct
 
-Please note that the enumr project is released with a [Contributor Code of Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
+Please note that the enumr project is released with a [Contributor Code of Conduct](https://elianhugh.github.io/enumr/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.

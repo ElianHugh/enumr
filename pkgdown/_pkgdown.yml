@@ -1,6 +1,6 @@
 home:
   title: Enumerations for R
-
+url: https://elianhugh.github.io/enumr/
 reference:
     - title: Making enums
       desc: Functions that create enums
