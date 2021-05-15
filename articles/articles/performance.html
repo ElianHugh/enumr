@@ -19,7 +19,7 @@
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../../pkgdown.css" rel="stylesheet">
 <script src="../../pkgdown.js"></script><meta property="og:title" content="Overhead &amp; Performance Optimisation">
 <meta property="og:description" content="enumr">
-<meta property="og:image" content="/logo.png">
+<meta property="og:image" content="https://elianhugh.github.io/enumr/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -154,11 +154,11 @@
 <span class="co">#&gt;       {     create_symbols()     generic_symbols &lt;- enum(a = a, b = b, c = c, d = d, e = e) }</span>
 <span class="co">#&gt;                                  generic &lt;- enum(a = "1", b = "2", c = "3", d = "4", e = "5")</span>
 <span class="co">#&gt;       min        lq      mean    median        uq       max neval</span>
-<span class="co">#&gt;  1195.959 1255.2235 1351.0120 1271.0845 1290.4265 35999.993  5000</span>
-<span class="co">#&gt;  1039.715 1103.0365 1173.1987 1117.1985 1134.6320 19875.720  5000</span>
-<span class="co">#&gt;   652.667  692.5075  768.7066  702.0885  713.8945 41589.175  5000</span>
-<span class="co">#&gt;   723.156  768.8640  829.1545  780.3090  795.1140 22087.499  5000</span>
-<span class="co">#&gt;   196.057  209.8345  225.0975  212.8820  217.1285  3533.189  5000</span></code></pre></div>
+<span class="co">#&gt;  1187.965 1255.1400 1368.4551 1275.6855 1301.0730 41936.253  5000</span>
+<span class="co">#&gt;  1037.568 1104.2735 1211.1246 1122.7945 1145.7690 44790.577  5000</span>
+<span class="co">#&gt;   657.387  694.3550  755.2660  705.9940  720.2230 15632.417  5000</span>
+<span class="co">#&gt;   727.615  770.0030  853.7173  783.7695  801.7760 21270.675  5000</span>
+<span class="co">#&gt;   197.882  211.5755  228.3679  215.3860  221.2005  4697.264  5000</span></code></pre></div>
 <p>To speed up performance further, you can also access the enum constructor methods directly: <code><a href="../../reference/new_enum.html">new_generic_enum()</a></code> and <code><a href="../../reference/new_enum.html">new_numeric_enum()</a></code>. You’ll see these are reasonably faster than the <code><a href="../../reference/enum.html">enum()</a></code> function (the speed increase will likely be in the microsecond range). This is because <code><a href="../../reference/enum.html">enum()</a></code> has to check whether the enum is numeric or generic by evaluating each argument supplied to it.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">microbenchmark</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span>
@@ -170,15 +170,15 @@
 <span class="op">)</span>
 <span class="co">#&gt; Unit: microseconds</span>
 <span class="co">#&gt;                                                      expr     min       lq</span>
-<span class="co">#&gt;                                      num &lt;- enum(x, y, z) 732.706 757.3055</span>
-<span class="co">#&gt;                    gen &lt;- enum(x = "1", y = "2", z = "3") 162.652 171.4495</span>
-<span class="co">#&gt;        num &lt;- new_numeric_enum(list(x = 1, y = 2, z = 3)) 365.375 380.0195</span>
-<span class="co">#&gt;  gen &lt;- new_generic_enum(list(x = "1", y = "2", z = "3"))  86.554  91.4635</span>
+<span class="co">#&gt;                                      num &lt;- enum(x, y, z) 720.993 758.1870</span>
+<span class="co">#&gt;                    gen &lt;- enum(x = "1", y = "2", z = "3") 162.784 172.6230</span>
+<span class="co">#&gt;        num &lt;- new_numeric_enum(list(x = 1, y = 2, z = 3)) 360.154 381.0030</span>
+<span class="co">#&gt;  gen &lt;- new_generic_enum(list(x = "1", y = "2", z = "3"))  87.623  93.5675</span>
 <span class="co">#&gt;       mean   median       uq       max neval</span>
-<span class="co">#&gt;  797.97750 766.4255 777.1655  7291.510  5000</span>
-<span class="co">#&gt;  193.06924 174.1110 177.2600 44256.775  5000</span>
-<span class="co">#&gt;  405.03637 385.8290 392.9805  4760.686  5000</span>
-<span class="co">#&gt;   99.47516  93.4240  95.5990  6879.334  5000</span></code></pre></div>
+<span class="co">#&gt;  798.84043 767.6695 778.4920  6001.384  5000</span>
+<span class="co">#&gt;  183.00356 175.4225 178.4595  6105.958  5000</span>
+<span class="co">#&gt;  411.60244 386.7680 393.2890 41946.900  5000</span>
+<span class="co">#&gt;   98.65891  95.4440  97.6355  2079.437  5000</span></code></pre></div>
 <p>However, this forgoes some of the niceties of the <code><a href="../../reference/enum.html">enum()</a></code> helper function, such as NSE or implicit definition.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Can only use explicit definitions</span>
