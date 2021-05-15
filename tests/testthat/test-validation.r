@@ -1,10 +1,4 @@
 test_that("enum definition validation works", {
-    # Expect unique values
-    ## values
-    expect_error(
-        validate_enum_definition(list(a = 1, b = 1))
-    )
-
     # No values
     expect_error(
         validate_enum_definition(list(1, a = 3))
@@ -34,5 +28,9 @@ test_that("generic validation works", {
     # No duplicate names
     expect_error(
         validate_generic_enum(list(a = "str", a = 5))
+    )
+
+    expect_error(
+        validate_generic_enum(list(a = 1, b = 1))
     )
 })

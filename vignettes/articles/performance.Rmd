@@ -21,7 +21,7 @@ Enum definition is reasonably fast, so will likely not be a bottleneck for the l
 
 Here is a microbenchmark, comparing the various forms of enum. Note that a `create_symbols` function is defined for the generic_symbols parse. Realistically, generic and generic_symbols have comparable speeds.
 
-```{r, error = TRUE}
+```{r}
 # Create some symbols in the environment
 # for benchmarking
 create_symbols <- function() {

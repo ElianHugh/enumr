@@ -27,9 +27,7 @@ for validity
 }
 \section{Validation}{
 
-\code{validate_enum_definition()} checks that the names
-and values supplied to the constructor are unique,
-and ensures that all values supplied have names.
+\code{validate_enum_definition()} checks that all values supplied have names.
 
 
 \code{validate_numeric_enum()} checks that, when evaluated,

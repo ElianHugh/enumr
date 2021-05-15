@@ -55,7 +55,6 @@ new_numeric_enum <- function(.enum_data) {
 #' @rdname new_enum
 new_generic_enum <- function(.enum_data) {
     validate_enum_definition(.enum_data)
-    validate_generic_enum(.enum_data)
 
     evaluate_symbols <- function(dat, index) {
         if (is.symbol(dat) || is.language(dat)) {
@@ -72,6 +71,8 @@ new_generic_enum <- function(.enum_data) {
         USE.NAMES = FALSE
     )
 
+    validate_generic_enum(.enum_data)
+
     enum_env <- rlang::new_environment(data = list(enum = .enum_data))
     class(enum_env) <- c("generic_enum", "enum")
     lockEnvironment(enum_env, bindings = TRUE)
@@ -87,13 +88,7 @@ new_generic_enum <- function(.enum_data) {
 #' @export
 validate_enum_definition <- function(.enum_data) {
     #' @section Validation:
-    #' `validate_enum_definition()` checks that the names
-    #' and values supplied to the constructor are unique,
-    if (length(.enum_data) != length(unique.default(.enum_data))) {
-        error_unique()
-    }
-
-    #' and ensures that all values supplied have names.
+    #' `validate_enum_definition()` checks that all values supplied have names.
     if (any(.only_values_supplied(.enum_data))) {
         error_need_named_args()
     }
@@ -152,7 +147,11 @@ validate_generic_enum <- function(.enum_data) {
         error_explicit_definition()
     }
 
-    if (length(unique.default(names(.enum_data))) != length(.enum_data)) {
+    if (length(.enum_data) != length(unique.default(names(.enum_data)))) {
+        error_unique()
+    }
+
+    if (length(.enum_data) != length(unique.default(.enum_data))) {
         error_unique()
     }
 
@@ -160,18 +159,17 @@ validate_generic_enum <- function(.enum_data) {
 }
 
 .is_numeric_enum <- function(.enum_data) {
-    supplied_names <- names(.enum_data)
-    checked_vals <- all(
-        unlist(
-            lapply(seq_along(.enum_data), .check_eval, .enum_data),
-            use.names = FALSE
+    if (is.null(names(.enum_data))) {
+        return(TRUE)
+    } else {
+        checked_vals <- all(
+            unlist(
+                lapply(seq_along(.enum_data), .check_eval, .enum_data),
+                use.names = FALSE
+            )
         )
-    )
-
-    # if the supplied names are null, this means the
-    # enum is constructed as enum(a, b, c...)
-    # and is therefore numeric
-    return(is.null(supplied_names) || checked_vals)
+        return(checked_vals)
+    }
 }
 
 #' Check that the enum has atomic members without names
@@ -181,7 +179,8 @@ validate_generic_enum <- function(.enum_data) {
 #' @keywords internal
 .only_values_supplied <- function(obj) {
     for (i in seq_along(obj)) {
-        if (is.atomic(obj[[i]]) && any(rlang::names2(obj[i]) == "")) {
+        if ((is.atomic(obj[[i]]) || is.call(obj[[i]])) &&
+            any(rlang::names2(obj[i]) == "")) {
             return(TRUE)
         } else {
             next
