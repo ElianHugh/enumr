@@ -118,69 +118,11 @@
 <li>Generic enums are <em>typically</em> faster than numeric enums</li>
 </ul>
 <p>Here is a microbenchmark, comparing the various forms of enum. Note that a <code>create_symbols</code> function is defined for the generic_symbols parse. Realistically, generic and generic_symbols have comparable speeds.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Create some symbols in the environment</span>
-<span class="co"># for benchmarking</span>
-<span class="va">create_symbols</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/mapply.html">mapply</a></span><span class="op">(</span>
-    <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/assign.html">assign</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>, <span class="va">.GlobalEnv</span><span class="op">)</span>,
-    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>, <span class="st">"d"</span>, <span class="st">"e"</span><span class="op">)</span>,
-    <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span>
-  <span class="op">)</span>
-<span class="op">}</span>
-
-<span class="fu">microbenchmark</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span>
-    <span class="va">inferred</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/enum.html">enum</a></span><span class="op">(</span><span class="va">a</span>, <span class="va">b</span>, <span class="va">c</span>, <span class="va">d</span>, <span class="va">e</span><span class="op">)</span>,
-    <span class="va">explicit_num_symbols</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/enum.html">enum</a></span><span class="op">(</span>
-        a <span class="op">=</span> <span class="fl">1</span>,
-        b <span class="op">=</span> <span class="va">.</span><span class="op">$</span><span class="va">a</span> <span class="op">+</span> <span class="fl">1</span>,
-        c <span class="op">=</span> <span class="va">.</span><span class="op">$</span><span class="va">b</span> <span class="op">+</span> <span class="fl">1</span>,
-        d <span class="op">=</span> <span class="va">.</span><span class="op">$</span><span class="va">c</span> <span class="op">+</span> <span class="fl">1</span>,
-        e <span class="op">=</span> <span class="va">.</span><span class="op">$</span><span class="va">d</span> <span class="op">+</span> <span class="fl">1</span>
-        <span class="op">)</span>,
-    <span class="va">explicit_numeric</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/enum.html">enum</a></span><span class="op">(</span>a <span class="op">=</span> <span class="fl">1</span>, b <span class="op">=</span> <span class="fl">2</span>, c <span class="op">=</span> <span class="fl">3</span>, d <span class="op">=</span> <span class="fl">4</span>, e <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>,
-    <span class="op">{</span>
-        <span class="fu">create_symbols</span><span class="op">(</span><span class="op">)</span>
-        <span class="va">generic_symbols</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/enum.html">enum</a></span><span class="op">(</span>a <span class="op">=</span> <span class="va">a</span>, b <span class="op">=</span> <span class="va">b</span>, c <span class="op">=</span> <span class="va">c</span>, d <span class="op">=</span> <span class="va">d</span>, e <span class="op">=</span> <span class="va">e</span><span class="op">)</span>
-    <span class="op">}</span>,
-    <span class="va">generic</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/enum.html">enum</a></span><span class="op">(</span>a <span class="op">=</span> <span class="st">"1"</span>, b <span class="op">=</span> <span class="st">"2"</span>, c <span class="op">=</span> <span class="st">"3"</span>, d <span class="op">=</span> <span class="st">"4"</span>, e <span class="op">=</span> <span class="st">"5"</span><span class="op">)</span>,
-    times <span class="op">=</span> <span class="fl">5000</span>
-<span class="op">)</span>
-<span class="co">#&gt; Unit: microseconds</span>
-<span class="co">#&gt;                                                                                          expr</span>
-<span class="co">#&gt;                                                               inferred &lt;- enum(a, b, c, d, e)</span>
-<span class="co">#&gt;  explicit_num_symbols &lt;- enum(a = 1, b = .$a + 1, c = .$b + 1,      d = .$c + 1, e = .$d + 1)</span>
-<span class="co">#&gt;                                   explicit_numeric &lt;- enum(a = 1, b = 2, c = 3, d = 4, e = 5)</span>
-<span class="co">#&gt;       {     create_symbols()     generic_symbols &lt;- enum(a = a, b = b, c = c, d = d, e = e) }</span>
-<span class="co">#&gt;                                  generic &lt;- enum(a = "1", b = "2", c = "3", d = "4", e = "5")</span>
-<span class="co">#&gt;       min        lq      mean    median        uq       max neval</span>
-<span class="co">#&gt;  1187.965 1255.1400 1368.4551 1275.6855 1301.0730 41936.253  5000</span>
-<span class="co">#&gt;  1037.568 1104.2735 1211.1246 1122.7945 1145.7690 44790.577  5000</span>
-<span class="co">#&gt;   657.387  694.3550  755.2660  705.9940  720.2230 15632.417  5000</span>
-<span class="co">#&gt;   727.615  770.0030  853.7173  783.7695  801.7760 21270.675  5000</span>
-<span class="co">#&gt;   197.882  211.5755  228.3679  215.3860  221.2005  4697.264  5000</span></code></pre></div>
+<p><img src="performance_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
 <p>To speed up performance further, you can also access the enum constructor methods directly: <code><a href="../../reference/new_enum.html">new_generic_enum()</a></code> and <code><a href="../../reference/new_enum.html">new_numeric_enum()</a></code>. You’ll see these are reasonably faster than the <code><a href="../../reference/enum.html">enum()</a></code> function (the speed increase will likely be in the microsecond range). This is because <code><a href="../../reference/enum.html">enum()</a></code> has to check whether the enum is numeric or generic by evaluating each argument supplied to it.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">microbenchmark</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span>
-  <span class="va">num</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/enum.html">enum</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">z</span><span class="op">)</span>,
-  <span class="va">gen</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/enum.html">enum</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"1"</span>, y <span class="op">=</span> <span class="st">"2"</span>, z <span class="op">=</span> <span class="st">"3"</span><span class="op">)</span>,
-  <span class="va">num</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/new_enum.html">new_numeric_enum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span>, y <span class="op">=</span> <span class="fl">2</span>, z <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span>,
-  <span class="va">gen</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/new_enum.html">new_generic_enum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"1"</span>, y <span class="op">=</span> <span class="st">"2"</span>, z <span class="op">=</span> <span class="st">"3"</span><span class="op">)</span><span class="op">)</span>,
-  times <span class="op">=</span> <span class="fl">5000</span>
-<span class="op">)</span>
-<span class="co">#&gt; Unit: microseconds</span>
-<span class="co">#&gt;                                                      expr     min       lq</span>
-<span class="co">#&gt;                                      num &lt;- enum(x, y, z) 720.993 758.1870</span>
-<span class="co">#&gt;                    gen &lt;- enum(x = "1", y = "2", z = "3") 162.784 172.6230</span>
-<span class="co">#&gt;        num &lt;- new_numeric_enum(list(x = 1, y = 2, z = 3)) 360.154 381.0030</span>
-<span class="co">#&gt;  gen &lt;- new_generic_enum(list(x = "1", y = "2", z = "3"))  87.623  93.5675</span>
-<span class="co">#&gt;       mean   median       uq       max neval</span>
-<span class="co">#&gt;  798.84043 767.6695 778.4920  6001.384  5000</span>
-<span class="co">#&gt;  183.00356 175.4225 178.4595  6105.958  5000</span>
-<span class="co">#&gt;  411.60244 386.7680 393.2890 41946.900  5000</span>
-<span class="co">#&gt;   98.65891  95.4440  97.6355  2079.437  5000</span></code></pre></div>
+<p><img src="performance_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
 <p>However, this forgoes some of the niceties of the <code><a href="../../reference/enum.html">enum()</a></code> helper function, such as NSE or implicit definition.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Can only use explicit definitions</span>
 <span class="fu"><a href="../../reference/new_enum.html">new_numeric_enum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">a</span>, <span class="va">b</span>, <span class="va">c</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; Error: Incorrect arguments supplied to enum.</span>
@@ -189,6 +131,12 @@
 <span class="co"># Can't use NSE</span>
 <span class="fu"><a href="../../reference/new_enum.html">new_numeric_enum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>a <span class="op">=</span> <span class="fl">1</span>, b <span class="op">=</span> <span class="va">.</span><span class="op">$</span><span class="va">a</span> <span class="op">+</span> <span class="fl">1</span>, c <span class="op">=</span> <span class="fl">4</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; Error in .only_values_supplied(.enum_data): object '.' not found</span></code></pre></div>
+<p>Technically, you can use <code><a href="https://rdrr.io/r/base/substitute.html">substitute()</a></code> to still make use of the dot prefix, but this can be cumbersome after a while.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../../reference/new_enum.html">new_numeric_enum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">5</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/substitute.html">substitute</a></span><span class="op">(</span><span class="va">.</span><span class="op">$</span><span class="va">x</span> <span class="op">+</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; # A numeric enum: 2 members</span>
+<span class="co">#&gt;  num x : 5</span>
+<span class="co">#&gt;  num y : 10</span></code></pre></div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
