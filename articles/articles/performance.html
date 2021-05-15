@@ -153,12 +153,12 @@
 <span class="co">#&gt;                                   explicit_numeric &lt;- enum(a = 1, b = 2, c = 3, d = 4, e = 5)</span>
 <span class="co">#&gt;       {     create_symbols()     generic_symbols &lt;- enum(a = a, b = b, c = c, d = d, e = e) }</span>
 <span class="co">#&gt;                                  generic &lt;- enum(a = "1", b = "2", c = "3", d = "4", e = "5")</span>
-<span class="co">#&gt;       min       lq      mean    median        uq      max neval</span>
-<span class="co">#&gt;  1479.145 1565.721 1711.5434 1598.5955 1639.4365 41919.78  5000</span>
-<span class="co">#&gt;  1391.542 1470.995 1636.5322 1502.9025 1539.9900 56600.06  5000</span>
-<span class="co">#&gt;  1066.190 1126.243 1238.4831 1149.7405 1176.8325 28143.78  5000</span>
-<span class="co">#&gt;   691.446  736.880  835.6295  755.9595  783.2100 39764.39  5000</span>
-<span class="co">#&gt;   604.514  642.983  720.8092  657.7725  674.4085 40714.77  5000</span></code></pre></div>
+<span class="co">#&gt;       min        lq      mean    median        uq       max neval</span>
+<span class="co">#&gt;  1195.959 1255.2235 1351.0120 1271.0845 1290.4265 35999.993  5000</span>
+<span class="co">#&gt;  1039.715 1103.0365 1173.1987 1117.1985 1134.6320 19875.720  5000</span>
+<span class="co">#&gt;   652.667  692.5075  768.7066  702.0885  713.8945 41589.175  5000</span>
+<span class="co">#&gt;   723.156  768.8640  829.1545  780.3090  795.1140 22087.499  5000</span>
+<span class="co">#&gt;   196.057  209.8345  225.0975  212.8820  217.1285  3533.189  5000</span></code></pre></div>
 <p>To speed up performance further, you can also access the enum constructor methods directly: <code><a href="../../reference/new_enum.html">new_generic_enum()</a></code> and <code><a href="../../reference/new_enum.html">new_numeric_enum()</a></code>. You’ll see these are reasonably faster than the <code><a href="../../reference/enum.html">enum()</a></code> function (the speed increase will likely be in the microsecond range). This is because <code><a href="../../reference/enum.html">enum()</a></code> has to check whether the enum is numeric or generic by evaluating each argument supplied to it.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">microbenchmark</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span>
@@ -170,15 +170,15 @@
 <span class="op">)</span>
 <span class="co">#&gt; Unit: microseconds</span>
 <span class="co">#&gt;                                                      expr     min       lq</span>
-<span class="co">#&gt;                                      num &lt;- enum(x, y, z) 863.627 898.2535</span>
-<span class="co">#&gt;                    gen &lt;- enum(x = "1", y = "2", z = "3") 409.434 426.7540</span>
-<span class="co">#&gt;        num &lt;- new_numeric_enum(list(x = 1, y = 2, z = 3)) 360.846 376.7555</span>
-<span class="co">#&gt;  gen &lt;- new_generic_enum(list(x = "1", y = "2", z = "3"))  84.896  90.3445</span>
+<span class="co">#&gt;                                      num &lt;- enum(x, y, z) 732.706 757.3055</span>
+<span class="co">#&gt;                    gen &lt;- enum(x = "1", y = "2", z = "3") 162.652 171.4495</span>
+<span class="co">#&gt;        num &lt;- new_numeric_enum(list(x = 1, y = 2, z = 3)) 365.375 380.0195</span>
+<span class="co">#&gt;  gen &lt;- new_generic_enum(list(x = "1", y = "2", z = "3"))  86.554  91.4635</span>
 <span class="co">#&gt;       mean   median       uq       max neval</span>
-<span class="co">#&gt;  946.93993 911.9940 930.6665  3381.954  5000</span>
-<span class="co">#&gt;  451.19784 433.2270 442.5945  7413.411  5000</span>
-<span class="co">#&gt;  407.00008 382.9280 391.9315 42700.194  5000</span>
-<span class="co">#&gt;   98.28412  92.1665  94.3400  5914.924  5000</span></code></pre></div>
+<span class="co">#&gt;  797.97750 766.4255 777.1655  7291.510  5000</span>
+<span class="co">#&gt;  193.06924 174.1110 177.2600 44256.775  5000</span>
+<span class="co">#&gt;  405.03637 385.8290 392.9805  4760.686  5000</span>
+<span class="co">#&gt;   99.47516  93.4240  95.5990  6879.334  5000</span></code></pre></div>
 <p>However, this forgoes some of the niceties of the <code><a href="../../reference/enum.html">enum()</a></code> helper function, such as NSE or implicit definition.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Can only use explicit definitions</span>
@@ -188,7 +188,7 @@
 
 <span class="co"># Can't use NSE</span>
 <span class="fu"><a href="../../reference/new_enum.html">new_numeric_enum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>a <span class="op">=</span> <span class="fl">1</span>, b <span class="op">=</span> <span class="va">.</span><span class="op">$</span><span class="va">a</span> <span class="op">+</span> <span class="fl">1</span>, c <span class="op">=</span> <span class="fl">4</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; Error in validate_enum_definition(.enum_data): object '.' not found</span></code></pre></div>
+<span class="co">#&gt; Error in .only_values_supplied(.enum_data): object '.' not found</span></code></pre></div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
