@@ -8,7 +8,7 @@ test_that("enum definition validation works", {
 test_that("numeric validation works", {
     # Expect unique evaluated values
     expect_error(
-        validate_numeric_enum(list(a = 1, b = substitute(2 - 1)))
+        new_numeric_enum(list(a = 1, b = substitute(2 - 1)))
     )
     # Can be coerced to numeric
     expect_error(
@@ -32,5 +32,11 @@ test_that("generic validation works", {
 
     expect_error(
         validate_generic_enum(list(a = 1, b = 1))
+    )
+})
+
+test_that("masked eval throws correct error", {
+    expect_error(
+        masked_eval(substitute(x + y), NULL)
     )
 })

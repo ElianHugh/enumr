@@ -6,8 +6,8 @@
 #' based on the arguments supplied to it. Enumerations are similar to lists,
 #' but:
 #'
-#'      * cannot be assigned to after definition
-#'      * all values and names must be unique
+#'   * cannot be assigned to after definition
+#'   * all values and names must be unique
 #'
 #' There are two types of enumeration: generic and numeric. The main difference
 #' between the two is that generic enumerations must have all their values

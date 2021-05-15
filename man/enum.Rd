@@ -15,8 +15,10 @@ An enumeration (enum), a list of unique name/value pairs.
 \description{
 \code{enum()} creates a new enumeration, and infers the the enumeration type
 based on the arguments supplied to it. Enumerations are similar to lists,
-but:\preformatted{ * cannot be assigned to after definition
- * all values and names must be unique
+but:
+\itemize{
+\item cannot be assigned to after definition
+\item all values and names must be unique
 }
 
 There are two types of enumeration: generic and numeric. The main difference

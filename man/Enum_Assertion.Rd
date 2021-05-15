@@ -14,6 +14,9 @@ any
 }
 \description{
 Assertion for controlling input and return types.
+Allows for the type checking of enums and enum members.
+
+This function requires the {typed} package to operate.
 }
 \examples{
 # If you leverage the {typed} package, you can make use

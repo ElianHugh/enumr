@@ -11,6 +11,8 @@ knitr::opts_chunk$set(
 
 ```{r setup, include = FALSE}
 library(enumr, quietly = TRUE)
+library(dplyr)
+library(ggplot2)
 ```
 
 Enum definition is reasonably fast, so will likely not be a bottleneck for the large majority of users. However, if speed is of concern, there are some things to keep in mind:
@@ -21,7 +23,7 @@ Enum definition is reasonably fast, so will likely not be a bottleneck for the l
 
 Here is a microbenchmark, comparing the various forms of enum. Note that a `create_symbols` function is defined for the generic_symbols parse. Realistically, generic and generic_symbols have comparable speeds.
 
-```{r}
+```{r, echo=FALSE, message=FALSE}
 # Create some symbols in the environment
 # for benchmarking
 create_symbols <- function() {
@@ -32,7 +34,7 @@ create_symbols <- function() {
   )
 }
 
-microbenchmark::microbenchmark(
+res <- microbenchmark::microbenchmark(
     inferred <- enum(a, b, c, d, e),
     explicit_num_symbols <- enum(
         a = 1,
@@ -49,18 +51,42 @@ microbenchmark::microbenchmark(
     generic <- enum(a = "1", b = "2", c = "3", d = "4", e = "5"),
     times = 5000
 )
+
+res %>%
+  autoplot() +
+  scale_x_discrete(
+    labels =
+      c(
+        "inferred\nenum(a, b, c, d, e)",
+        "explicit_num_symbols\nenum(a = 1, b = .$a + 1...)",
+        "explicit_numeric\nenum(a = 1, b = 2, c = 3, d = 4, e = 5)",
+        "generic_symbols\nenum(a = a, b = b, c = c, d = d, e = e)",
+        "generic\nenum(a = '1', b = '2', c = '3', d = '4', e = '5')"
+      )
+  )
 ```
 
 To speed up performance further, you can also access the enum constructor methods directly: `new_generic_enum()` and `new_numeric_enum()`. You'll see these are reasonably faster than the `enum()` function (the speed increase will likely be in the microsecond range). This is because `enum()` has to check whether the enum is numeric or generic by evaluating each argument supplied to it.
 
-```{r, error = TRUE}
-microbenchmark::microbenchmark(
+```{r,  echo=FALSE, message=FALSE}
+res2 <- microbenchmark::microbenchmark(
   num <- enum(x, y, z),
+  num2 <- new_numeric_enum(list(x = 1, y = 2, z = 3)),
   gen <- enum(x = "1", y = "2", z = "3"),
-  num <- new_numeric_enum(list(x = 1, y = 2, z = 3)),
-  gen <- new_generic_enum(list(x = "1", y = "2", z = "3")),
+  gen2 <- new_generic_enum(list(x = "1", y = "2", z = "3")),
   times = 5000
 )
+
+res2 %>%
+  autoplot() +
+  scale_x_discrete(
+    labels = c(
+      "num\nenum(x, y, z)",
+      "gen\nenum(x = '1', y = '2', z = '3')",
+      "num2\nnew_numeric_enum(list(x = 1, y = 2, z = 3))",
+      "gen2\nnew_generic_enum(list(x = '1', y = '2', z = '3'))"
+    )
+  )
 ```
 
 However, this forgoes some of the niceties of the `enum()` helper function, such as NSE or implicit definition.
@@ -71,4 +97,10 @@ new_numeric_enum(list(a, b, c))
 
 # Can't use NSE
 new_numeric_enum(list(a = 1, b = .$a + 1, c = 4))
+```
+
+Technically, you can use `substitute()` to still make use of the dot prefix, but this can be cumbersome after a while.
+
+```{r}
+new_numeric_enum(list(x = 5, y = substitute(.$x + 5)))
 ```

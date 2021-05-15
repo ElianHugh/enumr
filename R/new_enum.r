@@ -1,10 +1,10 @@
 #' Enum constructors
 #'
 #' @description
-#' * `new_numeric_enum()` creates and validates a
-#' numeric enum from a named list of arguments
-#' * `new_generic_enum()` creates and validates a
-#' generic enum from a named list of arguments
+#'  * `new_numeric_enum()` creates and validates a
+#'  numeric enum from a named list of arguments
+#'  * `new_generic_enum()` creates and validates a
+#'  generic enum from a named list of arguments
 #' @param .enum_data named list of arguments
 #' @seealso [enum()], [as_enum()]
 #' @examples
@@ -20,7 +20,7 @@ new_numeric_enum <- function(.enum_data) {
     supply_names_and_values <- function(dat, index, obj) {
         if (is.symbol(dat) && rlang::names2(obj[index]) == "") {
             dat_name <- rlang::as_name(dat)
-            if (index > 1L && .check_eval(index - 1L, .enum_data) == TRUE) {
+            if (index > 1L && .check_eval(index - 1L, .enum_data)) {
                 value <- masked_eval(.enum_data[[index - 1L]], .enum_data) + 1L
             } else {
                 value <- index
@@ -54,13 +54,13 @@ new_numeric_enum <- function(.enum_data) {
 #' @export
 #' @rdname new_enum
 new_generic_enum <- function(.enum_data) {
-    validate_enum_definition(.enum_data)
-
     evaluate_symbols <- function(dat, index) {
         if (is.symbol(dat) || is.language(dat)) {
             .enum_data[[index]] <<- masked_eval(.enum_data[[index]], .enum_data)
         }
     }
+
+    validate_enum_definition(.enum_data)
 
     # evaluate any symbols in supplied data
     mapply(
@@ -101,27 +101,20 @@ validate_enum_definition <- function(.enum_data) {
 #' @rdname validate_enum
 #' @export
 validate_numeric_enum <- function(.enum_data) {
-    coerced_vals <- lapply(
-        seq_along(.enum_data),
-        function(x) {
-            suppressWarnings(
-                x <- as.numeric(
-                    masked_eval(.enum_data[[x]], .enum_data)
-                )
-            )
-            return(x)
-        }
+    is_numeric_value <- lapply(
+        .enum_data,
+        is.numeric
     )
 
     #' @section Validation:
     #' `validate_numeric_enum()` checks that, when evaluated,
     #' all the enum values are unique,
-    if ((length(coerced_vals) != length(unique.default(coerced_vals)))) {
+    if ((length(.enum_data) != length(unique.default(unlist(.enum_data))))) {
         error_unique()
     }
 
     #' can be interpreted as numeric,
-    if (anyNA(coerced_vals)) {
+    if (any(is_numeric_value == FALSE)) {
         error_interpret_as_numeric()
     }
 
@@ -172,11 +165,9 @@ validate_generic_enum <- function(.enum_data) {
     }
 }
 
-#' Check that the enum has atomic members without names
-#' Returns TRUE if this is the case, which will cause
-#' enumr to shoot an error
-#' @param obj an enum to check
-#' @keywords internal
+# Check that the enum has atomic members without names
+# Returns TRUE if this is the case, which will cause
+# enumr to shoot an error
 .only_values_supplied <- function(obj) {
     for (i in seq_along(obj)) {
         if ((is.atomic(obj[[i]]) || is.call(obj[[i]])) &&
