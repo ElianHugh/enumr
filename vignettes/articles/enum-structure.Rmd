@@ -1,0 +1,44 @@
+---
+title: "Behind the enum curtain"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(enumr)
+```
+
+Under the surface, an enum is composed of two elements: a container environment, and a list. The list is what holds all the enum members. We can demonstrate this through a small example:
+
+```{r}
+my_enum <- enum(a, b, c)
+my_list <- list(a = 1, b = 2, c = 3)
+```
+
+If the enum were identical to a list, we would expect `ls()` to return the same result for both objects
+
+```{r}
+ls(my_enum)
+ls(my_list)
+```
+
+Why does `ls()` not return the enum names, like the list object? This is because `ls()` is returning the contents of the *container environment*, which is a list called enum. We can see the contents of the list like so:
+
+```{r}
+ls.str(my_enum)
+```
+
+## Why is an enum structured like this?
+
+In order to define a static object (i.e. an object that cannot be re-defined), R has the `lockEnvironment()` method, which (to simplify) prevents changes to an environment and its contents. We use `lockEnvironment()` to ensure that enum members cannot be changed after their definition, preventing the occurrence of 'magic values'[^1].
+
+[^1] Values that have unexplained meanings, such as '0' and '1' referring to a categorical variable
+
+However, a downside for a list-type data structure is that environments have no concept of order. If we were to define a series of values, we couldn't be sure that the structure had the same order as how we intended. This means that if were to subset with an index (e.g. `[[1]]`), we might get a different value than what we were expecting.
+
+To circumvent this, we instead create a list *inside* the environment. This allows us to have the benefits of an ordered data structure, and lock the values of the enum.

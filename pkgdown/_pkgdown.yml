@@ -42,6 +42,8 @@ navbar:
                   href: articles/articles/performance.html
                 - text: Typed integration
                   href: articles/articles/enum_assertion.html
+                - text: Behind the curtain
+                  href: articles/articles/enum-structure.html
 
 template:
     params:
