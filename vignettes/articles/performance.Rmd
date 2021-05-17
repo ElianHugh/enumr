@@ -21,9 +21,10 @@ Enum definition is reasonably fast, so will likely not be a bottleneck for the l
 - Inferred numerics are slower than explicit numerics
 - Generic enums are *typically* faster than numeric enums
 
-Here is a microbenchmark, comparing the various forms of enum. Note that a `create_symbols` function is defined for the generic_symbols parse. Realistically, generic and generic_symbols have comparable speeds.
+Here is a microbenchmark, comparing the various forms of enum.
 
 ```{r, echo=FALSE, message=FALSE}
+options(scipen = 5)
 # Create some symbols in the environment
 # for benchmarking
 create_symbols <- function() {
@@ -33,6 +34,8 @@ create_symbols <- function() {
     seq(5)
   )
 }
+
+create_symbols()
 
 res <- microbenchmark::microbenchmark(
     inferred <- enum(a, b, c, d, e),
@@ -44,17 +47,14 @@ res <- microbenchmark::microbenchmark(
         e = .$d + 1
         ),
     explicit_numeric <- enum(a = 1, b = 2, c = 3, d = 4, e = 5),
-    {
-        create_symbols()
-        generic_symbols <- enum(a = a, b = b, c = c, d = d, e = e)
-    },
+    generic_symbols <- enum(a = a, b = b, c = c, d = d, e = e),
     generic <- enum(a = "1", b = "2", c = "3", d = "4", e = "5"),
     times = 5000
 )
 
 res %>%
-  autoplot() +
-  scale_x_discrete(
+  ggplot2::autoplot() +
+  ggplot2::scale_x_discrete(
     labels =
       c(
         "inferred\nenum(a, b, c, d, e)",
@@ -78,12 +78,12 @@ res2 <- microbenchmark::microbenchmark(
 )
 
 res2 %>%
-  autoplot() +
-  scale_x_discrete(
+  ggplot2::autoplot() +
+  ggplot2::scale_x_discrete(
     labels = c(
       "num\nenum(x, y, z)",
-      "gen\nenum(x = '1', y = '2', z = '3')",
       "num2\nnew_numeric_enum(list(x = 1, y = 2, z = 3))",
+      "gen\nenum(x = '1', y = '2', z = '3')",
       "gen2\nnew_generic_enum(list(x = '1', y = '2', z = '3'))"
     )
   )

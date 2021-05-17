@@ -31,9 +31,8 @@ for validity
 
 
 \code{validate_numeric_enum()} checks that, when evaluated,
-all the enum values are unique,
-can be interpreted as numeric,
-and there are no duplicate names
+all the enum members are unique,
+and can be interpreted as numeric
 
 
 \code{validate_generic_enum()} check that all

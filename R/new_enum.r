@@ -45,7 +45,8 @@ new_numeric_enum <- function(.enum_data) {
     # Check if the generated values are unique too
     validate_numeric_enum(.enum_data)
 
-    enum_env <- rlang::new_environment(data = list(enum = .enum_data))
+    enum_env <- new.env()
+    enum_env$enum <- .enum_data
     class(enum_env) <- c("numeric_enum", "enum")
     lockEnvironment(enum_env, bindings = TRUE)
     enum_env
@@ -73,7 +74,8 @@ new_generic_enum <- function(.enum_data) {
 
     validate_generic_enum(.enum_data)
 
-    enum_env <- rlang::new_environment(data = list(enum = .enum_data))
+    enum_env <- new.env()
+    enum_env$enum <- .enum_data
     class(enum_env) <- c("generic_enum", "enum")
     lockEnvironment(enum_env, bindings = TRUE)
     enum_env
@@ -108,19 +110,15 @@ validate_numeric_enum <- function(.enum_data) {
 
     #' @section Validation:
     #' `validate_numeric_enum()` checks that, when evaluated,
-    #' all the enum values are unique,
-    if ((length(.enum_data) != length(unique.default(unlist(.enum_data))))) {
-        error_unique()
-    }
+    #' all the enum members are unique,
+        if (anyDuplicated.default(unlist(.enum_data, use.names = FALSE)) ||
+            anyDuplicated.default(names(.enum_data))) {
+            error_unique()
+        }
 
-    #' can be interpreted as numeric,
+    #' and can be interpreted as numeric
     if (any(is_numeric_value == FALSE)) {
         error_interpret_as_numeric()
-    }
-
-    #' and there are no duplicate names
-    if (length(.enum_data) != length(unique.default(names(.enum_data)))) {
-        error_unique()
     }
 
     invisible(.enum_data)
@@ -140,11 +138,8 @@ validate_generic_enum <- function(.enum_data) {
         error_explicit_definition()
     }
 
-    if (length(.enum_data) != length(unique.default(names(.enum_data)))) {
-        error_unique()
-    }
-
-    if (length(.enum_data) != length(unique.default(.enum_data))) {
+    if (anyDuplicated.default((.enum_data)) ||
+        anyDuplicated.default(names(.enum_data))) {
         error_unique()
     }
 
@@ -158,7 +153,8 @@ validate_generic_enum <- function(.enum_data) {
         checked_vals <- all(
             unlist(
                 lapply(seq_along(.enum_data), .check_eval, .enum_data),
-                use.names = FALSE
+                use.names = FALSE,
+                recursive = FALSE
             )
         )
         return(checked_vals)
