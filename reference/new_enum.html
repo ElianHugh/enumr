@@ -47,14 +47,22 @@
 
 
 <meta property="og:title" content="Enum constructors — new_enum" />
-<meta property="og:description" content="
-
+<meta property="og:description" content="The constructors new_numeric_enum() and
+new_generic_enum() are the basis for the
+enum() command. These can be used instead of
+enum() if speed is pivotal.
 new_numeric_enum() creates and validates a
-numeric enum from a named list of arguments
+numeric enum from a named list of numeric arguments
 new_generic_enum() creates and validates a
 generic enum from a named list of arguments
 
-" />
+
+These constructors do not have the helpers
+associated with the enum() command, such as
+easy NSE or enum class detection.
+In general, it is recommended to use the enum()
+method, as it is less verbose, easier to read and write, and
+more readily picks up on user errors." />
 <meta property="og:image" content="https://elianhugh.github.io/enumr/logo.png" />
 
 
@@ -124,6 +132,9 @@ generic enum from a named list of arguments
     <li>
       <a href="../articles/articles/enum_assertion.html">Typed integration</a>
     </li>
+    <li>
+      <a href="../articles/articles/enum-structure.html">Behind the curtain</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -156,14 +167,22 @@ generic enum from a named list of arguments
     </div>
 
     <div class="ref-description">
-    
-<ul>
+    <p>The constructors <code>new_numeric_enum()</code> and
+<code>new_generic_enum()</code> are the basis for the
+<code><a href='enum.html'>enum()</a></code> command. These can be used instead of
+<code><a href='enum.html'>enum()</a></code> if speed is pivotal.</p><ul>
 <li><p><code>new_numeric_enum()</code> creates and validates a
-numeric enum from a named list of arguments</p></li>
+numeric enum from a named list of numeric arguments</p></li>
 <li><p><code>new_generic_enum()</code> creates and validates a
 generic enum from a named list of arguments</p></li>
 </ul>
 
+<p>These constructors do not have the helpers
+associated with the <code><a href='enum.html'>enum()</a></code> command, such as
+easy NSE or enum class detection.</p>
+<p>In general, it is recommended to use the <code><a href='enum.html'>enum()</a></code>
+method, as it is less verbose, easier to read and write, and
+more readily picks up on user errors.</p>
     </div>
 
     <pre class="usage"><span class='fu'>new_numeric_enum</span><span class='op'>(</span><span class='va'>.enum_data</span><span class='op'>)</span>

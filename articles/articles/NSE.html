@@ -75,6 +75,9 @@
     <li>
       <a href="../../articles/articles/enum_assertion.html">Typed integration</a>
     </li>
+    <li>
+      <a href="../../articles/articles/enum-structure.html">Behind the curtain</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -141,10 +144,8 @@
     b <span class="op">=</span> <span class="va">.</span><span class="op">$</span><span class="va">c</span> <span class="op">+</span> <span class="fl">1</span>,
     <span class="va">c</span>
 <span class="op">)</span>
-<span class="co">#&gt; # A numeric enum: 3 members</span>
-<span class="co">#&gt;  num a : 1</span>
-<span class="co">#&gt;  num b : numeric(0)</span>
-<span class="co">#&gt;  num c : numeric(0)</span>
+<span class="co">#&gt; Error: Incorrect arguments supplied to enum.</span>
+<span class="co">#&gt; * Each argument value must be interpretable as numeric.</span>
 
 <span class="co"># Valid due to explicit initialisation</span>
 <span class="fu"><a href="../../reference/enum.html">enum</a></span><span class="op">(</span>

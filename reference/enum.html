@@ -57,7 +57,11 @@ all values and names must be unique
 There are two types of enumeration: generic and numeric. The main difference
 between the two is that generic enumerations must have all their values
 explicitly defined. Numeric enums, by contrast, infer the values of
-their members." />
+their members, and must have only numeric values.
+Numeric enum values are inferred when a member does not have a value assigned
+to it. The value of the member is then calculated as +1 to the last
+member's value, or the current member's index. Incrementation for values is
+prioritised over index as value." />
 <meta property="og:image" content="https://elianhugh.github.io/enumr/logo.png" />
 
 
@@ -127,6 +131,9 @@ their members." />
     <li>
       <a href="../articles/articles/enum_assertion.html">Typed integration</a>
     </li>
+    <li>
+      <a href="../articles/articles/enum-structure.html">Behind the curtain</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -169,7 +176,11 @@ but:</p><ul>
 <p>There are two types of enumeration: generic and numeric. The main difference
 between the two is that generic enumerations must have all their values
 explicitly defined. Numeric enums, by contrast, infer the values of
-their members.</p>
+their members, and must have only numeric values.</p>
+<p>Numeric enum values are inferred when a member does not have a value assigned
+to it. The value of the member is then calculated as +1 to the last
+member's value, or the current member's index. Incrementation for values is
+prioritised over index as value.</p>
     </div>
 
     <pre class="usage"><span class='fu'>enum</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span></pre>

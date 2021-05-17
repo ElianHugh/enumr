@@ -47,12 +47,12 @@
 
 
 <meta property="og:title" content="Enum Validator — validate_enum_definition" />
-<meta property="og:description" content="validate_enum_definition() checks the enum arguments
-for validity
-validate_numeric_enum() checks named list of arguments
-for validity
+<meta property="og:description" content="The basis for all enum definitions, validate_enum_definition()
+checks the enum arguments for internal consistency
+validate_numeric_enum() checks numeric enum arguments
+for internal consistency with the numeric enum class
 validate_generic_enum() checks generic enums
-for validity" />
+for internal consistency with the generic enum class" />
 <meta property="og:image" content="https://elianhugh.github.io/enumr/logo.png" />
 
 
@@ -122,6 +122,9 @@ for validity" />
     <li>
       <a href="../articles/articles/enum_assertion.html">Typed integration</a>
     </li>
+    <li>
+      <a href="../articles/articles/enum-structure.html">Behind the curtain</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -154,12 +157,12 @@ for validity" />
     </div>
 
     <div class="ref-description">
-    <p><code>validate_enum_definition()</code> checks the enum arguments
-for validity</p>
-<p><code>validate_numeric_enum()</code> checks named list of arguments
-for validity</p>
+    <p>The basis for all enum definitions, <code>validate_enum_definition()</code>
+checks the enum arguments for internal consistency</p>
+<p><code>validate_numeric_enum()</code> checks numeric enum arguments
+for internal consistency with the numeric enum class</p>
 <p><code>validate_generic_enum()</code> checks generic enums
-for validity</p>
+for internal consistency with the generic enum class</p>
     </div>
 
     <pre class="usage"><span class='fu'>validate_enum_definition</span><span class='op'>(</span><span class='va'>.enum_data</span><span class='op'>)</span>
@@ -189,7 +192,7 @@ and can be interpreted as numeric</p>
 
 <p><code>validate_generic_enum()</code> check that all
 arguments supplied to the constructor
-have a name and value.</p>
+have a unique name and value.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
