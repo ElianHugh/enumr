@@ -14,12 +14,24 @@ new_generic_enum(.enum_data)
 \item{.enum_data}{named list of arguments}
 }
 \description{
+The constructors \code{new_numeric_enum()} and
+\code{new_generic_enum()} are the basis for the
+\code{enum()} command. These can be used instead of
+\code{enum()} if speed is pivotal.
 \itemize{
 \item \code{new_numeric_enum()} creates and validates a
-numeric enum from a named list of arguments
+numeric enum from a named list of numeric arguments
 \item \code{new_generic_enum()} creates and validates a
 generic enum from a named list of arguments
 }
+
+These constructors do not have the helpers
+associated with the \code{enum()} command, such as
+easy NSE or enum class detection.
+
+In general, it is recommended to use the \code{enum()}
+method, as it is less verbose, easier to read and write, and
+more readily picks up on user errors.
 }
 \examples{
 new_numeric_enum(list(x = 5, y = 2))

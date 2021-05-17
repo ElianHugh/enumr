@@ -15,6 +15,9 @@
 #' * [`factor`][base::factor()]: constructs a list of name/value pairs
 #'   from a factor, supplies the list to [new_numeric_enum()].
 #'
+#' Coercion can be used when you want to create an enum, but don't
+#' know what the exact values each member will contain at runtime.
+#'
 #' @param x the object to coerce to enum
 #' @param .sorted whether the object elements should be sorted
 #' @param ... parameters to pass to further methods

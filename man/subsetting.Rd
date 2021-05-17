@@ -30,9 +30,21 @@
 \item{value}{assigning values to enums is not allowed}
 }
 \description{
-Access enum members through subsetting with numeric or character indices
+Access enum members through subsetting with numeric or character indices.
+
+Enums are converted to a list type through the \code{\link[base:list]{base::as.list()}} method,
+before being subset by an index.
 }
 \details{
+Enums are not intended to be used as interactive data structures.
 Assigning to enum members is not supported, and will
 throw an error if attempted.
+
+If you require an enum to be modifiable, consider using a \code{\link[base:list]{base::list()}}.
+}
+\examples{
+a <- enum(a,b,c)
+a[1]
+a[[1]]
+a$a
 }

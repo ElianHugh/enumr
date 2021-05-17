@@ -10,6 +10,9 @@
 #' * [new_numeric_enum()] (constructor)
 #' * [Enum()] (type assertion)
 #'
+#' Enumr's enums are heavily inspired by the typescript
+#' data structure of the same name.
+#'
 #' @docType package
 #' @keywords internal
 "_PACKAGE"

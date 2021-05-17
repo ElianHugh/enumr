@@ -21,6 +21,7 @@ test_that('invalid enums are disposed of', {
     expect_error((enum(sqrt(5))))
     expect_error((enum(a, a)))
     expect_error((enum(a, b = 1)))
+    expect_error((enum(a, b = .$c + 1)))
 })
 
 test_that("enum constructors are functional", {

@@ -24,7 +24,7 @@ but:
 There are two types of enumeration: generic and numeric. The main difference
 between the two is that generic enumerations must have all their values
 explicitly defined. Numeric enums, by contrast, infer the values of
-their members.
+their members, and must have only numeric values.
 }
 \details{
 Under the surface, enums are actually lists contained within

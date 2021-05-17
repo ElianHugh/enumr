@@ -13,10 +13,11 @@ Enum(...)
 any
 }
 \description{
-Assertion for controlling input and return types.
+Assertion for controlling object, argument, and return types.
 Allows for the type checking of enums and enum members.
 
-This function requires the {typed} package to operate.
+This function requires the {typed} package to operate. See
+\code{\link[typed:declare]{typed::?()}} for more details.
 }
 \examples{
 # If you leverage the {typed} package, you can make use

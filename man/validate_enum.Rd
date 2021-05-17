@@ -16,14 +16,14 @@ validate_generic_enum(.enum_data)
 \item{.enum_data}{named list of arguments}
 }
 \description{
-\code{validate_enum_definition()} checks the enum arguments
-for validity
+The basis for all enum definitions, \code{validate_enum_definition()}
+checks the enum arguments for internal consistency
 
-\code{validate_numeric_enum()} checks named list of arguments
-for validity
+\code{validate_numeric_enum()} checks numeric enum arguments
+for internal consistency with the numeric enum class
 
 \code{validate_generic_enum()} checks generic enums
-for validity
+for internal consistency with the generic enum class
 }
 \section{Validation}{
 
@@ -37,6 +37,6 @@ and can be interpreted as numeric
 
 \code{validate_generic_enum()} check that all
 arguments supplied to the constructor
-have a name and value.
+have a unique name and value.
 }
 

@@ -1,10 +1,24 @@
 #' Enum constructors
 #'
 #' @description
+#' The constructors `new_numeric_enum()` and
+#' `new_generic_enum()` are the basis for the
+#' `enum()` command. These can be used instead of
+#' `enum()` if speed is pivotal.
+#'
 #'  * `new_numeric_enum()` creates and validates a
-#'  numeric enum from a named list of arguments
+#'  numeric enum from a named list of numeric arguments
 #'  * `new_generic_enum()` creates and validates a
 #'  generic enum from a named list of arguments
+#'
+#' These constructors do not have the helpers
+#' associated with the `enum()` command, such as
+#' easy NSE or enum class detection.
+#'
+#' In general, it is recommended to use the `enum()`
+#' method, as it is less verbose, easier to read and write, and
+#' more readily picks up on user errors.
+#'
 #' @param .enum_data named list of arguments
 #' @seealso [enum()], [as_enum()]
 #' @examples
@@ -83,8 +97,8 @@ new_generic_enum <- function(.enum_data) {
 
 #' Enum Validator
 #' @description
-#' `validate_enum_definition()` checks the enum arguments
-#' for validity
+#' The basis for all enum definitions, `validate_enum_definition()`
+#' checks the enum arguments for internal consistency
 #' @param .enum_data named list of arguments
 #' @rdname validate_enum
 #' @export
@@ -98,8 +112,8 @@ validate_enum_definition <- function(.enum_data) {
 }
 
 #' @description
-#' `validate_numeric_enum()` checks named list of arguments
-#' for validity
+#' `validate_numeric_enum()` checks numeric enum arguments
+#' for internal consistency with the numeric enum class
 #' @rdname validate_enum
 #' @export
 validate_numeric_enum <- function(.enum_data) {
@@ -117,7 +131,7 @@ validate_numeric_enum <- function(.enum_data) {
         }
 
     #' and can be interpreted as numeric
-    if (any(is_numeric_value == FALSE)) {
+    if (any(is_numeric_value == FALSE) || any(lengths(.enum_data) == 0)) {
         error_interpret_as_numeric()
     }
 
@@ -126,14 +140,14 @@ validate_numeric_enum <- function(.enum_data) {
 
 #' @description
 #' `validate_generic_enum()` checks generic enums
-#' for validity
+#' for internal consistency with the generic enum class
 #' @rdname validate_enum
 #' @export
 validate_generic_enum <- function(.enum_data) {
     #' @section Validation:
     #' `validate_generic_enum()` check that all
     #' arguments supplied to the constructor
-    #' have a name and value.
+    #' have a unique name and value.
     if (any(rlang::names2(.enum_data) == "")) {
         error_explicit_definition()
     }

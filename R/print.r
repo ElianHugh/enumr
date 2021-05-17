@@ -1,6 +1,11 @@
 #' Printing enums
 #' @description
-#' Pretty print enums with the print.enum method
+#' Pretty print enums with the print.enum method.
+#' Displays the enum class, number of members defined,
+#' and member properties.
+#'
+#' The `format.enum()` method does the majority of
+#' the work for pretty printing.
 #' @param x enum to print
 #' @param ... values passed to further methods
 #' @name printing

@@ -35,7 +35,7 @@ create_symbols <- function() {
   )
 }
 
-create_symbols()
+invisible(create_symbols())
 
 res <- microbenchmark::microbenchmark(
     inferred <- enum(a, b, c, d, e),

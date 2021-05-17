@@ -28,8 +28,8 @@
 }
 \description{
 Various S3 methods that improve interacting with
-enum data types
-}
-\details{
-These are some details
+enum data types.
+
+These rely on coercing enums to list types before
+applying any methods to the enum.
 }

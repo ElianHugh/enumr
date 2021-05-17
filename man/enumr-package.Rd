@@ -18,6 +18,9 @@ are:
 \item \code{\link[=new_numeric_enum]{new_numeric_enum()}} (constructor)
 \item \link[=enum]{Enum()} (type assertion)
 }
+
+Enumr's enums are heavily inspired by the typescript
+data structure of the same name.
 }
 \seealso{
 Useful links:

@@ -16,5 +16,10 @@
 \item{...}{values passed to further methods}
 }
 \description{
-Pretty print enums with the print.enum method
+Pretty print enums with the print.enum method.
+Displays the enum class, number of members defined,
+and member properties.
+
+The \code{format.enum()} method does the majority of
+the work for pretty printing.
 }
