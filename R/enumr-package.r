@@ -1,18 +1,27 @@
 #' enumr: Enumerations for R
 #'
+#' @details
+#' The __enumr__ package implements enumerations (or 'enums').
 #' Enums are lists that have unique key/pair values (called 'members'),
-#' and cannot be modified after their definition. The main methods exported
-#' are:
+#' and cannot be modified after their definition.
 #'
-#' * [enum()] (object definition)
-#' * [as_enum()] (object coercion)
-#' * [new_generic_enum()] (constructor)
-#' * [new_numeric_enum()] (constructor)
-#' * [Enum()] (type assertion)
 #'
-#' Enumr's enums are heavily inspired by the typescript
-#' data structure of the same name.
+#' General Resources:
+#'   * Enumr's enums are heavily inspired by the typescript
+#'     data structure of the same name.
+#'     See [here](https://www.typescriptlang.org/docs/handbook/enums.html)
+#'     for how enums function in typescript
+#'   * Enumr's [pkgdown site](https://elianhugh.github.io/enumr/index.html)
+#'
+#'
+#' Main exported methods:
+#'   * making enums: [enum()], [as_enum()], [new_generic_enum()],
+#'     [new_numeric_enum()]
+#'   * type checking: [Enum()], [is_enum()]
+#'   * printing and presenting enums: [print.enum()], [format.enum()],
+#'     [str.enum()]
 #'
 #' @docType package
 #' @keywords internal
+#' @aliases NULL enumr-package
 "_PACKAGE"

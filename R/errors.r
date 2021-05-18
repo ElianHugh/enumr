@@ -58,10 +58,13 @@ error_illegal_assignment <- function() {
     )
 }
 
-error_cannot_evaluate <- function() {
+error_cannot_evaluate <- function(e) {
     error <- construct_error("evaluation")
     rlang::abort(
-        "Argument cannot be evaluated",
+        c(
+            "Argument cannot be evaluated",
+            e[["call"]]
+        ),
         class = error
     )
 }

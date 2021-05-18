@@ -15,7 +15,7 @@ library(enumr, quietly = TRUE)
 ```
 
 
-If you are using [{typed}](https://moodymudskipper.github.io/typed/), you can make use of the `Enum` assertion for return and input assertion. Note that 'enum' is the class definition and 'Enum' is the assertion - this matches the {typed} paradigm of assertions.
+If you are using [{typed}](https://moodymudskipper.github.io/typed/), you can make use of the `Enum` assertion for return and input assertion. Note that `enum()` is the class definition and `Enum()` is the type assertion - this matches the {typed} paradigm of assertions (e.g. `list()` vs `typed::List()`).
 
 Depending on how you define a variable, you can constrain a variable to either an enum class or enum member. To constrain to an enum class, simply use `Enum()`. To constrain to an enum member, use `Enum(x)`, with x being an enum.
 
@@ -38,7 +38,10 @@ is_this_my_pet <- ? function(arg = ? Enum(my_pets)) {
 }
 
 # supply an incorrect argument
-is_this_my_pet('snake')
+is_this_my_pet("snake")
+
+# correct arg
+is_this_my_pet("dog")
 ```
 
 See [{typed}](https://moodymudskipper.github.io/typed/) for more information on how to use these assertions.

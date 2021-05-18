@@ -1,15 +1,20 @@
 #' Subsetting enums
+#'
 #' @description
+#'
 #' Access enum members through subsetting with numeric or character indices.
 #'
-#' Enums are converted to a list type through the [`base::as.list()`] method,
-#' before being subset by an index.
+#' Enums are converted to a list type through the
+#' [`as.list`]][base::as.list()] method, before being subset by an index.
+#'
 #' @details
+#'
 #' Enums are not intended to be used as interactive data structures.
 #' Assigning to enum members is not supported, and will
 #' throw an error if attempted.
 #'
-#' If you require an enum to be modifiable, consider using a [`base::list()`].
+#' If you require an enum to be modifiable, consider using a
+#' [`list`][base::list()] instead.
 #'
 #' @param x enum to subset
 #' @param arg value to subset enum with, generally the indices of the enum

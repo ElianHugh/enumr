@@ -4,6 +4,9 @@
 #' `as_enum()` turns an existing object into an enumeration.
 #' An enumeration holds unique key/value pairs that cannot be re-defined.
 #'
+#' Coercion can be used when you want to create an enum, but don't
+#' know what the exact values each member will contain at runtime.
+#'
 #' As an S3 generic, `as_enum()` holds methods for:
 #' * [`list`][base::list()]: wrapper function that passes the list to
 #'   [new_generic_enum()]
@@ -15,8 +18,6 @@
 #' * [`factor`][base::factor()]: constructs a list of name/value pairs
 #'   from a factor, supplies the list to [new_numeric_enum()].
 #'
-#' Coercion can be used when you want to create an enum, but don't
-#' know what the exact values each member will contain at runtime.
 #'
 #' @param x the object to coerce to enum
 #' @param .sorted whether the object elements should be sorted

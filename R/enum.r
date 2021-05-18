@@ -20,19 +20,23 @@
 #' prioritised over index as value.
 #'
 #' @details
+#'
 #' Under the surface, enums are actually lists contained within
-#' locked environments.This is so that the enum bindings cannot be modified,
+#' locked environments. This is so that the enum bindings cannot be modified,
 #' and the enum order is maintained. S3 methods are defined for
 #' `$`, `[`, and `[[`, which access the enum list directly.
+#'
 #' @param ... list of enumeration arguments
 #' @return An enumeration (enum), a list of unique name/value pairs.
 #' @examples
 #' # Generic Enum
 #' enum(apple = "apple", pear = "pear")
+#'
 #' enum(dat1 = mtcars, dat2 = iris, dat3 = PlantGrowth)
 #'
 #' # Numeric Enum
 #' enum(style, warning, error)
+#'
 #' enum(a = 50, b = .$a * 2)
 #' @export
 #' @seealso

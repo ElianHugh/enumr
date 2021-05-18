@@ -38,7 +38,7 @@ masked_eval <- function(.x, .enum_data, env = rlang::caller_env()) {
             rlang::eval_tidy(enum_call, enum_data_mask, .GlobalEnv)
         },
         error = function(e) {
-            error_cannot_evaluate()
+            error_cannot_evaluate(e)
         }
     )
 }

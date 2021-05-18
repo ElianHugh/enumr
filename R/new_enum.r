@@ -1,6 +1,7 @@
 #' Enum constructors
 #'
 #' @description
+#'
 #' The constructors `new_numeric_enum()` and
 #' `new_generic_enum()` are the basis for the
 #' `enum()` command. These can be used instead of

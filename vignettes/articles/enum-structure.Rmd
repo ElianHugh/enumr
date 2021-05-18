@@ -13,6 +13,8 @@ knitr::opts_chunk$set(
 library(enumr)
 ```
 
+## Enum structure
+
 Under the surface, an enum is composed of two elements: a container environment, and a list. The list is what holds all the enum members. We can demonstrate this through a small example:
 
 ```{r}
@@ -33,12 +35,26 @@ Why does `ls()` not return the enum names, like the list object? This is because
 ls.str(my_enum)
 ```
 
-## Why is an enum structured like this?
+## Why structure enums like this?
 
-In order to define a static object (i.e. an object that cannot be re-defined), R has the `lockEnvironment()` method, which (to simplify) prevents changes to an environment and its contents. We use `lockEnvironment()` to ensure that enum members cannot be changed after their definition, preventing the occurrence of 'magic values'[^1].
+In order to define a static object (i.e. an object that cannot be re-defined), R has the `lockEnvironment()` method, which (to simplify) prevents changes to an environment and its contents. In {enumr}, we use `lockEnvironment()` to ensure that enum members cannot be changed after their definition, preventing the occurrence of 'magic values' ^[Values that have unexplained meanings, such as '0' and '1' referring to a categorical variable].
 
-[^1] Values that have unexplained meanings, such as '0' and '1' referring to a categorical variable
+```{r,  error = TRUE}
+a <- new.env()
+a$enum <- list("some data")
+lockEnvironment(a, bindings = TRUE)
+a$enum <- "re-definition"
+```
 
 However, a downside for a list-type data structure is that environments have no concept of order. If we were to define a series of values, we couldn't be sure that the structure had the same order as how we intended. This means that if were to subset with an index (e.g. `[[1]]`), we might get a different value than what we were expecting.
 
-To circumvent this, we instead create a list *inside* the environment. This allows us to have the benefits of an ordered data structure, and lock the values of the enum.
+```{r}
+a <- new.env()
+a$b <- 5
+a$a <- "a string"
+a$c <- 7
+
+as.list(a)[[1]]
+```
+
+To circumvent this, we instead create a list *inside* the environment. This allows us to have the benefits of an ordered data structure, and still lock the values of the enum.

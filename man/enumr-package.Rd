@@ -2,25 +2,35 @@
 % Please edit documentation in R/enumr-package.r
 \docType{package}
 \name{enumr-package}
-\alias{enumr}
 \alias{enumr-package}
 \title{enumr: Enumerations for R}
 \description{
-Enums are lists that have unique key/pair values (called 'members'),
-and cannot be modified after their definition. The main methods exported
-are:
+\if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
+
+Implement static enumerations for R.
 }
 \details{
+The \strong{enumr} package implements enumerations (or 'enums').
+Enums are lists that have unique key/pair values (called 'members'),
+and cannot be modified after their definition.
+
+General Resources:
 \itemize{
-\item \code{\link[=enum]{enum()}} (object definition)
-\item \code{\link[=as_enum]{as_enum()}} (object coercion)
-\item \code{\link[=new_generic_enum]{new_generic_enum()}} (constructor)
-\item \code{\link[=new_numeric_enum]{new_numeric_enum()}} (constructor)
-\item \link[=enum]{Enum()} (type assertion)
+\item Enumr's enums are heavily inspired by the typescript
+data structure of the same name.
+See \href{https://www.typescriptlang.org/docs/handbook/enums.html}{here}
+for how enums function in typescript
+\item Enumr's \href{https://elianhugh.github.io/enumr/index.html}{pkgdown site}
 }
 
-Enumr's enums are heavily inspired by the typescript
-data structure of the same name.
+Main exported methods:
+\itemize{
+\item making enums: \code{\link[=enum]{enum()}}, \code{\link[=as_enum]{as_enum()}}, \code{\link[=new_generic_enum]{new_generic_enum()}},
+\code{\link[=new_numeric_enum]{new_numeric_enum()}}
+\item type checking: \link[=enum]{Enum()}, \code{\link[=is_enum]{is_enum()}}
+\item printing and presenting enums: \code{\link[=print.enum]{print.enum()}}, \code{\link[=format.enum]{format.enum()}},
+\code{\link[=str.enum]{str.enum()}}
+}
 }
 \seealso{
 Useful links:

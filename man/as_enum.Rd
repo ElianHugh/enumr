@@ -37,6 +37,9 @@ as_enum(x, ...)
 \code{as_enum()} turns an existing object into an enumeration.
 An enumeration holds unique key/value pairs that cannot be re-defined.
 
+Coercion can be used when you want to create an enum, but don't
+know what the exact values each member will contain at runtime.
+
 As an S3 generic, \code{as_enum()} holds methods for:
 \itemize{
 \item \code{\link[base:list]{list}}: wrapper function that passes the list to
@@ -49,9 +52,6 @@ and supplies the list of objects to \code{\link[=new_generic_enum]{new_generic_e
 \item \code{\link[base:factor]{factor}}: constructs a list of name/value pairs
 from a factor, supplies the list to \code{\link[=new_numeric_enum]{new_numeric_enum()}}.
 }
-
-Coercion can be used when you want to create an enum, but don't
-know what the exact values each member will contain at runtime.
 }
 \examples{
 as_enum(list(x = 5, y = "str"))
