@@ -47,9 +47,8 @@
 
 
 <meta property="og:title" content="enumr: Enumerations for R — enumr-package" />
-<meta property="og:description" content="Enums are lists that have unique key/pair values (called 'members'),
-and cannot be modified after their definition. The main methods exported
-are:" />
+<meta property="og:description" content="
+Implement static enumerations for R." />
 <meta property="og:image" content="https://elianhugh.github.io/enumr/logo.png" />
 
 
@@ -154,26 +153,33 @@ are:" />
     </div>
 
     <div class="ref-description">
-    <p>Enums are lists that have unique key/pair values (called 'members'),
-and cannot be modified after their definition. The main methods exported
-are:</p>
+    <p><img src='figures/logo.png' align='right' alt='logo' width='120' /></p>
+<p>Implement static enumerations for R.</p>
     </div>
 
 
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    
-<ul>
-<li><p><code><a href='enum.html'>enum()</a></code> (object definition)</p></li>
-<li><p><code><a href='as_enum.html'>as_enum()</a></code> (object coercion)</p></li>
-<li><p><code><a href='new_enum.html'>new_generic_enum()</a></code> (constructor)</p></li>
-<li><p><code><a href='new_enum.html'>new_numeric_enum()</a></code> (constructor)</p></li>
-<li><p><a href='enum.html'>Enum()</a> (type assertion)</p></li>
+    <p>The <strong>enumr</strong> package implements enumerations (or 'enums').
+Enums are lists that have unique key/pair values (called 'members'),
+and cannot be modified after their definition.</p>
+<p>General Resources:</p><ul>
+<li><p>Enumr's enums are heavily inspired by the typescript
+data structure of the same name.
+See <a href='https://www.typescriptlang.org/docs/handbook/enums.html'>here</a>
+for how enums function in typescript</p></li>
+<li><p>Enumr's <a href='https://elianhugh.github.io/enumr/index.html'>pkgdown site</a></p></li>
 </ul>
 
-<p>Enumr's enums are heavily inspired by the typescript
-data structure of the same name.</p>
+<p>Main exported methods:</p><ul>
+<li><p>making enums: <code><a href='enum.html'>enum()</a></code>, <code><a href='as_enum.html'>as_enum()</a></code>, <code><a href='new_enum.html'>new_generic_enum()</a></code>,
+<code><a href='new_enum.html'>new_numeric_enum()</a></code></p></li>
+<li><p>type checking: <a href='enum.html'>Enum()</a>, <code><a href='is_enum.html'>is_enum()</a></code></p></li>
+<li><p>printing and presenting enums: <code><a href='printing.html'>print.enum()</a></code>, <code><a href='printing.html'>format.enum()</a></code>,
+<code><a href='S3-Methods.html'>str.enum()</a></code></p></li>
+</ul>
+
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Useful links:</p><ul>

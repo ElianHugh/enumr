@@ -116,6 +116,9 @@
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ElianHugh/enumr">enumr</a></span><span class="op">)</span></code></pre></div>
+<div id="enum-structure" class="section level2">
+<h2 class="hasAnchor">
+<a href="#enum-structure" class="anchor"></a>Enum structure</h2>
 <p>Under the surface, an enum is composed of two elements: a container environment, and a list. The list is what holds all the enum members. We can demonstrate this through a small example:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">my_enum</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/enum.html">enum</a></span><span class="op">(</span><span class="va">a</span>, <span class="va">b</span>, <span class="va">c</span><span class="op">)</span>
@@ -133,13 +136,33 @@
 <span class="co">#&gt;  $ a: int 1</span>
 <span class="co">#&gt;  $ b: int 2</span>
 <span class="co">#&gt;  $ c: int 3</span></code></pre></div>
-<div id="why-is-an-enum-structured-like-this" class="section level2">
+</div>
+<div id="why-structure-enums-like-this" class="section level2">
 <h2 class="hasAnchor">
-<a href="#why-is-an-enum-structured-like-this" class="anchor"></a>Why is an enum structured like this?</h2>
-<p>In order to define a static object (i.e. an object that cannot be re-defined), R has the <code><a href="https://rdrr.io/r/base/bindenv.html">lockEnvironment()</a></code> method, which (to simplify) prevents changes to an environment and its contents. We use <code><a href="https://rdrr.io/r/base/bindenv.html">lockEnvironment()</a></code> to ensure that enum members cannot be changed after their definition, preventing the occurrence of ‘magic values’[^1].</p>
-<p>[^1] Values that have unexplained meanings, such as ‘0’ and ‘1’ referring to a categorical variable</p>
+<a href="#why-structure-enums-like-this" class="anchor"></a>Why structure enums like this?</h2>
+<p>In order to define a static object (i.e. an object that cannot be re-defined), R has the <code><a href="https://rdrr.io/r/base/bindenv.html">lockEnvironment()</a></code> method, which (to simplify) prevents changes to an environment and its contents. In {enumr}, we use <code><a href="https://rdrr.io/r/base/bindenv.html">lockEnvironment()</a></code> to ensure that enum members cannot be changed after their definition, preventing the occurrence of ‘magic values’ <a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html">new.env</a></span><span class="op">(</span><span class="op">)</span>
+<span class="va">a</span><span class="op">$</span><span class="va">enum</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"some data"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/bindenv.html">lockEnvironment</a></span><span class="op">(</span><span class="va">a</span>, bindings <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="va">a</span><span class="op">$</span><span class="va">enum</span> <span class="op">&lt;-</span> <span class="st">"re-definition"</span>
+<span class="co">#&gt; Error in a$enum &lt;- "re-definition": cannot change value of locked binding for 'enum'</span></code></pre></div>
 <p>However, a downside for a list-type data structure is that environments have no concept of order. If we were to define a series of values, we couldn’t be sure that the structure had the same order as how we intended. This means that if were to subset with an index (e.g. <code>[[1]]</code>), we might get a different value than what we were expecting.</p>
-<p>To circumvent this, we instead create a list <em>inside</em> the environment. This allows us to have the benefits of an ordered data structure, and lock the values of the enum.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html">new.env</a></span><span class="op">(</span><span class="op">)</span>
+<span class="va">a</span><span class="op">$</span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fl">5</span>
+<span class="va">a</span><span class="op">$</span><span class="va">a</span> <span class="op">&lt;-</span> <span class="st">"a string"</span>
+<span class="va">a</span><span class="op">$</span><span class="va">c</span> <span class="op">&lt;-</span> <span class="fl">7</span>
+
+<span class="fu"><a href="https://rdrr.io/r/base/list.html">as.list</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>
+<span class="co">#&gt; [1] "a string"</span></code></pre></div>
+<p>To circumvent this, we instead create a list <em>inside</em> the environment. This allows us to have the benefits of an ordered data structure, and still lock the values of the enum.</p>
+</div>
+<div class="footnotes">
+<hr>
+<ol>
+<li id="fn1"><p>Values that have unexplained meanings, such as ‘0’ and ‘1’ referring to a categorical variable<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>
   </div>
 

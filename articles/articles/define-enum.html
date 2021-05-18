@@ -151,6 +151,7 @@
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/enum.html">enum</a></span><span class="op">(</span><span class="va">a</span>, b <span class="op">=</span> <span class="st">"str"</span><span class="op">)</span>
 <span class="co">#&gt; Error: Argument cannot be evaluated</span>
+<span class="co">#&gt; * rlang::eval_tidy(enum_call, enum_data_mask, .GlobalEnv)</span>
 
 <span class="fu"><a href="../../reference/enum.html">enum</a></span><span class="op">(</span><span class="st">"str"</span><span class="op">)</span>
 <span class="co">#&gt; Error: Incorrect arguments supplied to enum.</span>
@@ -169,7 +170,8 @@
 <p>However, numeric enums require that all values supplied be numeric. If a value is supplied that is not numeric, then the enum is considered generic and must abide by generic enum rules.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/enum.html">enum</a></span><span class="op">(</span><span class="va">a</span>, <span class="va">b</span>, c <span class="op">=</span> <span class="st">"str"</span><span class="op">)</span>
-<span class="co">#&gt; Error: Argument cannot be evaluated</span></code></pre></div>
+<span class="co">#&gt; Error: Argument cannot be evaluated</span>
+<span class="co">#&gt; * rlang::eval_tidy(enum_call, enum_data_mask, .GlobalEnv)</span></code></pre></div>
 <p>Numeric enums are ‘smart’ in that they understand how calculations work. If a calculation is supplied to a numeric enum, it will evaluate it to ensure that the result is numeric.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/enum.html">enum</a></span><span class="op">(</span><span class="va">a</span>, b <span class="op">=</span> <span class="fl">10</span> <span class="op">*</span> <span class="fl">2</span>, <span class="va">c</span><span class="op">)</span>

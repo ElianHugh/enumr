@@ -114,7 +114,7 @@
 
     
     
-<p>If you are using <a href="https://moodymudskipper.github.io/typed/">{typed}</a>, you can make use of the <code>Enum</code> assertion for return and input assertion. Note that ‘enum’ is the class definition and ‘Enum’ is the assertion - this matches the {typed} paradigm of assertions.</p>
+<p>If you are using <a href="https://moodymudskipper.github.io/typed/">{typed}</a>, you can make use of the <code>Enum</code> assertion for return and input assertion. Note that <code><a href="../../reference/enum.html">enum()</a></code> is the class definition and <code><a href="../../reference/Enum.html">Enum()</a></code> is the type assertion - this matches the {typed} paradigm of assertions (e.g. <code><a href="https://rdrr.io/r/base/list.html">list()</a></code> vs <code><a href="https://rdrr.io/pkg/typed/man/assertion_factories.html">typed::List()</a></code>).</p>
 <p>Depending on how you define a variable, you can constrain a variable to either an enum class or enum member. To constrain to an enum class, simply use <code><a href="../../reference/Enum.html">Enum()</a></code>. To constrain to an enum member, use <code><a href="../../reference/Enum.html">Enum(x)</a></code>, with x being an enum.</p>
 <p>For instance, let’s say we want to ensure that the arguments supplied to a function correspond to an enum member value. Let’s create an enum with a list of animals:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
@@ -131,11 +131,15 @@
 <span class="op">}</span>
 
 <span class="co"># supply an incorrect argument</span>
-<span class="fu">is_this_my_pet</span><span class="op">(</span><span class="st">'snake'</span><span class="op">)</span>
+<span class="fu">is_this_my_pet</span><span class="op">(</span><span class="st">"snake"</span><span class="op">)</span>
 <span class="co">#&gt; Error: In `is_this_my_pet("snake")` at `check_arg(arg, Enum(my_pets))`:</span>
 <span class="co">#&gt; wrong argument to function, value does not match enum</span>
 <span class="co">#&gt; `value`:            "snake"                 </span>
-<span class="co">#&gt; `required values:`: "dog"   "cat" "goldfish"</span></code></pre></div>
+<span class="co">#&gt; `required values:`: "dog"   "cat" "goldfish"</span>
+
+<span class="co"># correct arg</span>
+<span class="fu">is_this_my_pet</span><span class="op">(</span><span class="st">"dog"</span><span class="op">)</span>
+<span class="co">#&gt; [1] "dog"</span></code></pre></div>
 <p>See <a href="https://moodymudskipper.github.io/typed/">{typed}</a> for more information on how to use these assertions.</p>
   </div>
 
