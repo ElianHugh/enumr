@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Test if the object is an enum — is_enum • enumr</title>
+<title>enumr: Enumerations for R — enumr • enumr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,9 @@
 
 
 
-<meta property="og:title" content="Test if the object is an enum — is_enum" />
-<meta property="og:description" content="Test if the object is an enum" />
+<meta property="og:title" content="enumr: Enumerations for R — enumr" />
+<meta property="og:description" content="
+Implement static enumerations for R." />
 <meta property="og:image" content="https://elianhugh.github.io/enumr/logo.png" />
 
 
@@ -146,31 +147,49 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Test if the object is an enum</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ElianHugh/enumr/blob/master/R/enum_types.r'><code>R/enum_types.r</code></a></small>
-    <div class="hidden name"><code>is_enum.Rd</code></div>
+    <h1>enumr: Enumerations for R</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ElianHugh/enumr/blob/master/R/enumr-package.r'><code>R/enumr-package.r</code></a></small>
+    <div class="hidden name"><code>enumr.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Test if the object is an enum</p>
+    <p><img src='figures/logo.png' align='right' alt='logo' width='120' /></p>
+<p>Implement static enumerations for R.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>is_enum</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>x</th>
-      <td><p>value to check if is enum</p></td>
-    </tr>
-    </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>TRUE if the object inherits from the
-enum class, and FALSE if it does not. Does not
-distinguish between numeric or generic enums.</p>
+    <p>The <strong>enumr</strong> package implements enumerations (or 'enums').
+Enums are lists that have unique key/pair values (called 'members'),
+and cannot be modified after their definition.</p>
+<p>General Resources:</p><ul>
+<li><p>Enumr's enums are heavily inspired by the typescript
+data structure of the same name.
+See <a href='https://www.typescriptlang.org/docs/handbook/enums.html'>here</a>
+for how enums function in typescript</p></li>
+<li><p>Enumr's <a href='https://elianhugh.github.io/enumr/index.html'>pkgdown site</a></p></li>
+</ul>
+
+<p>Main exported methods:</p><ul>
+<li><p>making enums: <code><a href='enum.html'>enum()</a></code>, <code><a href='as_enum.html'>as_enum()</a></code>, <code><a href='new_enum.html'>new_generic_enum()</a></code>,
+<code><a href='new_enum.html'>new_numeric_enum()</a></code></p></li>
+<li><p>type checking: <code><a href='Enum.html'>Enum()</a></code>, <code><a href='is_enum.html'>is_enum()</a></code></p></li>
+<li><p>printing and presenting enums: <code><a href='printing.html'>print.enum()</a></code>, <code><a href='printing.html'>format.enum()</a></code></p></li>
+</ul>
+
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>Useful links:</p><ul>
+<li><p><a href='https://github.com/ElianHugh/enumr'>https://github.com/ElianHugh/enumr</a></p></li>
+<li><p>Report bugs at <a href='https://github.com/ElianHugh/enumr/issues'>https://github.com/ElianHugh/enumr/issues</a></p></li>
+</ul>
+
+</div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p><strong>Maintainer</strong>: Elian Thiele-Evans <a href='mailto:elianhte@gmail.com'>elianhte@gmail.com</a> (<a href='https://orcid.org/0000-0001-8008-3165'>ORCID</a>)</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

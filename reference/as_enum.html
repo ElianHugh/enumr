@@ -47,10 +47,10 @@
 
 
 <meta property="og:title" content="Coerce lists, environments, and factors to enumerations — as_enum" />
-<meta property="og:description" content="as_enum() turns an existing object into an enumeration.
-An enumeration holds unique key/value pairs that cannot be re-defined.
-Coercion can be used when you want to create an enum, but don't
-know what the exact values each member will contain at runtime.
+<meta property="og:description" content="as_enum() turns an existing object into an enumeration. Coercion
+can be used when you want to create an enum, but don't know
+what the exact values each member will contain at runtime. This is comparable
+to the as.list method.
 As an S3 generic, as_enum() holds methods for:
 list: wrapper function that passes the list to
 new_generic_enum()
@@ -61,6 +61,7 @@ environment: coerces an environment to a list,
 and supplies the list of objects to new_generic_enum()
 factor: constructs a list of name/value pairs
 from a factor, supplies the list to new_numeric_enum().
+Default: attempt to coerce to a list, then to an enum
 
 " />
 <meta property="og:image" content="https://elianhugh.github.io/enumr/logo.png" />
@@ -167,10 +168,10 @@ from a factor, supplies the list to new_numeric_enum().
     </div>
 
     <div class="ref-description">
-    <p><code>as_enum()</code> turns an existing object into an enumeration.
-An enumeration holds unique key/value pairs that cannot be re-defined.</p>
-<p>Coercion can be used when you want to create an enum, but don't
-know what the exact values each member will contain at runtime.</p>
+    <p><code>as_enum()</code> turns an existing object into an enumeration. Coercion
+can be used when you want to create an enum, but don't know
+what the exact values each member will contain at runtime. This is comparable
+to the <code><a href='https://rdrr.io/r/base/list.html'>as.list</a></code> method.</p>
 <p>As an S3 generic, <code>as_enum()</code> holds methods for:</p><ul>
 <li><p><code><a href='https://rdrr.io/r/base/list.html'>list</a></code>: wrapper function that passes the list to
 <code><a href='new_enum.html'>new_generic_enum()</a></code></p></li>
@@ -181,6 +182,7 @@ to <code><a href='new_enum.html'>new_generic_enum()</a></code></p></li>
 and supplies the list of objects to <code><a href='new_enum.html'>new_generic_enum()</a></code></p></li>
 <li><p><code><a href='https://rdrr.io/r/base/factor.html'>factor</a></code>: constructs a list of name/value pairs
 from a factor, supplies the list to <code><a href='new_enum.html'>new_numeric_enum()</a></code>.</p></li>
+<li><p>Default: attempt to coerce to a list, then to an enum</p></li>
 </ul>
 
     </div>
@@ -226,6 +228,9 @@ from a factor, supplies the list to <code><a href='new_enum.html'>new_numeric_en
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>An enumeration (enum), a list of unique name/value pairs</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='enum.html'>enum()</a></code> create an enum from supplied arguments.
