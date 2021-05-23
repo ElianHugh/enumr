@@ -162,10 +162,8 @@ validate_generic_enum <- function(.enum_data) {
         return(TRUE)
     } else {
         checked_vals <- all(
-            unlist(
-                lapply(seq_along(.enum_data), .check_eval, .enum_data),
-                use.names = FALSE,
-                recursive = FALSE
+            as.logical(
+                lapply(seq_along(.enum_data), .check_eval, .enum_data)
             )
         )
         return(checked_vals)
@@ -177,8 +175,7 @@ validate_generic_enum <- function(.enum_data) {
 # enumr to shoot an error
 .only_values_supplied <- function(obj) {
     for (i in seq_along(obj)) {
-        if ((is.atomic(obj[[i]]) || is.call(obj[[i]])) &&
-            any(rlang::names2(obj[i]) == "")) {
+        if ((!is.symbol(obj[[i]]) && names(obj[i]) == "")) {
             return(TRUE)
         } else {
             next
