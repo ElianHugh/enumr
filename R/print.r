@@ -36,13 +36,21 @@ format.enum <- function(x, ...) {
 
     pl <- if (obj_len > 1 || obj_len < 1) "members" else "member"
 
-    toReturn <- c(
+    to_return <- c(
         crayon::style(
-            glue::glue("# A {enum_type} enum: {length(x)} {pl}"),
+            sprintf(
+                "# A %s enum: %s %s",
+                enum_type,
+                length(x),
+                pl
+            ),
             "grey60"
         ),
-        glue::glue(
-            " {crayon::style(abbr_types, 'grey60')} {enum_names} : {vals[enum_names]}"
+        sprintf(
+            " %s %s : %s",
+            crayon::style(abbr_types, "grey60"),
+            enum_names,
+            vals[enum_names]
         )
     )
 }
@@ -53,19 +61,23 @@ condense_object <- function(x) {
     if (inherits(x, "data.frame")) {
         x_dim <- dim(x)
         crayon::style(
-            glue::glue("<{x_dim[1]} \u00d7 {x_dim[2]}>"),
+            sprintf(
+                "<%s \u00d7 %s>",
+                x_dim[1],
+                x_dim[2]
+            ),
             "grey60"
         )
     } else if ((is.vector(x) || is.factor(x)) && length(x) > 3) {
         crayon::style(
-            glue::glue("{length(x)} obs"),
+            sprintf("%s obs", length(x)),
             "grey60"
         )
     } else if (inherits(x, "enum")) {
         obj_len <- length(x)
         pl <- if (obj_len > 1 || obj_len < 1) "members" else "member"
         crayon::style(
-            glue::glue("{length.enum(x)} {pl}"),
+            sprintf("%s %s", length.enum(x), pl),
             "grey60"
         )
     } else if (inherits(x, "function")) {
@@ -114,7 +126,7 @@ class_abbr <- function(x) {
         # Custom
         "numeric_enum" = "enum",
         "generic_enum" = "enum",
-        class(x)
+        x_class
     )
 }
 

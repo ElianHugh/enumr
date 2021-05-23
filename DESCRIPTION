@@ -13,7 +13,6 @@ URL: https://github.com/ElianHugh/enumr
 BugReports: https://github.com/ElianHugh/enumr/issues
 Imports:
     crayon,
-    glue,
     rlang
 Suggests:
     typed,
@@ -27,4 +26,4 @@ VignetteBuilder:
 Config/testthat/edition: 3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.1.9001

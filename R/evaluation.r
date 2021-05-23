@@ -15,12 +15,12 @@
 
     if (is.character(obj_val) || is.list(obj_val)) {
         return(FALSE)
-    } else if (is.numeric(obj_val) || is.complex(obj_val)) {
+    } else if (is.numeric(obj_val)) {
         return(TRUE)
     } else if (is.symbol(obj_val)) {
         sym_name <- rlang::names2(obj[index])
         return(any(sym_name == ""))
-    } else if (any(all.names(obj_val) %in% math_ops)) {
+    } else if (any(all.names(obj_val, unique = TRUE) %in% math_ops)) {
         return(TRUE)
     } else {
         eval_x <- masked_eval(obj_val, obj)
@@ -28,14 +28,18 @@
     }
 }
 
-masked_eval <- function(.x, .enum_data, env = rlang::caller_env()) {
+masked_eval <- function(
+    .x,
+    .enum_data,
+    env = rlang::caller_env(),
+    eval_env = .GlobalEnv) {
     enum_call <- rlang::expr(!!.x)
     enum_data_mask <- rlang::new_data_mask(
         rlang::env(env, `.` = .enum_data)
     )
     tryCatch(
         expr = {
-            rlang::eval_tidy(enum_call, enum_data_mask, .GlobalEnv)
+            rlang::eval_tidy(enum_call, enum_data_mask, eval_env)
         },
         error = function(e) {
             error_cannot_evaluate(e)

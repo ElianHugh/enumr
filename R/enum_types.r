@@ -88,11 +88,10 @@ Enum <- function(...) {
 
 #' Test if the object is an enum
 #'
-#' Returns TRUE if the object inherits from the
+#' @param x value to check if is enum
+#' @return TRUE if the object inherits from the
 #' enum class, and FALSE if it does not. Does not
 #' distinguish between numeric or generic enums.
-#'
-#' @param x value to check if is enum
 #' @export
 is_enum <- function(x) {
     inherits(x, "enum")

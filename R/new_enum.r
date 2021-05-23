@@ -32,9 +32,10 @@ NULL
 #' @export
 #' @rdname new_enum
 new_numeric_enum <- function(.enum_data) {
-    supply_names_and_values <- function(dat, index, obj) {
-        if (is.symbol(dat) && rlang::names2(obj[index]) == "") {
-            dat_name <- rlang::as_name(dat)
+    supply_names_and_values <- function(index) {
+        dat <- .enum_data[[index]]
+        if (is.symbol(dat) && rlang::names2(.enum_data[index]) == "") {
+            dat_name <- as.character(dat)
             if (index > 1L && .check_eval(index - 1L, .enum_data)) {
                 value <- masked_eval(.enum_data[[index - 1L]], .enum_data) + 1L
             } else {
@@ -49,12 +50,9 @@ new_numeric_enum <- function(.enum_data) {
 
     validate_enum_definition(.enum_data)
 
-    mapply(
-        function(x, y) supply_names_and_values(x, y, .enum_data),
-        .enum_data,
+    lapply(
         seq_along(.enum_data),
-        SIMPLIFY = FALSE,
-        USE.NAMES = FALSE
+        supply_names_and_values
     )
 
     # Check if the generated values are unique too
@@ -70,21 +68,19 @@ new_numeric_enum <- function(.enum_data) {
 #' @export
 #' @rdname new_enum
 new_generic_enum <- function(.enum_data) {
-    evaluate_symbols <- function(dat, index) {
-        if (is.symbol(dat) || is.language(dat)) {
-            .enum_data[[index]] <<- masked_eval(.enum_data[[index]], .enum_data)
+    evaluate_symbols <- function(index) {
+        dat <- .enum_data[[index]]
+        if (is.language(dat)) {
+            .enum_data[[index]] <<- masked_eval(dat, .enum_data)
         }
     }
 
     validate_enum_definition(.enum_data)
 
     # evaluate any symbols in supplied data
-    mapply(
-        function(x, y) evaluate_symbols(x, y),
-        .enum_data,
+    lapply(
         seq_along(.enum_data),
-        SIMPLIFY = FALSE,
-        USE.NAMES = FALSE
+        evaluate_symbols
     )
 
     validate_generic_enum(.enum_data)
@@ -106,7 +102,7 @@ new_generic_enum <- function(.enum_data) {
 validate_enum_definition <- function(.enum_data) {
     #' @section Validation:
     #' `validate_enum_definition()` checks that all values supplied have names.
-    if (any(.only_values_supplied(.enum_data))) {
+    if (length(.only_values_supplied(.enum_data))) {
         error_need_named_args()
     }
     invisible(.enum_data)

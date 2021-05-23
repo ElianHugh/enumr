@@ -4,17 +4,15 @@
 #'
 #' Access enum members through subsetting with numeric or character indices.
 #'
-#' Enums are converted to a list type through the
-#' [`as.list`]][base::as.list()] method, before being subset by an index.
-#'
-#' @details
-#'
-#' Enums are not intended to be used as interactive data structures.
+#' * Enums are converted to a list type through the
+#' [`as.list`][base::as.list()] method, before being subset by an index.
+#' * Partial matching via `[`, `[[`, or `$` is not supported, and will return
+#' NULL. This is intended to incentivise literate programming, as partial
+#' matching can lead to errors.
+#' * Enums are not intended to be used as interactive data structures.
 #' Assigning to enum members is not supported, and will
-#' throw an error if attempted.
-#'
-#' If you require an enum to be modifiable, consider using a
-#' [`list`][base::list()] instead.
+#' throw an error if attempted. If you require an enum to be modifiable,
+#' consider using a [`list`][base::list()] instead.
 #'
 #' @param x enum to subset
 #' @param arg value to subset enum with, generally the indices of the enum
@@ -22,8 +20,11 @@
 #' @name subsetting
 #' @examples
 #' a <- enum(a,b,c)
+#'
 #' a[1]
+#'
 #' a[[1]]
+#'
 #' a$a
 NULL
 

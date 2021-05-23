@@ -1,11 +1,10 @@
 #' Coerce lists, environments, and factors to enumerations
 #'
 #' @description
-#' `as_enum()` turns an existing object into an enumeration.
-#' An enumeration holds unique key/value pairs that cannot be re-defined.
-#'
-#' Coercion can be used when you want to create an enum, but don't
-#' know what the exact values each member will contain at runtime.
+#' `as_enum()` turns an existing object into an enumeration. Coercion
+#' can be used when you want to create an enum, but don't know
+#' what the exact values each member will contain at runtime. This is comparable
+#' to the [`as.list`][base::as.list()] method.
 #'
 #' As an S3 generic, `as_enum()` holds methods for:
 #' * [`list`][base::list()]: wrapper function that passes the list to
@@ -17,11 +16,13 @@
 #'   and supplies the list of objects to [new_generic_enum()]
 #' * [`factor`][base::factor()]: constructs a list of name/value pairs
 #'   from a factor, supplies the list to [new_numeric_enum()].
+#' * Default: attempt to coerce to a list, then to an enum
 #'
 #'
 #' @param x the object to coerce to enum
 #' @param .sorted whether the object elements should be sorted
 #' @param ... parameters to pass to further methods
+#' @return An enumeration (enum), a list of unique name/value pairs
 #' @seealso [enum()] create an enum from supplied arguments.
 #' [new_generic_enum()] and [new_numeric_enum()] create enums from
 #' a list of arguments.
@@ -86,5 +87,5 @@ as_enum.NULL <- function(x, ...) {
 #' @export
 #' @rdname as_enum
 as_enum.default <- function(x, ...) {
-    error_impossible_coercion(x)
+    as_enum(as.list(x))
 }

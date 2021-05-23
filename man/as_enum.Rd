@@ -33,12 +33,14 @@ as_enum(x, ...)
 
 \item{.sorted}{whether the object elements should be sorted}
 }
+\value{
+An enumeration (enum), a list of unique name/value pairs
+}
 \description{
-\code{as_enum()} turns an existing object into an enumeration.
-An enumeration holds unique key/value pairs that cannot be re-defined.
-
-Coercion can be used when you want to create an enum, but don't
-know what the exact values each member will contain at runtime.
+\code{as_enum()} turns an existing object into an enumeration. Coercion
+can be used when you want to create an enum, but don't know
+what the exact values each member will contain at runtime. This is comparable
+to the \code{\link[base:list]{as.list}} method.
 
 As an S3 generic, \code{as_enum()} holds methods for:
 \itemize{
@@ -51,6 +53,7 @@ to \code{\link[=new_generic_enum]{new_generic_enum()}}
 and supplies the list of objects to \code{\link[=new_generic_enum]{new_generic_enum()}}
 \item \code{\link[base:factor]{factor}}: constructs a list of name/value pairs
 from a factor, supplies the list to \code{\link[=new_numeric_enum]{new_numeric_enum()}}.
+\item Default: attempt to coerce to a list, then to an enum
 }
 }
 \examples{

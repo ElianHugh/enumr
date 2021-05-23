@@ -9,8 +9,11 @@ is_enum(x)
 \arguments{
 \item{x}{value to check if is enum}
 }
-\description{
-Returns TRUE if the object inherits from the
+\value{
+TRUE if the object inherits from the
 enum class, and FALSE if it does not. Does not
 distinguish between numeric or generic enums.
+}
+\description{
+Test if the object is an enum
 }

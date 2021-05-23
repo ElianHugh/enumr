@@ -2,15 +2,12 @@
 % Please edit documentation in R/s3.r
 \name{S3-Methods}
 \alias{S3-Methods}
-\alias{str.enum}
 \alias{length.enum}
 \alias{names.enum}
 \alias{as.list.enum}
 \alias{as.character.enum}
 \title{General S3 Methods for Enums}
 \usage{
-\method{str}{enum}(object, ...)
-
 \method{length}{enum}(x)
 
 \method{names}{enum}(x)
@@ -20,11 +17,9 @@
 \method{as.character}{enum}(x, ...)
 }
 \arguments{
-\item{object}{enum}
+\item{x}{enum}
 
 \item{...}{arguments to pass to as.list}
-
-\item{x}{enum}
 }
 \description{
 Various S3 methods that improve interacting with

@@ -7,34 +7,9 @@
 #' These rely on coercing enums to list types before
 #' applying any methods to the enum.
 #' @param x enum
-#' @param object enum
 #' @param ... arguments to pass to as.list
 #' @name S3-Methods
 NULL
-
-#' @export
-#' @rdname S3-Methods
-str.enum <- function(object, ...) {
-    if (!is_enum(object)) {
-        rlang::abort("str.enum() called with non-enum.")
-    }
-
-    obj_len <- length(as.list.enum(object))
-    cl <- data.class(object)
-    pl <- if (obj_len > 1 || obj_len < 1) "members\n" else "member\n"
-    cat(
-        cl, ":", obj_len, pl
-    )
-    object <- as.list.enum(object)
-
-    invisible(
-        NextMethod(
-            "str", ...,
-            no.list = TRUE,
-            nest.lev = 0
-        )
-    )
-}
 
 # Standard list() methods --------------------------------------------
 

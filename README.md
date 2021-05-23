@@ -16,6 +16,7 @@ Why use enums? Some examples:
 - Improve code self-documentation by explicitly defining name/value pairs
 - Reduce the occurrence of code-breaking typos
 - Prevent accidental overwriting of variables
+- Easily change values in the future
 
 ## Installation
 

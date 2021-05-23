@@ -31,21 +31,24 @@
 }
 \description{
 Access enum members through subsetting with numeric or character indices.
-
-Enums are converted to a list type through the
-\code{\link{as.list}}][base::as.list()] method, before being subset by an index.
-}
-\details{
-Enums are not intended to be used as interactive data structures.
+\itemize{
+\item Enums are converted to a list type through the
+\code{\link[base:list]{as.list}} method, before being subset by an index.
+\item Partial matching via \code{[}, \code{[[}, or \code{$} is not supported, and will return
+NULL. This is intended to incentivise literate programming, as partial
+matching can lead to errors.
+\item Enums are not intended to be used as interactive data structures.
 Assigning to enum members is not supported, and will
-throw an error if attempted.
-
-If you require an enum to be modifiable, consider using a
-\code{\link[base:list]{list}} instead.
+throw an error if attempted. If you require an enum to be modifiable,
+consider using a \code{\link[base:list]{list}} instead.
+}
 }
 \examples{
 a <- enum(a,b,c)
+
 a[1]
+
 a[[1]]
+
 a$a
 }

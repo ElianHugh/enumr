@@ -10,7 +10,7 @@
     Code
       print(enum(a = TRUE, b = 5, c = "str", d = 0+5i, e = raw(1), f = list(), g = NULL,
       j = environment(), l = substitute(x), m = pairlist(1), o = substitute(x + y),
-      p = expression(x + y), q = mtcars, r = matrix(), s = array(1), t = formula(~x +
+      p = expression(x + y), q = mtcars, r = matrix(), s = array(1), t = formula(~ x +
         y), u = factor(), v = mean, x = enum()))
     Output
       # A generic enum: 19 members

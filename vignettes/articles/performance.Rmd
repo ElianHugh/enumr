@@ -71,9 +71,9 @@ To speed up performance further, you can also access the enum constructor method
 ```{r,  echo=FALSE, message=FALSE}
 res2 <- microbenchmark::microbenchmark(
   num <- enum(x, y, z),
-  num2 <- new_numeric_enum(list(x = 1, y = 2, z = 3)),
+  num_constructor <- new_numeric_enum(list(x = 1, y = 2, z = 3)),
   gen <- enum(x = "1", y = "2", z = "3"),
-  gen2 <- new_generic_enum(list(x = "1", y = "2", z = "3")),
+  gen_constructor <- new_generic_enum(list(x = "1", y = "2", z = "3")),
   times = 5000
 )
 
@@ -82,9 +82,9 @@ res2 %>%
   ggplot2::scale_x_discrete(
     labels = c(
       "num\nenum(x, y, z)",
-      "num2\nnew_numeric_enum(list(x = 1, y = 2, z = 3))",
+      "num_constructor\nnew_numeric_enum(list(x = 1, y = 2, z = 3))",
       "gen\nenum(x = '1', y = '2', z = '3')",
-      "gen2\nnew_generic_enum(list(x = '1', y = '2', z = '3'))"
+      "gen_constructor\nnew_generic_enum(list(x = '1', y = '2', z = '3'))"
     )
   )
 ```

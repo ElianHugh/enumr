@@ -53,7 +53,10 @@ error_need_named_args <- function() {
 error_illegal_assignment <- function() {
     error <- construct_error("assignment")
     rlang::abort(
-        "Enum members cannot be assigned to after their definition",
+        c(
+            "Enum members cannot be assigned to after their definition",
+            "Consider coercing to a list."
+        ),
         class = error
     )
 }
