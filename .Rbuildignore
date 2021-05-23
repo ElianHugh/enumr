@@ -1,3 +1,4 @@
+^pkgdown$
 ^enumr\.Rproj$
 ^_pkgdown\.yml$
 ^\.Rproj\.user$

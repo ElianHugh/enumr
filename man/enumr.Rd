@@ -7,7 +7,7 @@
 \description{
 \if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
 
-Implement static enumerations for R.
+Provides a static enumeration class for R, a type of stricter list.
 }
 \details{
 The \strong{enumr} package implements enumerations (or 'enums').
@@ -35,6 +35,7 @@ Main exported methods:
 Useful links:
 \itemize{
   \item \url{https://github.com/ElianHugh/enumr}
+  \item \url{https://elianhugh.github.io/enumr/}
   \item Report bugs at \url{https://github.com/ElianHugh/enumr/issues}
 }
 

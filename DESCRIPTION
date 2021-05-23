@@ -1,15 +1,17 @@
 Package: enumr
-Title: Enumr
-Version: 0.0.0.9000
+Title: Static Enumerations
+Version: 0.0.1
 Authors@R:
     person(given = "Elian",
            family = "Thiele-Evans",
            role = c("aut", "cre"),
            email = "elianhte@gmail.com",
            comment = c(ORCID = "0000-0001-8008-3165"))
-Description: Implement static enumerations for R.
+Description: Provides a static enumeration class for R,
+    a type of stricter list.
 License: GPL (>= 3)
-URL: https://github.com/ElianHugh/enumr
+URL: https://github.com/ElianHugh/enumr,
+    https://elianhugh.github.io/enumr/
 BugReports: https://github.com/ElianHugh/enumr/issues
 Imports:
     crayon,

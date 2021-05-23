@@ -14,6 +14,7 @@ test_that("print returns invisibly", {
 })
 
 test_that("snapshot is accurate", {
+    skip_if_not(interactive())
     expect_snapshot({
         print(enum(a, b, c))
 
