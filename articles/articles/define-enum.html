@@ -151,15 +151,16 @@
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/enum.html">enum</a></span><span class="op">(</span><span class="va">a</span>, b <span class="op">=</span> <span class="st">"str"</span><span class="op">)</span>
 <span class="co">#&gt; Error: Argument cannot be evaluated</span>
-<span class="co">#&gt; * rlang::eval_tidy(enum_call, enum_data_mask, eval_env)</span>
+<span class="co">#&gt; * "object 'a' not found"</span>
 
 <span class="fu"><a href="../../reference/enum.html">enum</a></span><span class="op">(</span><span class="st">"str"</span><span class="op">)</span>
-<span class="co">#&gt; Error in if ((!is.symbol(obj[[i]]) &amp;&amp; names(obj[i]) == "")) {: missing value where TRUE/FALSE needed</span></code></pre></div>
+<span class="co">#&gt; Error: Incorrect arguments supplied to enum.</span>
+<span class="co">#&gt; * Each member must be named.</span></code></pre></div>
 </div>
 <div id="numeric-enumerations" class="section level2">
 <h2 class="hasAnchor">
 <a href="#numeric-enumerations" class="anchor"></a>Numeric Enumerations</h2>
-<p>In contrast to generic enums, numeric enums allow for unpaired names to be supplied in the constructor. Names without values are supplied values by the constructor. These values are either the index of the name, or the value of the last name minus one. This is known as ‘implicit definition’.</p>
+<p>In contrast to generic enums, numeric enums allow for unpaired names to be supplied in the constructor. Names without values are supplied values by the constructor. These values are either the index of the name, or the value of the last name plus one. This is known as ‘implicit definition’.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/enum.html">enum</a></span><span class="op">(</span><span class="va">a</span>, <span class="va">b</span>, <span class="va">c</span><span class="op">)</span>
 <span class="co">#&gt; # A numeric enum: 3 members</span>
@@ -170,7 +171,7 @@
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/enum.html">enum</a></span><span class="op">(</span><span class="va">a</span>, <span class="va">b</span>, c <span class="op">=</span> <span class="st">"str"</span><span class="op">)</span>
 <span class="co">#&gt; Error: Argument cannot be evaluated</span>
-<span class="co">#&gt; * rlang::eval_tidy(enum_call, enum_data_mask, eval_env)</span></code></pre></div>
+<span class="co">#&gt; * "object 'a' not found"</span></code></pre></div>
 <p>Numeric enums are ‘smart’ in that they understand how calculations work. If a calculation is supplied to a numeric enum, it will evaluate it to ensure that the result is numeric.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/enum.html">enum</a></span><span class="op">(</span><span class="va">a</span>, b <span class="op">=</span> <span class="fl">10</span> <span class="op">*</span> <span class="fl">2</span>, <span class="va">c</span><span class="op">)</span>

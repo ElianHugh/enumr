@@ -122,17 +122,19 @@
 </ul>
 <p>Here is a microbenchmark, comparing the various forms of enum.</p>
 <p><img src="performance_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
-<p>To speed up performance further, you can also access the enum constructor methods directly: <code><a href="../../reference/new_enum.html">new_generic_enum()</a></code> and <code><a href="../../reference/new_enum.html">new_numeric_enum()</a></code>. You’ll see these are reasonably faster than the <code><a href="../../reference/enum.html">enum()</a></code> function (the speed increase will likely be in the microsecond range). This is because <code><a href="../../reference/enum.html">enum()</a></code> has to check whether the enum is numeric or generic by evaluating each argument supplied to it.</p>
+<p>This is slower than the standard <code><a href="https://rdrr.io/r/base/list.html">base::list()</a></code> method, largely due to the extra checks that enums do in the background. This isn’t to say that enums are <em>slow</em>, but rather that they are not as performant as a primitive list.</p>
+<p>To speed up performance further, you can also access the enum constructor methods directly: <code><a href="../../reference/new_enum.html">new_generic_enum()</a></code> and <code><a href="../../reference/new_enum.html">new_numeric_enum()</a></code>. You’ll see these are slightly faster than the <code><a href="../../reference/enum.html">enum()</a></code> function (the speed increase will likely be in the microsecond range). This is because <code><a href="../../reference/enum.html">enum()</a></code> has to check whether the enum is numeric or generic by evaluating each argument supplied to it.</p>
 <p><img src="performance_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
 <p>However, this forgoes some of the niceties of the <code><a href="../../reference/enum.html">enum()</a></code> helper function, such as NSE or implicit definition.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Can only use explicit definitions</span>
 <span class="fu"><a href="../../reference/new_enum.html">new_numeric_enum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">a</span>, <span class="va">b</span>, <span class="va">c</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; Error in if ((!is.symbol(obj[[i]]) &amp;&amp; names(obj[i]) == "")) {: missing value where TRUE/FALSE needed</span>
+<span class="co">#&gt; Error: Incorrect arguments supplied to enum.</span>
+<span class="co">#&gt; * Each argument value must be interpretable as numeric.</span>
 
 <span class="co"># Can't use NSE</span>
 <span class="fu"><a href="../../reference/new_enum.html">new_numeric_enum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>a <span class="op">=</span> <span class="fl">1</span>, b <span class="op">=</span> <span class="va">.</span><span class="op">$</span><span class="va">a</span> <span class="op">+</span> <span class="fl">1</span>, c <span class="op">=</span> <span class="fl">4</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; Error in .only_values_supplied(.enum_data): object '.' not found</span></code></pre></div>
+<span class="co">#&gt; Error in lapply(seq_along(.enum_data), supply_names_and_values): object '.' not found</span></code></pre></div>
 <p>Technically, you can use <code><a href="https://rdrr.io/r/base/substitute.html">substitute()</a></code> to still make use of the dot prefix, but this can be cumbersome after a while.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/new_enum.html">new_numeric_enum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">5</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/substitute.html">substitute</a></span><span class="op">(</span><span class="va">.</span><span class="op">$</span><span class="va">x</span> <span class="op">+</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>

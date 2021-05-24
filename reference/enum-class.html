@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>enumr: Enumerations for R — enumr • enumr</title>
+<title>enum class — enum-class • enumr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,20 @@
 
 
 
-<meta property="og:title" content="enumr: Enumerations for R — enumr" />
-<meta property="og:description" content="
-Provides a static enumeration class for R, a type of stricter list with pretty printing." />
+<meta property="og:title" content="enum class — enum-class" />
+<meta property="og:description" content="The enum class is inspired by enumerated types in other languages,
+and draws much of its functionality from the primitive list class.
+Generally, enums are more restrictive than lists, with the intent of
+promoting self-documenting code. They do not allow duplicate values
+or names, nor do they allow enum values to be changed later.
+In essence, an enum can be thought of as a dictionary of values, which
+can be referenced later down the road with the assurance that the related
+value will never change.
+The enum class is the parent of numeric and generic enums, and will always
+exist alongside one of the child classes. Which child class an enum will
+inherit is (generally) decided at run time.
+See the pkgdown site for
+more information." />
 <meta property="og:image" content="https://elianhugh.github.io/enumr/logo.png" />
 
 
@@ -147,52 +158,77 @@ Provides a static enumeration class for R, a type of stricter list with pretty p
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>enumr: Enumerations for R</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ElianHugh/enumr/blob/master/R/enumr-package.r'><code>R/enumr-package.r</code></a></small>
-    <div class="hidden name"><code>enumr.Rd</code></div>
+    <h1><code>enum</code> class</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ElianHugh/enumr/blob/master/R/enum-class.r'><code>R/enum-class.r</code></a></small>
+    <div class="hidden name"><code>enum-class.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><img src='figures/logo.png' align='right' alt='logo' width='120' /></p>
-<p>Provides a static enumeration class for R, a type of stricter list with pretty printing.</p>
+    <p>The <code>enum</code> class is inspired by enumerated types in other languages,
+and draws much of its functionality from the primitive list class.</p>
+<p>Generally, enums are more restrictive than lists, with the intent of
+promoting self-documenting code. They do not allow duplicate values
+or names, nor do they allow enum values to be changed later.</p>
+<p>In essence, an enum can be thought of as a dictionary of values, which
+can be referenced later down the road with the assurance that the related
+value will <em>never</em> change.</p>
+<p>The enum class is the parent of numeric and generic enums, and will always
+exist alongside one of the child classes. Which child class an enum will
+inherit is (generally) decided at run time.</p>
+<p>See the <a href='https://elianhugh.github.io/enumr/index.html'>pkgdown site</a> for
+more information.</p>
     </div>
 
 
 
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+    <h2 class="hasAnchor" id="generic-enums"><a class="anchor" href="#generic-enums"></a>Generic Enums</h2>
 
-    <p>The <strong>enumr</strong> package implements enumerations (or 'enums').
-Enums are lists that have unique key/pair values (called 'members'),
-and cannot be modified after their definition. Enumr was developed
-in response to a lack of enumerated types in R.</p>
-<p>General Resources:</p><ul>
-<li><p>Enumr's enums are heavily inspired by the typescript
-data structure of the same name.
-See <a href='https://www.typescriptlang.org/docs/handbook/enums.html'>here</a>
-for how enums function in typescript</p></li>
-<li><p>Enumr's <a href='https://elianhugh.github.io/enumr/index.html'>pkgdown site</a></p></li>
+    
+
+
+<p>Generic enums have:</p><ul>
+<li><p>Class attribute of <code>enum</code> and <code>generic_enum</code></p></li>
+<li><p>Unique name/value pairs</p></li>
+<li><p>Explicitly defined values</p></li>
+<li><p>Any type of value</p></li>
 </ul>
 
-<p>Main exported methods:</p><ul>
-<li><p>making enums: <code><a href='enum.html'>enum()</a></code>, <code><a href='as_enum.html'>as_enum()</a></code>, <code><a href='new_enum.html'>new_generic_enum()</a></code>,
-<code><a href='new_enum.html'>new_numeric_enum()</a></code></p></li>
-<li><p>enum class: <a href='enum-class.html'>enum</a></p></li>
-<li><p>type checking: <code><a href='Enum.html'>Enum()</a></code>, <code><a href='is_enum.html'>is_enum()</a></code></p></li>
-<li><p>printing and presenting enums: <code><a href='printing.html'>print.enum()</a></code>, <code><a href='str.enum.html'>str.enum()</a></code></p></li>
+    <h2 class="hasAnchor" id="numeric-enums"><a class="anchor" href="#numeric-enums"></a>Numeric Enums</h2>
+
+    
+
+
+<p>Numeric enums have:</p><ul>
+<li><p>Class attribute of <code>enum</code> and <code>numeric_enum</code></p></li>
+<li><p>Unique name/value pairss</p></li>
+<li><p>Either explicit or implicitly defined values</p></li>
+<li><p>All numeric values</p></li>
 </ul>
+
+<p>Implicit values are created when a name is passed to the enum constructor
+without a value associated with it. The constructor will then assign the name
+a value, which is either:</p><ul>
+<li><p>Plus one to the previous index's value</p></li>
+<li><p>The index of the name</p></li>
+</ul>
+
+    <h2 class="hasAnchor" id="how-enums-differ-from-lists"><a class="anchor" href="#how-enums-differ-from-lists"></a>How enums differ from lists</h2>
+
+    
+<table class='table'>
+<tr><td></td><td>List</td><td>Enum</td></tr>
+<tr><td>Primitive</td><td>☑</td><td>x</td></tr>
+<tr><td>Static</td><td>x</td><td>☑</td></tr>
+<tr><td>Allow duplicate names</td><td>☑</td><td>x</td></tr>
+<tr><td>Allow duplicate values</td><td>☑</td><td>x</td></tr>
+<tr><td>Allow values without names</td><td>☑</td><td>x</td></tr>
+<tr><td>Implicit definition</td><td>x</td><td>☑(Numeric enums)</td></tr>
+</table>
+
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Useful links:</p><ul>
-<li><p><a href='https://github.com/ElianHugh/enumr'>https://github.com/ElianHugh/enumr</a></p></li>
-<li><p><a href='https://elianhugh.github.io/enumr/'>https://elianhugh.github.io/enumr/</a></p></li>
-<li><p>Report bugs at <a href='https://github.com/ElianHugh/enumr/issues'>https://github.com/ElianHugh/enumr/issues</a></p></li>
-</ul>
-
-</div>
-    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
-
-    <p><strong>Maintainer</strong>: Elian Thiele-Evans <a href='mailto:elianhte@gmail.com'>elianhte@gmail.com</a> (<a href='https://orcid.org/0000-0001-8008-3165'>ORCID</a>)</p>
+    <div class='dont-index'><p><code><a href='enum.html'>enum()</a></code>, <code><a href='as_enum.html'>as_enum()</a></code>, <code><a href='printing.html'>print.enum()</a></code></p></div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
