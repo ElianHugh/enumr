@@ -199,7 +199,7 @@ from a factor, supplies the list to <code><a href='new_enum.html'>new_numeric_en
 <span class='fu'>as_enum</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span>, .sorted <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
 <span class='co'># S3 method for data.frame</span>
-<span class='fu'>as_enum</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>as_enum</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span>, use_cols <span class='op'>=</span> <span class='cn'>FALSE</span>, use_rows <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
 <span class='co'># S3 method for `NULL`</span>
 <span class='fu'>as_enum</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
@@ -225,6 +225,16 @@ from a factor, supplies the list to <code><a href='new_enum.html'>new_numeric_en
     <tr>
       <th>.sorted</th>
       <td><p>whether the object elements should be sorted</p></td>
+    </tr>
+    <tr>
+      <th>use_cols</th>
+      <td><p>cols of the data frame are used for name/value pairs instead
+of the data frame's observations</p></td>
+    </tr>
+    <tr>
+      <th>use_rows</th>
+      <td><p>rows of the data frame are used for name/value pairs
+instead of the data frame's observations</p></td>
     </tr>
     </table>
 
@@ -263,7 +273,54 @@ a list of arguments.</p></div>
 #&gt;  </span><span style='color: #949494;'>num</span><span> vs : </span><span style='color: #949494;'>32 obs</span><span>
 #&gt;  </span><span style='color: #949494;'>num</span><span> am : </span><span style='color: #949494;'>32 obs</span><span>
 #&gt;  </span><span style='color: #949494;'>num</span><span> gear : </span><span style='color: #949494;'>32 obs</span><span>
-#&gt;  </span><span style='color: #949494;'>num</span><span> carb : </span><span style='color: #949494;'>32 obs</span><span></div></span></pre>
+#&gt;  </span><span style='color: #949494;'>num</span><span> carb : </span><span style='color: #949494;'>32 obs</span><span></div><div class='input'>
+<span class='fu'>as_enum</span><span class='op'>(</span><span class='va'>mtcars</span>, use_cols <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A generic enum: 11 members</span><span>
+#&gt;  </span><span style='color: #949494;'>chr</span><span> mpg : mpg
+#&gt;  </span><span style='color: #949494;'>chr</span><span> cyl : cyl
+#&gt;  </span><span style='color: #949494;'>chr</span><span> disp : disp
+#&gt;  </span><span style='color: #949494;'>chr</span><span> hp : hp
+#&gt;  </span><span style='color: #949494;'>chr</span><span> drat : drat
+#&gt;  </span><span style='color: #949494;'>chr</span><span> wt : wt
+#&gt;  </span><span style='color: #949494;'>chr</span><span> qsec : qsec
+#&gt;  </span><span style='color: #949494;'>chr</span><span> vs : vs
+#&gt;  </span><span style='color: #949494;'>chr</span><span> am : am
+#&gt;  </span><span style='color: #949494;'>chr</span><span> gear : gear
+#&gt;  </span><span style='color: #949494;'>chr</span><span> carb : carb</div><div class='input'>
+<span class='fu'>as_enum</span><span class='op'>(</span><span class='va'>mtcars</span>, use_rows <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A generic enum: 32 members</span><span>
+#&gt;  </span><span style='color: #949494;'>chr</span><span> Mazda RX4 : Mazda RX4
+#&gt;  </span><span style='color: #949494;'>chr</span><span> Mazda RX4 Wag : Mazda RX4 Wag
+#&gt;  </span><span style='color: #949494;'>chr</span><span> Datsun 710 : Datsun 710
+#&gt;  </span><span style='color: #949494;'>chr</span><span> Hornet 4 Drive : Hornet 4 Drive
+#&gt;  </span><span style='color: #949494;'>chr</span><span> Hornet Sportabout : Hornet Sportabout
+#&gt;  </span><span style='color: #949494;'>chr</span><span> Valiant : Valiant
+#&gt;  </span><span style='color: #949494;'>chr</span><span> Duster 360 : Duster 360
+#&gt;  </span><span style='color: #949494;'>chr</span><span> Merc 240D : Merc 240D
+#&gt;  </span><span style='color: #949494;'>chr</span><span> Merc 230 : Merc 230
+#&gt;  </span><span style='color: #949494;'>chr</span><span> Merc 280 : Merc 280
+#&gt;  </span><span style='color: #949494;'>chr</span><span> Merc 280C : Merc 280C
+#&gt;  </span><span style='color: #949494;'>chr</span><span> Merc 450SE : Merc 450SE
+#&gt;  </span><span style='color: #949494;'>chr</span><span> Merc 450SL : Merc 450SL
+#&gt;  </span><span style='color: #949494;'>chr</span><span> Merc 450SLC : Merc 450SLC
+#&gt;  </span><span style='color: #949494;'>chr</span><span> Cadillac Fleetwood : Cadillac Fleetwood
+#&gt;  </span><span style='color: #949494;'>chr</span><span> Lincoln Continental : Lincoln Continental
+#&gt;  </span><span style='color: #949494;'>chr</span><span> Chrysler Imperial : Chrysler Imperial
+#&gt;  </span><span style='color: #949494;'>chr</span><span> Fiat 128 : Fiat 128
+#&gt;  </span><span style='color: #949494;'>chr</span><span> Honda Civic : Honda Civic
+#&gt;  </span><span style='color: #949494;'>chr</span><span> Toyota Corolla : Toyota Corolla
+#&gt;  </span><span style='color: #949494;'>chr</span><span> Toyota Corona : Toyota Corona
+#&gt;  </span><span style='color: #949494;'>chr</span><span> Dodge Challenger : Dodge Challenger
+#&gt;  </span><span style='color: #949494;'>chr</span><span> AMC Javelin : AMC Javelin
+#&gt;  </span><span style='color: #949494;'>chr</span><span> Camaro Z28 : Camaro Z28
+#&gt;  </span><span style='color: #949494;'>chr</span><span> Pontiac Firebird : Pontiac Firebird
+#&gt;  </span><span style='color: #949494;'>chr</span><span> Fiat X1-9 : Fiat X1-9
+#&gt;  </span><span style='color: #949494;'>chr</span><span> Porsche 914-2 : Porsche 914-2
+#&gt;  </span><span style='color: #949494;'>chr</span><span> Lotus Europa : Lotus Europa
+#&gt;  </span><span style='color: #949494;'>chr</span><span> Ford Pantera L : Ford Pantera L
+#&gt;  </span><span style='color: #949494;'>chr</span><span> Ferrari Dino : Ferrari Dino
+#&gt;  </span><span style='color: #949494;'>chr</span><span> Maserati Bora : Maserati Bora
+#&gt;  </span><span style='color: #949494;'>chr</span><span> Volvo 142E : Volvo 142E</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
