@@ -7,12 +7,13 @@
 \description{
 \if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
 
-Provides a static enumeration class for R, a type of stricter list.
+Provides a static enumeration class for R, a type of stricter list with pretty printing.
 }
 \details{
 The \strong{enumr} package implements enumerations (or 'enums').
 Enums are lists that have unique key/pair values (called 'members'),
-and cannot be modified after their definition.
+and cannot be modified after their definition. Enumr was developed
+in response to a lack of enumerated types in R.
 
 General Resources:
 \itemize{
@@ -27,8 +28,9 @@ Main exported methods:
 \itemize{
 \item making enums: \code{\link[=enum]{enum()}}, \code{\link[=as_enum]{as_enum()}}, \code{\link[=new_generic_enum]{new_generic_enum()}},
 \code{\link[=new_numeric_enum]{new_numeric_enum()}}
+\item enum class: \linkS4class{enum}
 \item type checking: \code{\link[=Enum]{Enum()}}, \code{\link[=is_enum]{is_enum()}}
-\item printing and presenting enums: \code{\link[=print.enum]{print.enum()}}, \code{\link[=format.enum]{format.enum()}}
+\item printing and presenting enums: \code{\link[=print.enum]{print.enum()}}, \code{\link[=str.enum]{str.enum()}}
 }
 }
 \seealso{

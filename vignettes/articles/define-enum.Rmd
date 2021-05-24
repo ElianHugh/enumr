@@ -55,7 +55,7 @@ enum("str")
 
 ## Numeric Enumerations
 
-In contrast to generic enums, numeric enums allow for unpaired names to be supplied in the constructor. Names without values are supplied values by the constructor. These values are either the index of the name, or the value of the last name minus one. This is known as 'implicit definition'.
+In contrast to generic enums, numeric enums allow for unpaired names to be supplied in the constructor. Names without values are supplied values by the constructor. These values are either the index of the name, or the value of the last name plus one. This is known as 'implicit definition'.
 
 ```{r}
 enum(a, b, c)

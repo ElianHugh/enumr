@@ -1,3 +1,12 @@
+#' Display an enum's internal structure
+#'
+#' Display the internal structure of an enum,
+#' listing enum members and the variables defined
+#' within them.
+#'
+#' @param object an enum to examine
+#' @param ... dots to pass to further methods
+#' @param nest.lev the nest level that str should start at
 #' @export
 str.enum <- function(object, ..., nest.lev = 0L) {
     if (!is_enum(object)) {

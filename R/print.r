@@ -5,24 +5,15 @@
 #' Displays the enum class, number of members defined,
 #' and member properties.
 #'
-#' The `format.enum()` method does the majority of
-#' the work for pretty printing.
-#'
 #' @param x enum to print
 #' @param ... values passed to further methods
+#' @return silently returns x
 #' @name printing
 NULL
 
 #' @export
 #' @rdname printing
 print.enum <- function(x, ...) {
-    cat(format.enum(x, ...), sep = "\n")
-    invisible(x)
-}
-
-#' @export
-#' @rdname printing
-format.enum <- function(x, ...) {
     enum_list <- as.list.enum(x, ...)
     obj_len <- length(enum_list)
 
@@ -36,7 +27,8 @@ format.enum <- function(x, ...) {
 
     pl <- if (obj_len > 1 || obj_len < 1) "members" else "member"
 
-    to_return <- c(
+
+    cat(c(
         crayon::style(
             sprintf(
                 "# A %s enum: %s %s",
@@ -52,7 +44,8 @@ format.enum <- function(x, ...) {
             enum_names,
             vals[enum_names]
         )
-    )
+    ), sep = "\n")
+    invisible(x)
 }
 
 # Misc methods for object abbrievation -----------------------------------------

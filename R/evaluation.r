@@ -25,16 +25,26 @@
     if (any(all.names(obj_val, unique = TRUE) %in% math_ops)) {
         return(TRUE)
     } else {
-        return(is.numeric(obj_val))
+        return(
+            is.numeric(
+                masked_eval(
+                    obj_val,
+                    obj,
+                    eval_env = parent.frame(5L)
+                )
+        ))
     }
 }
 
+# eval_env is generally set to some level of parent.frame,
+# so as to get the constructor's calling environment
 masked_eval <- function(.x, .enum_data, env = rlang::caller_env(),
                                             eval_env = .GlobalEnv) {
     enum_call <- rlang::expr(!!.x)
     enum_data_mask <- rlang::new_data_mask(
         rlang::env(env, `.` = .enum_data)
     )
+
     tryCatch(
         expr = {
             rlang::eval_tidy(enum_call, enum_data_mask, eval_env)

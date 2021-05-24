@@ -8,12 +8,9 @@
        num b : 2
        num c : 3
     Code
-      print(enum(a = TRUE, b = 5, c = "str", d = 0+5i, e = raw(1), f = list(), g = NULL,
-      j = environment(), l = substitute(x), m = pairlist(1), o = substitute(x + y),
-      p = expression(x + y), q = mtcars, r = matrix(), s = array(1), t = formula(~x +
-        y), u = factor(), v = mean, x = enum()))
+      print(long_enum)
     Output
-      # A generic enum: 19 members
+      # A generic enum: 20 members
        lgl   a : TRUE
        num   b : 5
        chr   c : str
@@ -33,6 +30,7 @@
        fct   u : integer(0)
        fn    v : function(x, ...)
        enum  x : 0 members
+       enum  z : 1 member
     Code
       print(enum(a = enum()))
     Output

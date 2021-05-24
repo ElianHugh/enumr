@@ -66,7 +66,7 @@ error_cannot_evaluate <- function(e) {
     rlang::abort(
         c(
             "Argument cannot be evaluated",
-            e[["call"]]
+            deparse(e[["message"]])
         ),
         class = error
     )

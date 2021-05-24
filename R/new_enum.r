@@ -37,18 +37,24 @@ new_numeric_enum <- function(.enum_data) {
         if (is.symbol(dat) && rlang::names2(.enum_data[index]) == "") {
             dat_name <- as.character(dat)
             if (index > 1L && .check_eval(index - 1L, .enum_data)) {
-                value <- masked_eval(.enum_data[[index - 1L]], .enum_data) + 1L
+                value <- masked_eval(
+                    .enum_data[[index - 1L]],
+                    .enum_data,
+                    eval_env = parent.frame(4L)
+                ) + 1L
             } else {
                 value <- index
             }
             .enum_data[[index]] <<- value
             names(.enum_data)[index] <<- dat_name
         } else if (is.language(dat)) {
-            .enum_data[[index]] <<- masked_eval(.enum_data[[index]], .enum_data)
+            .enum_data[[index]] <<- masked_eval(
+                .enum_data[[index]],
+                .enum_data,
+                eval_env = parent.frame(4L)
+            )
         }
     }
-
-    validate_enum_definition(.enum_data)
 
     lapply(
         seq_along(.enum_data),
@@ -71,11 +77,13 @@ new_generic_enum <- function(.enum_data) {
     evaluate_symbols <- function(index) {
         dat <- .enum_data[[index]]
         if (is.language(dat)) {
-            .enum_data[[index]] <<- masked_eval(dat, .enum_data)
+            .enum_data[[index]] <<- masked_eval(
+                dat,
+                .enum_data,
+                eval_env = parent.frame(4L)
+            )
         }
     }
-
-    validate_enum_definition(.enum_data)
 
     # evaluate any symbols in supplied data
     lapply(
@@ -175,10 +183,8 @@ validate_generic_enum <- function(.enum_data) {
 # enumr to shoot an error
 .only_values_supplied <- function(obj) {
     for (i in seq_along(obj)) {
-        if ((!is.symbol(obj[[i]]) && names(obj[i]) == "")) {
+        if ((!is.symbol(obj[[i]]) && rlang::names2(obj)[i] == "")) {
             return(TRUE)
-        } else {
-            next
         }
     }
 }

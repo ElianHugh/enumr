@@ -29,7 +29,10 @@ test_that("enums can be subset", {
 })
 
 test_that("str functions correctly", {
+    # Cancel out if not an enum
     expect_error(str.enum(5))
+
+
     skip_if_not(interactive())
     expect_snapshot({
         # Many members

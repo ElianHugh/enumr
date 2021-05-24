@@ -3,23 +3,20 @@
 \name{printing}
 \alias{printing}
 \alias{print.enum}
-\alias{format.enum}
 \title{Printing enums}
 \usage{
 \method{print}{enum}(x, ...)
-
-\method{format}{enum}(x, ...)
 }
 \arguments{
 \item{x}{enum to print}
 
 \item{...}{values passed to further methods}
 }
+\value{
+silently returns x
+}
 \description{
 Pretty print enums with the print.enum method.
 Displays the enum class, number of members defined,
 and member properties.
-
-The \code{format.enum()} method does the majority of
-the work for pretty printing.
 }

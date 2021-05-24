@@ -66,11 +66,13 @@ res %>%
   )
 ```
 
-To speed up performance further, you can also access the enum constructor methods directly: `new_generic_enum()` and `new_numeric_enum()`. You'll see these are reasonably faster than the `enum()` function (the speed increase will likely be in the microsecond range). This is because `enum()` has to check whether the enum is numeric or generic by evaluating each argument supplied to it.
+This is slower than the standard `base::list()` method, largely due to the extra checks that enums do in the background. This isn't to say that enums are *slow*, but rather that they are not as performant as a primitive list.
+
+To speed up performance further, you can also access the enum constructor methods directly: `new_generic_enum()` and `new_numeric_enum()`. You'll see these are slightly faster than the `enum()` function (the speed increase will likely be in the microsecond range). This is because `enum()` has to check whether the enum is numeric or generic by evaluating each argument supplied to it.
 
 ```{r,  echo=FALSE, message=FALSE}
 res2 <- microbenchmark::microbenchmark(
-  num <- enum(x, y, z),
+  num <- enum(x = 1, y = 2, z = 3),
   num_constructor <- new_numeric_enum(list(x = 1, y = 2, z = 3)),
   gen <- enum(x = "1", y = "2", z = "3"),
   gen_constructor <- new_generic_enum(list(x = "1", y = "2", z = "3")),
@@ -81,7 +83,7 @@ res2 %>%
   ggplot2::autoplot() +
   ggplot2::scale_x_discrete(
     labels = c(
-      "num\nenum(x, y, z)",
+      "num\nenum(x = 1, y = 2, z = 3)",
       "num_constructor\nnew_numeric_enum(list(x = 1, y = 2, z = 3))",
       "gen\nenum(x = '1', y = '2', z = '3')",
       "gen_constructor\nnew_generic_enum(list(x = '1', y = '2', z = '3'))"

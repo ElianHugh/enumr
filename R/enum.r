@@ -43,6 +43,9 @@
 #' [new_numeric_enum()], [new_generic_enum()], [as_enum()]
 enum <- function(...) {
     dots <- as.list(substitute(...()))
+
+    validate_enum_definition(dots)
+
     if (.is_numeric_enum(dots)) {
         new_numeric_enum(dots)
     } else {

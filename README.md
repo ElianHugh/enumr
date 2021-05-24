@@ -1,4 +1,4 @@
-# Enumr (WIP) <img src='man/figures/logo.png' align="right" height="120" />
+# enumr (WIP) <img src='man/figures/logo.png' align="right" height="120" />
 
 <!-- badges: start -->
 [![Lifecycle:
