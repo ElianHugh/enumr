@@ -5,7 +5,7 @@ long_enum <- enum(
     d = 5i, # complex
     e = raw(1), # raw
     f = list(), # list
-    g = NULL,
+    g = list(1,2,3,4),
     # h = closureofsomekind
     # i =
     j = environment(),
@@ -22,7 +22,9 @@ long_enum <- enum(
     u = factor(),
     v = mean,
     x = enum(),
-    z = enum(a = 5)
+    z = enum(a = "str"),
+    aa = NULL,
+    ab = enquote(substitute(x + y))
 )
 
 test_that("print returns invisibly", {

@@ -20,7 +20,6 @@ Why use enums? Some examples:
 
 ## Installation
 
-
 ```r
 if (!requireNamespace('pak')) {
     install.packages('pak', repos = 'https://r-lib.github.io/p/pak/dev/')

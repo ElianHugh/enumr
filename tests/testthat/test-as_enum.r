@@ -30,6 +30,21 @@ test_that("coercion to enums is functional", {
         mtcars$cyl
     )
 
+    expect_identical(
+        as_enum(mtcars, use_cols = TRUE)$cyl,
+        "cyl"
+    )
+
+    expect_identical(
+        as_enum(mtcars, use_rows = TRUE)$`Mazda RX4`,
+        "Mazda RX4"
+    )
+
+    expect_error(
+        as_enum(mtcars, use_rows = TRUE, use_cols = TRUE),
+        class = "enumr-argument-error"
+    )
+
     # NULL coercion
     expect_identical(
         as.list(as_enum()),
@@ -38,7 +53,8 @@ test_that("coercion to enums is functional", {
 
     # Abort on others
     expect_error(
-        as_enum(5)
+        as_enum(5),
+        class = "enumr-coercion-error"
     )
 
 })

@@ -10,14 +10,14 @@
     Code
       print(long_enum)
     Output
-      # A generic enum: 20 members
+      # A generic enum: 22 members
        lgl   a : TRUE
        num   b : 5
        chr   c : str
        cpl   d : 0+5i
        raw   e : as.raw(0x00)
        list  f : list()
-       NULL  g : NULL
+       list  g : 4 obs
        env   j : <environment>
        sym   l : x
        plist m : pairlist(1)
@@ -31,6 +31,8 @@
        fn    v : function(x, ...)
        enum  x : 0 members
        enum  z : 1 member
+       NULL  aa : NULL
+       lang  ab : base::quote(x + y)
     Code
       print(enum(a = enum()))
     Output

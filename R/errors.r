@@ -82,3 +82,14 @@ error_impossible_coercion <- function(x) {
         class = error
     )
 }
+
+error_invalid_args <- function() {
+    error <- construct_error("argument")
+    rlang::abort(
+        sprintf(
+            "Impossible to call method with given arguments:\n `%s`",
+            deparse(sys.call(-1))
+        ),
+        class = error
+    )
+}

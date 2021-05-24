@@ -18,7 +18,7 @@ as_enum(x, ...)
 
 \method{as_enum}{factor}(x, ..., .sorted = TRUE)
 
-\method{as_enum}{data.frame}(x, ...)
+\method{as_enum}{data.frame}(x, ..., use_cols = FALSE, use_rows = FALSE)
 
 \method{as_enum}{`NULL`}(x, ...)
 
@@ -32,6 +32,12 @@ as_enum(x, ...)
 \item{.all_names}{whether to include variables with a dot \code{.}}
 
 \item{.sorted}{whether the object elements should be sorted}
+
+\item{use_cols}{cols of the data frame are used for name/value pairs instead
+of the data frame's observations}
+
+\item{use_rows}{rows of the data frame are used for name/value pairs
+instead of the data frame's observations}
 }
 \value{
 An enumeration (enum), a list of unique name/value pairs
@@ -64,6 +70,10 @@ as_enum(rlang::env(a = 1, b = "str"))
 as_enum(factor(c("January", "February", "December"), levels = month.name))
 
 as_enum(mtcars)
+
+as_enum(mtcars, use_cols = TRUE)
+
+as_enum(mtcars, use_rows = TRUE)
 }
 \seealso{
 \code{\link[=enum]{enum()}} create an enum from supplied arguments.

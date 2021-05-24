@@ -21,6 +21,10 @@
 #'
 #' @param x the object to coerce to enum
 #' @param .sorted whether the object elements should be sorted
+#' @param use_cols  cols of the data frame are used for name/value pairs instead
+#' of the data frame's observations
+#' @param use_rows rows of the data frame are used for name/value pairs
+#' instead of the data frame's observations
 #' @param ... parameters to pass to further methods
 #' @return An enumeration (enum), a list of unique name/value pairs
 #' @seealso [enum()] create an enum from supplied arguments.
@@ -35,6 +39,10 @@
 #' as_enum(factor(c("January", "February", "December"), levels = month.name))
 #'
 #' as_enum(mtcars)
+#'
+#' as_enum(mtcars, use_cols = TRUE)
+#'
+#' as_enum(mtcars, use_rows = TRUE)
 as_enum <- function(x, ...) {
     UseMethod("as_enum")
 }
@@ -65,27 +73,44 @@ as_enum.factor <- function(x, ..., .sorted = TRUE) {
         names(res)[i] <- as.character(x[[i]])
     }
 
-    new_numeric_enum(
-        res
-    )
+    new_numeric_enum(res)
 }
 
 #' @export
 #' @rdname as_enum
-as_enum.data.frame <- function(x, ...) {
-    x <- unclass(x)
-    attr(x, "row.names") <- NULL
-    as_enum.list(x)
+as_enum.data.frame <- function(x, ..., use_cols = FALSE, use_rows = FALSE) {
+    if (use_cols && use_rows) error_invalid_args()
+
+    if (use_cols) {
+        res <- vector("list", length(x))
+        for (i in seq_along(x)) {
+            res[[i]] <- as.character(names(x[i]))
+            names(res)[i] <- names(x[i])
+        }
+        new_generic_enum(res)
+    } else if (use_rows) {
+        rows <- row.names(x)
+        res <- vector("list", length(rows))
+        for (i in seq_along(rows)) {
+            res[[i]] <- rows[i]
+            names(res)[i] <- rows[i]
+        }
+        new_generic_enum(res)
+    } else {
+        x <- unclass(x)
+        attr(x, "row.names") <- NULL
+        as_enum.list(x)
+    }
 }
 
 #' @export
 #' @rdname as_enum
 as_enum.NULL <- function(x, ...) {
-    new_numeric_enum(list())
+    new_generic_enum(list())
 }
 
 #' @export
 #' @rdname as_enum
 as_enum.default <- function(x, ...) {
-    as_enum(as.list(x))
+    error_impossible_coercion(x)
 }

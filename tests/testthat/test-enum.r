@@ -14,16 +14,34 @@ test_that('enum construction functions properly', {
 
 test_that('invalid enums are disposed of', {
     # unnamed enums
-    expect_error((enum("test", "tester")))
+    expect_error(
+        (enum("test", "tester")),
+        class = "enumr-definition-error"
+    )
 
     # mixed enums
-    expect_error((enum(b = "jet", c)))
+    expect_error(
+        (enum(b = "jet", c)),
+        class = "enumr-definition-error"
+    )
 
     # numeric enums
-    expect_error((enum(sqrt(5))))
-    expect_error((enum(a, a)))
-    expect_error((enum(a, b = 1)))
-    expect_error((enum(a, b = .$c + 1)))
+    expect_error(
+        (enum(sqrt(5))),
+        class = "enumr-definition-error"
+    )
+    expect_error(
+        (enum(a, a)),
+        class = "enumr-definition-error"
+    )
+    expect_error(
+        (enum(a, b = 1)),
+        class = "enumr-definition-error"
+    )
+    expect_error(
+        (enum(a, b = .$c + 1)),
+        class = "enumr-definition-error"
+    )
 })
 
 test_that("enum constructors are functional", {
