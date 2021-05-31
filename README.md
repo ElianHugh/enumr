@@ -20,19 +20,16 @@ Why use enums? Some examples:
 
 ## Installation
 
+### Release build
+
 ```r
-if (!requireNamespace('pak')) {
-    install.packages('pak', repos = 'https://r-lib.github.io/p/pak/dev/')
-}
-pak::pkg_install('ElianHugh/enumr')
+install.packages('enumr', repos = 'https://elianhugh.r-universe.dev')
 ```
-
-Or:
+### Development build
 
 ```r
-if (!requireNamespace('devtools')) {
-    install.packages('devtools')
-}
+pak::pkg_install('ElianHugh/enumr')
+# or
 devtools::install_github('ElianHugh/enumr)
 ```
 
