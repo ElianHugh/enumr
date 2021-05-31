@@ -31,7 +31,7 @@ NULL
 
 #' @export
 #' @rdname new_enum
-new_numeric_enum <- function(.enum_data) {
+new_numeric_enum <- function(.enum_data, .subtract_value) {
     supply_names_and_values <- function(index) {
         dat <- .enum_data[[index]]
         if (is.symbol(dat) && rlang::names2(.enum_data[index]) == "") {
@@ -43,7 +43,7 @@ new_numeric_enum <- function(.enum_data) {
                     eval_env = parent.frame(4L)
                 ) + 1L
             } else {
-                value <- index
+                value <- index - .subtract_value
             }
             .enum_data[[index]] <<- value
             names(.enum_data)[index] <<- dat_name

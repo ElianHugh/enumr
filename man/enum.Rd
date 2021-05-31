@@ -4,7 +4,7 @@
 \alias{enum}
 \title{Create a new enumeration}
 \usage{
-enum(...)
+enum(..., .subtract_value = 0)
 }
 \arguments{
 \item{...}{list of enumeration arguments}

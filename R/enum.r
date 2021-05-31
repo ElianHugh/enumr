@@ -41,13 +41,13 @@
 #' @export
 #' @seealso
 #' [new_numeric_enum()], [new_generic_enum()], [as_enum()]
-enum <- function(...) {
+enum <- function(..., .subtract_value = 0) {
     dots <- as.list(substitute(...()))
 
     validate_enum_definition(dots)
 
     if (.is_numeric_enum(dots)) {
-        new_numeric_enum(dots)
+        new_numeric_enum(dots, .subtract_value)
     } else {
         new_generic_enum(dots)
     }

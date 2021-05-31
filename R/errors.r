@@ -93,3 +93,14 @@ error_invalid_args <- function() {
         class = error
     )
 }
+
+error_undefined_member <- function(x) {
+    error <- construct_error("undefined_member")
+    rlang::abort(
+        sprintf(
+            "Cannot subset an undefined or unknown member '%s'",
+            x
+        ),
+        class = error
+    )
+}

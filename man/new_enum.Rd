@@ -6,7 +6,7 @@
 \alias{new_generic_enum}
 \title{Enum constructors}
 \usage{
-new_numeric_enum(.enum_data)
+new_numeric_enum(.enum_data, .subtract_value)
 
 new_generic_enum(.enum_data)
 }
