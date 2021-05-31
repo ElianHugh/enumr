@@ -101,8 +101,15 @@ new_numeric_enum(list(a, b, c))
 new_numeric_enum(list(a = 1, b = .$a + 1, c = 4))
 ```
 
-Technically, you can use `substitute()` to still make use of the dot prefix, but this can be cumbersome after a while.
+Technically, you can use `substitute()` to still make use of these features, but this can be cumbersome after a while.
 
 ```{r}
-new_numeric_enum(list(x = 5, y = substitute(.$x + 5)))
+new_numeric_enum(
+  list(
+    x = 5,
+    y = substitute(.$x + 5),
+    substitute(z),
+    substitute(a)
+  )
+)
 ```

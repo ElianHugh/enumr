@@ -15,7 +15,8 @@
     # getting all operators through a function,
     math_ops <- c(
         "+", "-", "*", "^", "%%", "%/%", "/", "==", ">", "<", "!=",
-        "<=", ">=", "abs", "sign", "sqrt", "ceiling", "floor", "trunc",
+        "<=", ">=", "abs", "sign", "sqrt", "
+        ceiling", "floor", "trunc",
         "cummax", "cummin", "cumprod", "cumsum", "exp", "expm1", "log",
         "log10", "log2", "log1p", "cos", "cosh", "sin", "sinh", "tan",
         "tanh", "acos", "acosh", "asin", "asinh", "atan", "atanh", "cospi",
