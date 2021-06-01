@@ -31,7 +31,11 @@ NULL
 #' @export
 #' @rdname subsetting
 `[.enum` <- function(x, arg) {
-    as.list.enum(x)[arg]
+    ret <- as.list.enum(x)[arg]
+    if (is.null(ret[[1]])) {
+        error_undefined_member(arg)
+    }
+    ret
 }
 
 #' @export
