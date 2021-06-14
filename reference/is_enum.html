@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Test if the object is an enum — is_enum • enumr</title>
+<title>Test object inheritance — is_enum • enumr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Test if the object is an enum — is_enum" />
-<meta property="og:description" content="Test if the object is an enum" />
+<meta property="og:title" content="Test object inheritance — is_enum" />
+<meta property="og:description" content="Test object inheritance" />
 <meta property="og:image" content="https://elianhugh.github.io/enumr/logo.png" />
 
 
@@ -146,31 +146,38 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Test if the object is an enum</h1>
+    <h1>Test object inheritance</h1>
     <small class="dont-index">Source: <a href='https://github.com/ElianHugh/enumr/blob/master/R/enum_types.r'><code>R/enum_types.r</code></a></small>
     <div class="hidden name"><code>is_enum.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Test if the object is an enum</p>
+    <p>Test object inheritance</p>
     </div>
 
-    <pre class="usage"><span class='fu'>is_enum</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>is_enum</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+
+<span class='fu'>is_numeric_enum</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+
+<span class='fu'>is_generic_enum</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>value to check if is enum</p></td>
+      <td><p>object to check</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>TRUE if the object inherits from the
-enum class, and FALSE if it does not. Does not
-distinguish between numeric or generic enums.</p>
+enum class, and FALSE if it does not.</p>
+<p>TRUE if the object inherits from the
+numeric enum class, and FALSE if it does not.</p>
+<p>TRUE if the object inherits from the
+generic enum class, and FALSE if it does not.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

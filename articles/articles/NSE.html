@@ -136,8 +136,28 @@
 <span class="co">#&gt; # A generic enum: 2 members</span>
 <span class="co">#&gt;  chr a : Hello</span>
 <span class="co">#&gt;  chr b : c("Hello", "world")</span></code></pre></div>
-<p>It should be noted, however, there are limitations to defining members with <code>.$</code>. Firstly, enum member validation is performed <em>sequentially</em>. That is, each non-explicit member is initialised in order of their definition. As a result, computed members cannot refer to later <em>non-explicit</em> members. For instance:</p>
+<p>This means you can do some neat stuff with enum definition. For example:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../../reference/enum.html">enum</a></span><span class="op">(</span>
+    base <span class="op">=</span> <span class="st">"www.test.com/%s"</span>,
+    download <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span><span class="op">(</span>
+        <span class="va">.</span><span class="op">$</span><span class="va">base</span>,
+        <span class="st">"download"</span>
+    <span class="op">)</span>,
+    upload <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span><span class="op">(</span>
+        <span class="va">.</span><span class="op">$</span><span class="va">base</span>,
+        <span class="st">"upload"</span>
+    <span class="op">)</span>
+<span class="op">)</span>
+<span class="co">#&gt; # A generic enum: 3 members</span>
+<span class="co">#&gt;  chr base : www.test.com/%s</span>
+<span class="co">#&gt;  chr download : www.test.com/download</span>
+<span class="co">#&gt;  chr upload : www.test.com/upload</span></code></pre></div>
+<div id="limitations" class="section level3">
+<h3 class="hasAnchor">
+<a href="#limitations" class="anchor"></a>Limitations</h3>
+<p>It should be noted, however, there are limitations to defining members with <code>.$</code>. Firstly, enum member validation is performed <em>sequentially</em>. That is, each non-explicit member is initialised in order of their definition. As a result, computed members cannot refer to later <em>non-explicit</em> members. For instance:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Invalid definition!</span>
 <span class="fu"><a href="../../reference/enum.html">enum</a></span><span class="op">(</span>
     <span class="va">a</span>,
@@ -168,7 +188,7 @@
 <span class="co">#&gt;  num b : 7</span>
 <span class="co">#&gt;  num c : 5</span></code></pre></div>
 <p>Moreover, due to sequential initialisation, enum members do not support cyclical evaluation.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Invalid</span>
 <span class="fu"><a href="../../reference/enum.html">enum</a></span><span class="op">(</span>
     a <span class="op">=</span> <span class="va">.</span><span class="op">$</span><span class="va">b</span> <span class="op">+</span> <span class="fl">1</span>,
@@ -178,6 +198,7 @@
 <span class="co">#&gt; Error: Argument cannot be evaluated</span>
 <span class="co">#&gt; * "non-numeric argument to binary operator"</span></code></pre></div>
 <p><sup>1</sup> Technically, <code>.</code> (dot) refers to the arguments supplied in the enum constructor. The arguments are converted to a list, and the dot operator acts as a reference to said list.</p>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
