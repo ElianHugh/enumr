@@ -10,6 +10,12 @@ test_that('enum construction functions properly', {
     expect_error((enum(a = 5, b = mtcars, c = 3)), NA)
     expect_error((enum(a = "a", b = "b", c = "c")), NA)
     expect_error((enum(a = environment())), NA)
+
+    # Failing test
+    # Fixed with .typeof_closure
+    expect_error((
+        enum(c = function(x) x * x)), NA)
+
 })
 
 test_that('invalid enums are disposed of', {

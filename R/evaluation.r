@@ -5,6 +5,8 @@
         return(FALSE)
     } else if (is.numeric(obj_val)) {
         return(TRUE)
+    } else if (.typeof_closure(obj_val)) {
+        return(FALSE)
     } else if (is.symbol(obj_val)) {
         sym_name <- rlang::names2(obj[index])
         return(any(sym_name == ""))
@@ -54,4 +56,17 @@ masked_eval <- function(.x, .enum_data, env = rlang::caller_env(),
             error_cannot_evaluate(e)
         }
     )
+}
+
+.typeof_closure <- function(.x) {
+    to_eval <- .x
+    to_return <- tryCatch(
+        {
+            typeof(eval(to_eval)) == "closure"
+        },
+        error = function(e) {
+            return(FALSE)
+        }
+    )
+    return(to_return)
 }

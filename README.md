@@ -75,6 +75,7 @@ See the [pkgdown site](https://elianhugh.github.io/enumr/) for more information 
 - [This stack overflow post](https://stackoverflow.com/questions/33838392/enum-like-arguments-in-r/44152358)
 - [aryoda/R_enumerations](https://github.com/aryoda/R_enumerations)
 - [Typescript enums](https://www.typescriptlang.org/docs/handbook/enums.html)
+- [Tibbles](https://github.com/tidyverse/tibble)
 
 
 ## Code of Conduct

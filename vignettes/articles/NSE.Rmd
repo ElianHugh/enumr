@@ -13,7 +13,6 @@ knitr::opts_chunk$set(
 library(enumr, quietly = TRUE)
 ```
 
-
 You can use `.` to refer to the current enum<sup>1</sup>. Specifically, when defining variables, you can use `.$` to refer to other elements in the enum. E.g.
 
 ```{r}
@@ -31,6 +30,24 @@ enum(
 )
 
 ```
+
+This means you can do some neat stuff with enum definition. For example:
+
+```{r}
+enum(
+    base = "www.test.com/%s",
+    download = sprintf(
+        .$base,
+        "download"
+    ),
+    upload = sprintf(
+        .$base,
+        "upload"
+    )
+)
+```
+
+### Limitations
 
 It should be noted, however, there are limitations to defining members with `.$`. Firstly, enum member validation is performed *sequentially*. That is, each non-explicit member is initialised in order of their definition. As a result, computed members cannot refer to later *non-explicit* members. For instance:
 

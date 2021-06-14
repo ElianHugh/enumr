@@ -85,14 +85,33 @@ Enum <- function(...) {
     }
 }
 
-
-#' Test if the object is an enum
+#' Test object inheritance
 #'
-#' @param x value to check if is enum
-#' @return TRUE if the object inherits from the
-#' enum class, and FALSE if it does not. Does not
-#' distinguish between numeric or generic enums.
+#' @param x object to check
+#' @name is_enum
+#' @aliases is_numeric_enum is_generic_enum
+NULL
+
 #' @export
+#' @return TRUE if the object inherits from the
+#' enum class, and FALSE if it does not.
+#' @rdname is_enum
 is_enum <- function(x) {
     inherits(x, "enum")
+}
+
+#' @export
+#' @return TRUE if the object inherits from the
+#' numeric enum class, and FALSE if it does not.
+#' @rdname is_enum
+is_numeric_enum <- function(x) {
+    inherits(x, "numeric_enum")
+}
+
+#' @export
+#' @return TRUE if the object inherits from the
+#' generic enum class, and FALSE if it does not.
+#' @rdname is_enum
+is_generic_enum <- function(x) {
+    inherits(x, "generic_enum")
 }

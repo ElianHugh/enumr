@@ -2,18 +2,29 @@
 % Please edit documentation in R/enum_types.r
 \name{is_enum}
 \alias{is_enum}
-\title{Test if the object is an enum}
+\alias{is_numeric_enum}
+\alias{is_generic_enum}
+\title{Test object inheritance}
 \usage{
 is_enum(x)
+
+is_numeric_enum(x)
+
+is_generic_enum(x)
 }
 \arguments{
-\item{x}{value to check if is enum}
+\item{x}{object to check}
 }
 \value{
 TRUE if the object inherits from the
-enum class, and FALSE if it does not. Does not
-distinguish between numeric or generic enums.
+enum class, and FALSE if it does not.
+
+TRUE if the object inherits from the
+numeric enum class, and FALSE if it does not.
+
+TRUE if the object inherits from the
+generic enum class, and FALSE if it does not.
 }
 \description{
-Test if the object is an enum
+Test object inheritance
 }
