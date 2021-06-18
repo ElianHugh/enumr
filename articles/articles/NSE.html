@@ -114,7 +114,7 @@
 
     
     
-<p>You can use <code>.</code> to refer to the current enum<sup>1</sup>. Specifically, when defining variables, you can use <code>.$</code> to refer to other elements in the enum. E.g.</p>
+<p>You can use <code>.</code> (called “dot”) to refer to the current enum. Due to this, when defining variables, you can use <code>.$</code> to refer to other elements in the enum. E.g.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Numeric enum</span>
 <span class="fu"><a href="../../reference/enum.html">enum</a></span><span class="op">(</span>
@@ -150,14 +150,26 @@
     <span class="op">)</span>
 <span class="op">)</span>
 <span class="co">#&gt; # A generic enum: 3 members</span>
-<span class="co">#&gt;  chr base : www.test.com/%s</span>
+<span class="co">#&gt;  chr base     : www.test.com/%s</span>
 <span class="co">#&gt;  chr download : www.test.com/download</span>
-<span class="co">#&gt;  chr upload : www.test.com/upload</span></code></pre></div>
+<span class="co">#&gt;  chr upload   : www.test.com/upload</span></code></pre></div>
 <div id="limitations" class="section level3">
 <h3 class="hasAnchor">
 <a href="#limitations" class="anchor"></a>Limitations</h3>
-<p>It should be noted, however, there are limitations to defining members with <code>.$</code>. Firstly, enum member validation is performed <em>sequentially</em>. That is, each non-explicit member is initialised in order of their definition. As a result, computed members cannot refer to later <em>non-explicit</em> members. For instance:</p>
+<p>It should be noted, however, there are limitations to defining members with <code>.$</code>. Firstly, enum member validation is performed <em>sequentially</em>. That is, each non-explicit member is initialised in order of their definition. We can see how this plays out “under the hood” by using the dot operator:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../../reference/enum.html">enum</a></span><span class="op">(</span>
+    a <span class="op">=</span> <span class="va">.</span>,
+    b <span class="op">=</span> <span class="va">.</span>,
+    c <span class="op">=</span> <span class="va">.</span>
+<span class="op">)</span>
+<span class="co">#&gt; # A generic enum: 3 members</span>
+<span class="co">#&gt;  list a : list(a = ., b = ., c = .)</span>
+<span class="co">#&gt;  list b : list(a = list(a = ., b = ., c = .), b = ., c = .)</span>
+<span class="co">#&gt;  list c : list(a = list(a = ., b = ., c = .), b = list(a = list(a = ., b = ., c = .), b = ., c = .), c = .)</span></code></pre></div>
+<p>As above, the enum structure changes with each member’s definition (remember that the dot operator refers to the current enum).</p>
+<p>As a result, computed members cannot refer to later <em>non-explicit</em> members. For instance:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Invalid definition!</span>
 <span class="fu"><a href="../../reference/enum.html">enum</a></span><span class="op">(</span>
     <span class="va">a</span>,
@@ -187,8 +199,8 @@
 <span class="co">#&gt;  num a : 6</span>
 <span class="co">#&gt;  num b : 7</span>
 <span class="co">#&gt;  num c : 5</span></code></pre></div>
-<p>Moreover, due to sequential initialisation, enum members do not support cyclical evaluation.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<p>Moreover, due to sequential initialisation (and the pains of recursion), enum members do not support cyclical evaluation.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Invalid</span>
 <span class="fu"><a href="../../reference/enum.html">enum</a></span><span class="op">(</span>
     a <span class="op">=</span> <span class="va">.</span><span class="op">$</span><span class="va">b</span> <span class="op">+</span> <span class="fl">1</span>,
@@ -197,7 +209,6 @@
 <span class="op">)</span>
 <span class="co">#&gt; Error: Argument cannot be evaluated</span>
 <span class="co">#&gt; * "non-numeric argument to binary operator"</span></code></pre></div>
-<p><sup>1</sup> Technically, <code>.</code> (dot) refers to the arguments supplied in the enum constructor. The arguments are converted to a list, and the dot operator acts as a reference to said list.</p>
 </div>
   </div>
 
