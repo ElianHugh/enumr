@@ -6,14 +6,14 @@
 #'
 #' @param object an enum to examine
 #' @param ... dots to pass to further methods
-#' @param nest.lev the nest level that str should start at
+#' @param nest_lev the nest level that str should start at
 #' @export
-str.enum <- function(object, ..., nest.lev = 0L) {
+str.enum <- function(object, ..., nest_lev = 0L) {
     if (!is_enum(object)) {
         rlang::abort("str.enum() called with non-enum.")
     }
 
-    if (nest.lev != 0L) cat(" ")
+    if (nest_lev != 0L) cat(" ")
 
     obj_len <- length(as.list.enum(object))
     cl <- data.class(object)

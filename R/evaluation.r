@@ -12,9 +12,8 @@
         return(any(sym_name == ""))
     }
 
-    # * TODO should be a more elegant and futureproof way of doing this
     # hardcoded this way because it's more performant than
-    # getting all operators through a function,
+    # getting all operators through a function call
     math_ops <- c(
         "+", "-", "*", "^", "%%", "%/%", "/", "==", ">", "<", "!=",
         "<=", ">=", "abs", "sign", "sqrt", "

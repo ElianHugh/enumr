@@ -27,15 +27,12 @@ Here is a microbenchmark, comparing the various forms of enum.
 options(scipen = 5)
 # Create some symbols in the environment
 # for benchmarking
-create_symbols <- function() {
-  mapply(
-    function(x, y) assign(x, as.character(y), .GlobalEnv),
-    c("a", "b", "c", "d", "e"),
-    seq(5)
-  )
-}
 
-invisible(create_symbols())
+a <- 1
+b <- 2
+c <- 3
+d <- 4
+e <- 5
 
 res <- microbenchmark::microbenchmark(
     inferred <- enum(a, b, c, d, e),

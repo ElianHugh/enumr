@@ -6,6 +6,7 @@
 \alias{names.enum}
 \alias{as.list.enum}
 \alias{as.character.enum}
+\alias{as.numeric.enum}
 \title{General S3 Methods for Enums}
 \usage{
 \method{length}{enum}(x)
@@ -15,6 +16,8 @@
 \method{as.list}{enum}(x, ...)
 
 \method{as.character}{enum}(x, ...)
+
+\method{as.numeric}{enum}(x, ...)
 }
 \arguments{
 \item{x}{enum}

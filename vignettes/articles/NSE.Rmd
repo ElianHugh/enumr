@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 library(enumr, quietly = TRUE)
 ```
 
-You can use `.` to refer to the current enum<sup>1</sup>. Specifically, when defining variables, you can use `.$` to refer to other elements in the enum. E.g.
+You can use `.` (called "dot") to refer to the current enum. Due to this, when defining variables, you can use `.$` to refer to other elements in the enum. E.g.
 
 ```{r}
 # Numeric enum
@@ -49,7 +49,19 @@ enum(
 
 ### Limitations
 
-It should be noted, however, there are limitations to defining members with `.$`. Firstly, enum member validation is performed *sequentially*. That is, each non-explicit member is initialised in order of their definition. As a result, computed members cannot refer to later *non-explicit* members. For instance:
+It should be noted, however, there are limitations to defining members with `.$`. Firstly, enum member validation is performed *sequentially*. That is, each non-explicit member is initialised in order of their definition. We can see how this plays out "under the hood" by using the dot operator:
+
+```{r}
+enum(
+    a = .,
+    b = .,
+    c = .
+)
+```
+
+As above, the enum structure changes with each member's definition (remember that the dot operator refers to the current enum).
+
+As a result, computed members cannot refer to later *non-explicit* members. For instance:
 
 ```{r, error = TRUE}
 # Invalid definition!
@@ -73,7 +85,7 @@ enum(
 )
 ```
 
-Moreover, due to sequential initialisation, enum members do not support cyclical evaluation.
+Moreover, due to sequential initialisation (and the pains of recursion), enum members do not support cyclical evaluation.
 
 ```{r, error = TRUE}
 # Invalid
@@ -83,5 +95,3 @@ enum(
     c = .$a + 1
 )
 ```
-
-<sup>1</sup> Technically, `.` (dot) refers to the arguments supplied in the enum constructor. The arguments are converted to a list, and the dot operator acts as a reference to said list.

@@ -18,7 +18,8 @@ print.enum <- function(x, ...) {
     obj_len <- length(enum_list)
 
     vals <- lapply(enum_list, condense_object)
-    enum_names <- names(vals)
+    name_width <- nchar(names(vals)[which.max(nchar(names(vals)))])
+    enum_names <- unlist(lapply(names(vals), equalise_widths, name_width))
     enum_type <- if (any(class(x) == "numeric_enum")) "numeric" else "generic"
 
     types <- lapply(enum_list, class_abbr)
@@ -42,7 +43,7 @@ print.enum <- function(x, ...) {
             " %s %s : %s",
             crayon::style(abbr_types, "grey60"),
             enum_names,
-            vals[enum_names]
+            vals[names(vals)]
         )
     ), sep = "\n")
     invisible(x)

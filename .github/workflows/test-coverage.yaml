@@ -1,12 +1,12 @@
 on:
   push:
     branches:
-      - release
-      - dev
+      - main
+      - master
   pull_request:
     branches:
-      - release
-      - dev
+      - main
+      - master
 
 name: test-coverage
 
