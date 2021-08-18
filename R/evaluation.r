@@ -58,10 +58,9 @@ masked_eval <- function(.x, .enum_data, env = rlang::caller_env(),
 }
 
 .typeof_closure <- function(.x) {
-    to_eval <- .x
     to_return <- tryCatch(
         {
-            typeof(eval(to_eval)) == "closure"
+            typeof(eval(.x)) == "closure"
         },
         error = function(e) {
             return(FALSE)

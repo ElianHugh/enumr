@@ -21,6 +21,7 @@
 #' more readily picks up on user errors.
 #'
 #' @param .enum_data named list of arguments
+#' @return An enumeration (enum), a list of unique name/value pairs.
 #' @seealso [enum()], [as_enum()]
 #' @examples
 #' new_numeric_enum(list(x = 5, y = 2))
@@ -106,6 +107,7 @@ new_generic_enum <- function(.enum_data) {
 #' checks the enum arguments for internal consistency
 #' @param .enum_data named list of arguments
 #' @rdname validate_enum
+#' @return input data
 #' @export
 validate_enum_definition <- function(.enum_data) {
     #' @section Validation:
@@ -120,6 +122,7 @@ validate_enum_definition <- function(.enum_data) {
 #' `validate_numeric_enum()` checks numeric enum arguments
 #' for internal consistency with the numeric enum class
 #' @rdname validate_enum
+#' @return input data
 #' @export
 validate_numeric_enum <- function(.enum_data) {
     is_numeric_value <- lapply(
@@ -148,6 +151,7 @@ validate_numeric_enum <- function(.enum_data) {
 #' for internal consistency with the generic enum class
 #' @rdname validate_enum
 #' @export
+#' @return input data
 validate_generic_enum <- function(.enum_data) {
     #' @section Validation:
     #' `validate_generic_enum()` check that all

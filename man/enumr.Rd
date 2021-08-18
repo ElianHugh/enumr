@@ -7,7 +7,7 @@
 \description{
 \if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
 
-Provides a static enumeration class for R, a type of stricter list with pretty printing.
+Provides a static enumeration class, a type of stricter list with pretty printing.
 }
 \details{
 The \strong{enumr} package implements enumerations (or 'enums').
@@ -43,6 +43,6 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Elian Thiele-Evans \email{elianhte@gmail.com} (\href{https://orcid.org/0000-0001-8008-3165}{ORCID})
+\strong{Maintainer}: Elian Thiele-Evans \email{elianhte@gmail.com} (\href{https://orcid.org/0000-0001-8008-3165}{ORCID}) [copyright holder]
 
 }

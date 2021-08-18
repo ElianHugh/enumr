@@ -7,10 +7,11 @@
 #' @param object an enum to examine
 #' @param ... dots to pass to further methods
 #' @param nest_lev the nest level that str should start at
+#' @return NULL
 #' @export
 str.enum <- function(object, ..., nest_lev = 0L) {
     if (!is_enum(object)) {
-        rlang::abort("str.enum() called with non-enum.")
+        rlang::abort("str.enum() called with non-enum object.")
     }
 
     if (nest_lev != 0L) cat(" ")

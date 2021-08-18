@@ -15,6 +15,13 @@ validate_generic_enum(.enum_data)
 \arguments{
 \item{.enum_data}{named list of arguments}
 }
+\value{
+input data
+
+input data
+
+input data
+}
 \description{
 The basis for all enum definitions, \code{validate_enum_definition()}
 checks the enum arguments for internal consistency

@@ -13,6 +13,9 @@ new_generic_enum(.enum_data)
 \arguments{
 \item{.enum_data}{named list of arguments}
 }
+\value{
+An enumeration (enum), a list of unique name/value pairs.
+}
 \description{
 The constructors \code{new_numeric_enum()} and
 \code{new_generic_enum()} are the basis for the
