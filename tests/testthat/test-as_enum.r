@@ -1,3 +1,4 @@
+
 test_that("coercion to enums is functional", {
     # List coercion
     y <- list(a = 1, b = 2, c = 3)

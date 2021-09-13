@@ -46,8 +46,12 @@ as.numeric.enum <- function(x, ...) {
 #' @export
 #' @rdname S3-Methods
 as.data.frame.enum <- function(x, ...) {
-    as.data.frame(
-        as.list.environment(x)$enum,
-        ...
+    enum_list <- as.list.environment(x)$enum
+    list_names <- names(enum_list)
+    list_values <- unlist(enum_list, use.names = TRUE)
+
+    data.frame(
+        row.names = list_names,
+        values = list_values
     )
 }

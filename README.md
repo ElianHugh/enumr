@@ -1,4 +1,4 @@
-# enumr (WIP) <img src='man/figures/logo.png' align="right" height="120" />
+# enumr <img src='man/figures/logo.png' align="right" height="120" />
 
 <!-- badges: start -->
 [![Lifecycle:
@@ -25,6 +25,7 @@ Why use enums? Some examples:
 ```r
 install.packages('enumr', repos = 'https://elianhugh.r-universe.dev')
 ```
+
 ### Development build
 
 ```r
@@ -76,7 +77,6 @@ See the [pkgdown site](https://elianhugh.github.io/enumr/) for more information 
 - [aryoda/R_enumerations](https://github.com/aryoda/R_enumerations)
 - [Typescript enums](https://www.typescriptlang.org/docs/handbook/enums.html)
 - [Tibbles](https://github.com/tidyverse/tibble)
-
 
 ## Code of Conduct
 
