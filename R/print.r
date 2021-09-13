@@ -15,41 +15,58 @@ NULL
 #' @rdname printing
 print.enum <- function(x, ...) {
     enum_list <- as.list.enum(x, ...)
+
     obj_len <- length(enum_list)
-
-    vals <- lapply(enum_list, condense_object)
-    name_width <- nchar(names(vals)[which.max(nchar(names(vals)))])
-    enum_names <- unlist(lapply(names(vals), equalise_widths, name_width))
     enum_type <- if (any(class(x) == "numeric_enum")) "numeric" else "generic"
+    enum_members_text <- if (obj_len > 1 || obj_len < 1) "members" else "member"
 
-    types <- lapply(enum_list, class_abbr)
-    abbr_width <- nchar(types[which.max(nchar(types))])
-    abbr_types <- lapply(types, equalise_widths, abbr_width)
+    top_level_text <- sprintf(
+        "# A %s enum: %s %s",
+        enum_type,
+        obj_len,
+        enum_members_text
+    )
 
-    pl <- if (obj_len > 1 || obj_len < 1) "members" else "member"
+    enum_values <- lapply(enum_list, condense_object)
+    snipped_values <- snip_str(enum_values)
+    wrapped_names <- wrap_str(names(enum_list))
+    type_abbrs <- lapply(enum_list, class_abbr)
+    wrapped_abbr_types <- wrap_str(type_abbrs)
 
+    enum_value_text <- sprintf(
+        " %s %s : %s",
+        crayon::style(wrapped_abbr_types, "grey60"),
+        wrapped_names,
+        snipped_values
+    )
 
-    cat(c(
-        crayon::style(
-            sprintf(
-                "# A %s enum: %s %s",
-                enum_type,
-                length(x),
-                pl
+    cat(
+        c(
+            crayon::style(
+                top_level_text,
+                "grey60"
             ),
-            "grey60"
+            enum_value_text
         ),
-        sprintf(
-            " %s %s : %s",
-            crayon::style(abbr_types, "grey60"),
-            enum_names,
-            vals[names(vals)]
-        )
-    ), sep = "\n")
+        sep = "\n"
+    )
     invisible(x)
 }
 
 # Misc methods for object abbrievation -----------------------------------------
+
+wrap_str <- function(x) {
+    x_width <- max(crayon::col_nchar(x))
+    x <- snip_str(x)
+    crayon::col_align(x, width = x_width, align = "left", type = "width")
+}
+
+snip_str <- function(x) {
+    x_width <- max(crayon::col_nchar(x))
+    x_long <- crayon::col_nchar(x) > 30
+    x[x_long] <- paste0(crayon::col_substring(x[x_long], 1, 30), "\U2026")
+    x
+}
 
 condense_object <- function(x) {
     if (inherits(x, "data.frame")) {

@@ -11,26 +11,26 @@
       print(long_enum)
     Output
       # A generic enum: 22 members
-       lgl   a  : NULL
-       num   b  : NULL
-       chr   c  : NULL
-       cpl   d  : NULL
-       raw   e  : NULL
-       list  f  : NULL
-       list  g  : NULL
-       env   j  : NULL
-       sym   l  : NULL
-       plist m  : NULL
-       lang  o  : NULL
-       expr  p  : NULL
-       df    q  : NULL
-       mtrx  r  : NULL
-       arr   s  : NULL
-       form  t  : NULL
-       fct   u  : NULL
-       fn    v  : NULL
-       enum  x  : NULL
-       enum  z  : NULL
+       lgl   a  : TRUE
+       num   b  : 5
+       chr   c  : str
+       cpl   d  : 0+5i
+       raw   e  : as.raw(0x00)
+       list  f  : list()
+       list  g  : 4 obs
+       env   j  : <environment>
+       sym   l  : x
+       plist m  : pairlist(1)
+       lang  o  : x + y
+       expr  p  : expression(x + y)
+       df    q  : <32 × 11>
+       mtrx  r  : NA
+       arr   s  : 1
+       form  t  : ~x + y
+       fct   u  : integer(0)
+       fn    v  : function(x, ...)
+       enum  x  : 0 members
+       enum  z  : 1 member
        NULL  aa : NULL
        lang  ab : base::quote(x + y)
     Code

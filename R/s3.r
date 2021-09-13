@@ -42,3 +42,12 @@ as.character.enum <- function(x, ...) {
 as.numeric.enum <- function(x, ...) {
     as.numeric(as.list.enum(x, ...))
 }
+
+#' @export
+#' @rdname S3-Methods
+as.data.frame.enum <- function(x, ...) {
+    as.data.frame(
+        as.list.environment(x)$enum,
+        ...
+    )
+}

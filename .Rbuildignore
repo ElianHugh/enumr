@@ -8,3 +8,4 @@
 ^\.vscode$
 ^vignettes/articles$
 ^codecov\.yml$
+^\.lintr$

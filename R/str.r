@@ -16,13 +16,14 @@ str.enum <- function(object, ..., nest_lev = 0L) {
 
     if (nest_lev != 0L) cat(" ")
 
-    obj_len <- length(as.list.enum(object))
-    cl <- data.class(object)
-    pl <- if (obj_len > 1L || obj_len < 1L) "members\n" else "member\n"
-    cat(
-        cl, ":", obj_len, pl
-    )
+    enum_length <- length(as.list.enum(object))
+    enum_type <- data.class(object)
+    enum_members_text <- if (enum_length > 1L || enum_length < 1L) "members\n" else "member\n"
     object <- as.list.enum(object)
+
+    cat(
+        enum_type, ":", enum_length, enum_members_text
+    )
 
     invisible(
         NextMethod(
