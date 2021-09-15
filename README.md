@@ -29,9 +29,9 @@ install.packages('enumr', repos = 'https://elianhugh.r-universe.dev')
 ### Development build
 
 ```r
-pak::pkg_install('ElianHugh/enumr@dev')
+pak::pkg_install('ElianHugh/enumr@main')
 # or
-devtools::install_github('ElianHugh/enumr@dev)
+devtools::install_github('ElianHugh/enumr@main')
 ```
 
 ## Usage
